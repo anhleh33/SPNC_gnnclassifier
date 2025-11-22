@@ -22,3 +22,8 @@ http://localhost:3000
 ```
    
 Or you can find the browser link in terminal where you execute the commands.
+
+# 🐞 UI Bugs
+- Buttons in light mode still in white border, white text => make it be constrasted so that users can view it visually
+- Pop-up notification in light mode are in dark-mode state => make it be lighter in light mode
+
