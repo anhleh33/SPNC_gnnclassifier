@@ -169,7 +169,6 @@ export function AuthModals({
                 value={signInPassword}
                 onChange={(e) => setSignInPassword(e.target.value)}
                 required
-                className="dark:bg-input dark:text-white dark:placeholder-muted-foreground bg-background text-foreground"
               />
             </div>
 

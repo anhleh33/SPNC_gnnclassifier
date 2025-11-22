@@ -1228,7 +1228,11 @@ var __TURBOPACK__imported__module__$5b$project$5d2f$lib$2f$utils$2e$ts__$5b$app$
 function Switch({ className, children, ...props }) {
     return /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])(__TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f40$radix$2d$ui$2f$react$2d$switch$2f$dist$2f$index$2e$mjs__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["Root"], {
         "data-slot": "switch",
-        className: (0, __TURBOPACK__imported__module__$5b$project$5d2f$lib$2f$utils$2e$ts__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["cn"])('group peer data-[state=checked]:bg-blue-500 dark:data-[state=checked]:bg-orange-600 data-[state=unchecked]:bg-input focus-visible:border-ring focus-visible:ring-ring/50 dark:data-[state=unchecked]:bg-input/80 inline-flex h-5 w-10 shrink-0 items-center rounded-full border border-border border-opacity-30 shadow-xs transition-all duration-150 ease-out outline-none focus-visible:ring-[3px] disabled:cursor-not-allowed disabled:opacity-50 hover:shadow-md hover:scale-105 hover:data-[state=checked]:bg-white-600 dark:hover:data-[state=checked]:bg-orange-700', className),
+        className: (0, __TURBOPACK__imported__module__$5b$project$5d2f$lib$2f$utils$2e$ts__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["cn"])('group peer inline-flex h-5 w-10 shrink-0 items-center rounded-full border border-transparent shadow-xs transition-all duration-150 ease-out outline-none', // State styles
+        'bg-blue-500 dark:data-[state=checked]:bg-orange-600', 'data-[state=unchecked]:bg-input dark:data-[state=unchecked]:bg-input/80', // Focus
+        'focus-visible:ring-[3px] focus-visible:ring-ring/50 focus-visible:border-ring', // Disabled
+        'disabled:cursor-not-allowed disabled:opacity-50', // Hover
+        'hover:shadow-md hover:scale-105', 'hover:bg-blue-700 dark:hover:data-[state=checked]:bg-orange-700', className),
         ...props,
         children: /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])(__TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f40$radix$2d$ui$2f$react$2d$switch$2f$dist$2f$index$2e$mjs__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["Thumb"], {
             "data-slot": "switch-thumb",
@@ -1236,7 +1240,7 @@ function Switch({ className, children, ...props }) {
             children: children
         }, void 0, false, {
             fileName: "[project]/components/ui/switch.tsx",
-            lineNumber: 22,
+            lineNumber: 32,
             columnNumber: 7
         }, this)
     }, void 0, false, {
@@ -1708,8 +1712,7 @@ function AuthModals({ onSignInClose, onSignUpClose, onSignIn, onSignUp, showSign
                                         placeholder: "Enter your password",
                                         value: signInPassword,
                                         onChange: (e)=>setSignInPassword(e.target.value),
-                                        required: true,
-                                        className: "dark:bg-input dark:text-white dark:placeholder-muted-foreground bg-background text-foreground"
+                                        required: true
                                     }, void 0, false, {
                                         fileName: "[project]/components/auth-modals.tsx",
                                         lineNumber: 167,
@@ -1728,7 +1731,7 @@ function AuthModals({ onSignInClose, onSignUpClose, onSignIn, onSignUp, showSign
                                 children: "Sign In"
                             }, void 0, false, {
                                 fileName: "[project]/components/auth-modals.tsx",
-                                lineNumber: 176,
+                                lineNumber: 175,
                                 columnNumber: 13
                             }, this),
                             /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
@@ -1739,7 +1742,7 @@ function AuthModals({ onSignInClose, onSignUpClose, onSignIn, onSignUp, showSign
                                         children: "Don't have an account? "
                                     }, void 0, false, {
                                         fileName: "[project]/components/auth-modals.tsx",
-                                        lineNumber: 181,
+                                        lineNumber: 180,
                                         columnNumber: 15
                                     }, this),
                                     /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("button", {
@@ -1751,13 +1754,13 @@ function AuthModals({ onSignInClose, onSignUpClose, onSignIn, onSignUp, showSign
                                         children: "Create one"
                                     }, void 0, false, {
                                         fileName: "[project]/components/auth-modals.tsx",
-                                        lineNumber: 182,
+                                        lineNumber: 181,
                                         columnNumber: 15
                                     }, this)
                                 ]
                             }, void 0, true, {
                                 fileName: "[project]/components/auth-modals.tsx",
-                                lineNumber: 180,
+                                lineNumber: 179,
                                 columnNumber: 13
                             }, this)
                         ]
@@ -1793,7 +1796,7 @@ function AuthModals({ onSignInClose, onSignUpClose, onSignIn, onSignUp, showSign
                                 children: "Sign Up"
                             }, void 0, false, {
                                 fileName: "[project]/components/auth-modals.tsx",
-                                lineNumber: 204,
+                                lineNumber: 203,
                                 columnNumber: 13
                             }, this),
                             /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("button", {
@@ -1806,18 +1809,18 @@ function AuthModals({ onSignInClose, onSignUpClose, onSignIn, onSignUp, showSign
                                     className: "w-5 h-5"
                                 }, void 0, false, {
                                     fileName: "[project]/components/auth-modals.tsx",
-                                    lineNumber: 212,
+                                    lineNumber: 211,
                                     columnNumber: 15
                                 }, this)
                             }, void 0, false, {
                                 fileName: "[project]/components/auth-modals.tsx",
-                                lineNumber: 205,
+                                lineNumber: 204,
                                 columnNumber: 13
                             }, this)
                         ]
                     }, void 0, true, {
                         fileName: "[project]/components/auth-modals.tsx",
-                        lineNumber: 203,
+                        lineNumber: 202,
                         columnNumber: 11
                     }, this),
                     /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("form", {
@@ -1832,7 +1835,7 @@ function AuthModals({ onSignInClose, onSignUpClose, onSignIn, onSignUp, showSign
                                         children: "Full Name"
                                     }, void 0, false, {
                                         fileName: "[project]/components/auth-modals.tsx",
-                                        lineNumber: 218,
+                                        lineNumber: 217,
                                         columnNumber: 15
                                     }, this),
                                     /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])(__TURBOPACK__imported__module__$5b$project$5d2f$components$2f$ui$2f$input$2e$tsx__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["Input"], {
@@ -1843,13 +1846,13 @@ function AuthModals({ onSignInClose, onSignUpClose, onSignIn, onSignUp, showSign
                                         className: "dark:bg-input dark:text-white dark:placeholder-muted-foreground bg-background text-foreground"
                                     }, void 0, false, {
                                         fileName: "[project]/components/auth-modals.tsx",
-                                        lineNumber: 219,
+                                        lineNumber: 218,
                                         columnNumber: 15
                                     }, this)
                                 ]
                             }, void 0, true, {
                                 fileName: "[project]/components/auth-modals.tsx",
-                                lineNumber: 217,
+                                lineNumber: 216,
                                 columnNumber: 13
                             }, this),
                             /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
@@ -1860,7 +1863,7 @@ function AuthModals({ onSignInClose, onSignUpClose, onSignIn, onSignUp, showSign
                                         children: "Username"
                                     }, void 0, false, {
                                         fileName: "[project]/components/auth-modals.tsx",
-                                        lineNumber: 229,
+                                        lineNumber: 228,
                                         columnNumber: 15
                                     }, this),
                                     /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
@@ -1874,7 +1877,7 @@ function AuthModals({ onSignInClose, onSignUpClose, onSignIn, onSignUp, showSign
                                                 className: "flex-1 dark:bg-input dark:text-white dark:placeholder-muted-foreground bg-background text-foreground"
                                             }, void 0, false, {
                                                 fileName: "[project]/components/auth-modals.tsx",
-                                                lineNumber: 231,
+                                                lineNumber: 230,
                                                 columnNumber: 17
                                             }, this),
                                             checkingUsername && /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
@@ -1882,7 +1885,7 @@ function AuthModals({ onSignInClose, onSignUpClose, onSignIn, onSignUp, showSign
                                                 children: "Checking..."
                                             }, void 0, false, {
                                                 fileName: "[project]/components/auth-modals.tsx",
-                                                lineNumber: 238,
+                                                lineNumber: 237,
                                                 columnNumber: 38
                                             }, this),
                                             !checkingUsername && usernameAvailable === true && /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
@@ -1892,14 +1895,14 @@ function AuthModals({ onSignInClose, onSignUpClose, onSignIn, onSignUp, showSign
                                                         className: "w-4 h-4"
                                                     }, void 0, false, {
                                                         fileName: "[project]/components/auth-modals.tsx",
-                                                        lineNumber: 241,
+                                                        lineNumber: 240,
                                                         columnNumber: 21
                                                     }, this),
                                                     " Available"
                                                 ]
                                             }, void 0, true, {
                                                 fileName: "[project]/components/auth-modals.tsx",
-                                                lineNumber: 240,
+                                                lineNumber: 239,
                                                 columnNumber: 19
                                             }, this),
                                             !checkingUsername && usernameAvailable === false && /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
@@ -1907,19 +1910,19 @@ function AuthModals({ onSignInClose, onSignUpClose, onSignIn, onSignUp, showSign
                                                 children: "Not available"
                                             }, void 0, false, {
                                                 fileName: "[project]/components/auth-modals.tsx",
-                                                lineNumber: 245,
+                                                lineNumber: 244,
                                                 columnNumber: 19
                                             }, this)
                                         ]
                                     }, void 0, true, {
                                         fileName: "[project]/components/auth-modals.tsx",
-                                        lineNumber: 230,
+                                        lineNumber: 229,
                                         columnNumber: 15
                                     }, this)
                                 ]
                             }, void 0, true, {
                                 fileName: "[project]/components/auth-modals.tsx",
-                                lineNumber: 228,
+                                lineNumber: 227,
                                 columnNumber: 13
                             }, this),
                             /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
@@ -1930,7 +1933,7 @@ function AuthModals({ onSignInClose, onSignUpClose, onSignIn, onSignUp, showSign
                                         children: "Email"
                                     }, void 0, false, {
                                         fileName: "[project]/components/auth-modals.tsx",
-                                        lineNumber: 251,
+                                        lineNumber: 250,
                                         columnNumber: 15
                                     }, this),
                                     /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])(__TURBOPACK__imported__module__$5b$project$5d2f$components$2f$ui$2f$input$2e$tsx__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["Input"], {
@@ -1942,13 +1945,13 @@ function AuthModals({ onSignInClose, onSignUpClose, onSignIn, onSignUp, showSign
                                         className: "dark:bg-input dark:text-white dark:placeholder-muted-foreground bg-background text-foreground"
                                     }, void 0, false, {
                                         fileName: "[project]/components/auth-modals.tsx",
-                                        lineNumber: 252,
+                                        lineNumber: 251,
                                         columnNumber: 15
                                     }, this)
                                 ]
                             }, void 0, true, {
                                 fileName: "[project]/components/auth-modals.tsx",
-                                lineNumber: 250,
+                                lineNumber: 249,
                                 columnNumber: 13
                             }, this),
                             /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
@@ -1959,7 +1962,7 @@ function AuthModals({ onSignInClose, onSignUpClose, onSignIn, onSignUp, showSign
                                         children: "Password"
                                     }, void 0, false, {
                                         fileName: "[project]/components/auth-modals.tsx",
-                                        lineNumber: 263,
+                                        lineNumber: 262,
                                         columnNumber: 15
                                     }, this),
                                     /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])(__TURBOPACK__imported__module__$5b$project$5d2f$components$2f$password$2d$input$2e$tsx__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["PasswordInput"], {
@@ -1970,7 +1973,7 @@ function AuthModals({ onSignInClose, onSignUpClose, onSignIn, onSignUp, showSign
                                         className: "dark:bg-input dark:text-white dark:placeholder-muted-foreground bg-background text-foreground"
                                     }, void 0, false, {
                                         fileName: "[project]/components/auth-modals.tsx",
-                                        lineNumber: 264,
+                                        lineNumber: 263,
                                         columnNumber: 15
                                     }, this),
                                     /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
@@ -1981,7 +1984,7 @@ function AuthModals({ onSignInClose, onSignUpClose, onSignIn, onSignUp, showSign
                                                 children: "Password requirements:"
                                             }, void 0, false, {
                                                 fileName: "[project]/components/auth-modals.tsx",
-                                                lineNumber: 273,
+                                                lineNumber: 272,
                                                 columnNumber: 17
                                             }, this),
                                             /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
@@ -1994,14 +1997,14 @@ function AuthModals({ onSignInClose, onSignUpClose, onSignIn, onSignUp, showSign
                                                                 className: `w-3 h-3 rounded-full ${passwordPolicy.length ? 'bg-green-600' : 'bg-muted'}`
                                                             }, void 0, false, {
                                                                 fileName: "[project]/components/auth-modals.tsx",
-                                                                lineNumber: 276,
+                                                                lineNumber: 275,
                                                                 columnNumber: 21
                                                             }, this),
                                                             "At least 9 characters"
                                                         ]
                                                     }, void 0, true, {
                                                         fileName: "[project]/components/auth-modals.tsx",
-                                                        lineNumber: 275,
+                                                        lineNumber: 274,
                                                         columnNumber: 19
                                                     }, this),
                                                     /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
@@ -2011,14 +2014,14 @@ function AuthModals({ onSignInClose, onSignUpClose, onSignIn, onSignUp, showSign
                                                                 className: `w-3 h-3 rounded-full ${passwordPolicy.uppercase ? 'bg-green-600' : 'bg-muted'}`
                                                             }, void 0, false, {
                                                                 fileName: "[project]/components/auth-modals.tsx",
-                                                                lineNumber: 280,
+                                                                lineNumber: 279,
                                                                 columnNumber: 21
                                                             }, this),
                                                             "Uppercase (A-Z)"
                                                         ]
                                                     }, void 0, true, {
                                                         fileName: "[project]/components/auth-modals.tsx",
-                                                        lineNumber: 279,
+                                                        lineNumber: 278,
                                                         columnNumber: 19
                                                     }, this),
                                                     /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
@@ -2028,14 +2031,14 @@ function AuthModals({ onSignInClose, onSignUpClose, onSignIn, onSignUp, showSign
                                                                 className: `w-3 h-3 rounded-full ${passwordPolicy.lowercase ? 'bg-green-600' : 'bg-muted'}`
                                                             }, void 0, false, {
                                                                 fileName: "[project]/components/auth-modals.tsx",
-                                                                lineNumber: 284,
+                                                                lineNumber: 283,
                                                                 columnNumber: 21
                                                             }, this),
                                                             "Lowercase (a-z)"
                                                         ]
                                                     }, void 0, true, {
                                                         fileName: "[project]/components/auth-modals.tsx",
-                                                        lineNumber: 283,
+                                                        lineNumber: 282,
                                                         columnNumber: 19
                                                     }, this),
                                                     /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
@@ -2045,14 +2048,14 @@ function AuthModals({ onSignInClose, onSignUpClose, onSignIn, onSignUp, showSign
                                                                 className: `w-3 h-3 rounded-full ${passwordPolicy.number ? 'bg-green-600' : 'bg-muted'}`
                                                             }, void 0, false, {
                                                                 fileName: "[project]/components/auth-modals.tsx",
-                                                                lineNumber: 288,
+                                                                lineNumber: 287,
                                                                 columnNumber: 21
                                                             }, this),
                                                             "Number (0-9)"
                                                         ]
                                                     }, void 0, true, {
                                                         fileName: "[project]/components/auth-modals.tsx",
-                                                        lineNumber: 287,
+                                                        lineNumber: 286,
                                                         columnNumber: 19
                                                     }, this),
                                                     /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
@@ -2062,32 +2065,32 @@ function AuthModals({ onSignInClose, onSignUpClose, onSignIn, onSignUp, showSign
                                                                 className: `w-3 h-3 rounded-full ${passwordPolicy.special ? 'bg-green-600' : 'bg-muted'}`
                                                             }, void 0, false, {
                                                                 fileName: "[project]/components/auth-modals.tsx",
-                                                                lineNumber: 292,
+                                                                lineNumber: 291,
                                                                 columnNumber: 21
                                                             }, this),
                                                             "Special character (!@#$%^&* etc)"
                                                         ]
                                                     }, void 0, true, {
                                                         fileName: "[project]/components/auth-modals.tsx",
-                                                        lineNumber: 291,
+                                                        lineNumber: 290,
                                                         columnNumber: 19
                                                     }, this)
                                                 ]
                                             }, void 0, true, {
                                                 fileName: "[project]/components/auth-modals.tsx",
-                                                lineNumber: 274,
+                                                lineNumber: 273,
                                                 columnNumber: 17
                                             }, this)
                                         ]
                                     }, void 0, true, {
                                         fileName: "[project]/components/auth-modals.tsx",
-                                        lineNumber: 272,
+                                        lineNumber: 271,
                                         columnNumber: 15
                                     }, this)
                                 ]
                             }, void 0, true, {
                                 fileName: "[project]/components/auth-modals.tsx",
-                                lineNumber: 262,
+                                lineNumber: 261,
                                 columnNumber: 13
                             }, this),
                             /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
@@ -2098,7 +2101,7 @@ function AuthModals({ onSignInClose, onSignUpClose, onSignIn, onSignUp, showSign
                                         children: "Confirm Password"
                                     }, void 0, false, {
                                         fileName: "[project]/components/auth-modals.tsx",
-                                        lineNumber: 300,
+                                        lineNumber: 299,
                                         columnNumber: 15
                                     }, this),
                                     /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])(__TURBOPACK__imported__module__$5b$project$5d2f$components$2f$password$2d$input$2e$tsx__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["PasswordInput"], {
@@ -2109,13 +2112,13 @@ function AuthModals({ onSignInClose, onSignUpClose, onSignIn, onSignUp, showSign
                                         className: "dark:bg-input dark:text-white dark:placeholder-muted-foreground bg-background text-foreground"
                                     }, void 0, false, {
                                         fileName: "[project]/components/auth-modals.tsx",
-                                        lineNumber: 301,
+                                        lineNumber: 300,
                                         columnNumber: 15
                                     }, this)
                                 ]
                             }, void 0, true, {
                                 fileName: "[project]/components/auth-modals.tsx",
-                                lineNumber: 299,
+                                lineNumber: 298,
                                 columnNumber: 13
                             }, this),
                             /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])(__TURBOPACK__imported__module__$5b$project$5d2f$components$2f$ui$2f$button$2e$tsx__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["Button"], {
@@ -2126,7 +2129,7 @@ function AuthModals({ onSignInClose, onSignUpClose, onSignIn, onSignUp, showSign
                                 children: isSigningUp ? "Creating account..." : "Sign Up"
                             }, void 0, false, {
                                 fileName: "[project]/components/auth-modals.tsx",
-                                lineNumber: 310,
+                                lineNumber: 309,
                                 columnNumber: 13
                             }, this),
                             /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
@@ -2137,7 +2140,7 @@ function AuthModals({ onSignInClose, onSignUpClose, onSignIn, onSignUp, showSign
                                         children: "Already have an account? "
                                     }, void 0, false, {
                                         fileName: "[project]/components/auth-modals.tsx",
-                                        lineNumber: 315,
+                                        lineNumber: 314,
                                         columnNumber: 15
                                     }, this),
                                     /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("button", {
@@ -2154,30 +2157,30 @@ function AuthModals({ onSignInClose, onSignUpClose, onSignIn, onSignUp, showSign
                                         children: "Sign in"
                                     }, void 0, false, {
                                         fileName: "[project]/components/auth-modals.tsx",
-                                        lineNumber: 316,
+                                        lineNumber: 315,
                                         columnNumber: 15
                                     }, this)
                                 ]
                             }, void 0, true, {
                                 fileName: "[project]/components/auth-modals.tsx",
-                                lineNumber: 314,
+                                lineNumber: 313,
                                 columnNumber: 13
                             }, this)
                         ]
                     }, void 0, true, {
                         fileName: "[project]/components/auth-modals.tsx",
-                        lineNumber: 216,
+                        lineNumber: 215,
                         columnNumber: 11
                     }, this)
                 ]
             }, void 0, true, {
                 fileName: "[project]/components/auth-modals.tsx",
-                lineNumber: 202,
+                lineNumber: 201,
                 columnNumber: 3
             }, this)
         }, void 0, false, {
             fileName: "[project]/components/auth-modals.tsx",
-            lineNumber: 201,
+            lineNumber: 200,
             columnNumber: 7
         }, this);
     }
@@ -2667,70 +2670,94 @@ function NotificationContainer({ notifications, onRemove }) {
     return /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
         className: "fixed top-4 right-4 z-[999] space-y-2 max-w-sm",
         children: notifications.map((notification)=>/*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
-                className: `flex items-center gap-3 px-4 py-3 rounded-lg border shadow-lg transition-all duration-300 ${hoveredId === notification.id ? 'translate-x-96 opacity-0 pointer-events-none' : 'translate-x-0 opacity-100'} ${notification.type === 'success' ? 'bg-green-50 border-green-200 text-green-800 dark:bg-green-950 dark:border-green-800 dark:text-green-200' : notification.type === 'error' ? 'bg-red-50 border-red-200 text-red-800 dark:bg-red-950 dark:border-red-800 dark:text-red-200' : notification.type === 'warning' ? 'bg-yellow-50 border-yellow-200 text-yellow-800 dark:bg-yellow-950 dark:border-yellow-800 dark:text-yellow-200' : 'bg-blue-50 border-blue-200 text-blue-800 dark:bg-blue-950 dark:border-blue-800 dark:text-blue-200'}`,
+                className: `flex overflow-hidden rounded-lg shadow-lg transition-all duration-300 ${hoveredId === notification.id ? 'translate-x-96 opacity-0 pointer-events-none' : 'translate-x-0 opacity-100'}`,
                 onMouseEnter: ()=>setHoveredId(notification.id),
                 onMouseLeave: ()=>setHoveredId(null),
                 children: [
-                    notification.type === 'success' && /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])(__TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$lucide$2d$react$2f$dist$2f$esm$2f$icons$2f$circle$2d$check$2d$big$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__$3c$export__default__as__CheckCircle$3e$__["CheckCircle"], {
-                        className: "w-5 h-5 flex-shrink-0"
-                    }, void 0, false, {
-                        fileName: "[project]/components/notification.tsx",
-                        lineNumber: 57,
-                        columnNumber: 47
-                    }, this),
-                    notification.type === 'error' && /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])(__TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$lucide$2d$react$2f$dist$2f$esm$2f$icons$2f$circle$2d$alert$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__$3c$export__default__as__AlertCircle$3e$__["AlertCircle"], {
-                        className: "w-5 h-5 flex-shrink-0"
-                    }, void 0, false, {
-                        fileName: "[project]/components/notification.tsx",
-                        lineNumber: 58,
-                        columnNumber: 45
-                    }, this),
-                    notification.type === 'warning' && /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])(__TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$lucide$2d$react$2f$dist$2f$esm$2f$icons$2f$circle$2d$alert$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__$3c$export__default__as__AlertCircle$3e$__["AlertCircle"], {
-                        className: "w-5 h-5 flex-shrink-0"
-                    }, void 0, false, {
-                        fileName: "[project]/components/notification.tsx",
-                        lineNumber: 59,
-                        columnNumber: 47
-                    }, this),
-                    notification.type === 'info' && /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])(__TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$lucide$2d$react$2f$dist$2f$esm$2f$icons$2f$info$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__$3c$export__default__as__Info$3e$__["Info"], {
-                        className: "w-5 h-5 flex-shrink-0"
-                    }, void 0, false, {
-                        fileName: "[project]/components/notification.tsx",
-                        lineNumber: 60,
-                        columnNumber: 44
-                    }, this),
-                    /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("span", {
-                        className: "text-sm font-medium flex-1",
-                        children: notification.message
-                    }, void 0, false, {
-                        fileName: "[project]/components/notification.tsx",
-                        lineNumber: 61,
-                        columnNumber: 11
-                    }, this),
-                    /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("button", {
-                        onClick: ()=>onRemove(notification.id),
-                        className: "text-current hover:opacity-70 transition-opacity flex-shrink-0",
-                        children: /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])(__TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$lucide$2d$react$2f$dist$2f$esm$2f$icons$2f$x$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__$3c$export__default__as__X$3e$__["X"], {
-                            className: "w-4 h-4"
-                        }, void 0, false, {
-                            fileName: "[project]/components/notification.tsx",
-                            lineNumber: 66,
-                            columnNumber: 13
-                        }, this)
+                    /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
+                        className: notification.type === 'success' ? 'w-1.5 bg-green-500 rounded-l-md' : notification.type === 'error' ? 'w-1.5 bg-red-500 rounded-l-md' : notification.type === 'warning' ? 'w-1.5 bg-yellow-500 rounded-l-md' : 'w-1.5 bg-blue-500 rounded-l-md'
                     }, void 0, false, {
                         fileName: "[project]/components/notification.tsx",
                         lineNumber: 62,
+                        columnNumber: 11
+                    }, this),
+                    /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
+                        className: `flex items-center gap-3 px-4 py-3 flex-1 w-full border
+            bg-white border-gray-100 text-gray-900
+            dark:border-transparent
+            ${notification.type === 'success' ? 'dark:bg-green-950 dark:text-green-200 dark:border-green-800' : ''}
+            ${notification.type === 'error' ? 'dark:bg-red-950 dark:text-red-200 dark:border-red-800' : ''}
+            ${notification.type === 'warning' ? 'dark:bg-yellow-950 dark:text-yellow-200 dark:border-yellow-800' : ''}
+            ${notification.type === 'info' ? 'dark:bg-blue-950 dark:text-blue-200 dark:border-blue-800' : ''}
+          `,
+                        children: [
+                            notification.type === 'success' && /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])(__TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$lucide$2d$react$2f$dist$2f$esm$2f$icons$2f$circle$2d$check$2d$big$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__$3c$export__default__as__CheckCircle$3e$__["CheckCircle"], {
+                                className: "w-5 h-5 flex-shrink-0 text-green-600 dark:text-green-200"
+                            }, void 0, false, {
+                                fileName: "[project]/components/notification.tsx",
+                                lineNumber: 85,
+                                columnNumber: 15
+                            }, this),
+                            notification.type === 'error' && /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])(__TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$lucide$2d$react$2f$dist$2f$esm$2f$icons$2f$circle$2d$alert$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__$3c$export__default__as__AlertCircle$3e$__["AlertCircle"], {
+                                className: "w-5 h-5 flex-shrink-0 text-red-600 dark:text-red-200"
+                            }, void 0, false, {
+                                fileName: "[project]/components/notification.tsx",
+                                lineNumber: 88,
+                                columnNumber: 15
+                            }, this),
+                            notification.type === 'warning' && /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])(__TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$lucide$2d$react$2f$dist$2f$esm$2f$icons$2f$circle$2d$alert$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__$3c$export__default__as__AlertCircle$3e$__["AlertCircle"], {
+                                className: "w-5 h-5 flex-shrink-0 text-yellow-600 dark:text-yellow-200"
+                            }, void 0, false, {
+                                fileName: "[project]/components/notification.tsx",
+                                lineNumber: 91,
+                                columnNumber: 15
+                            }, this),
+                            notification.type === 'info' && /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])(__TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$lucide$2d$react$2f$dist$2f$esm$2f$icons$2f$info$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__$3c$export__default__as__Info$3e$__["Info"], {
+                                className: "w-5 h-5 flex-shrink-0 text-blue-600 dark:text-blue-200"
+                            }, void 0, false, {
+                                fileName: "[project]/components/notification.tsx",
+                                lineNumber: 94,
+                                columnNumber: 15
+                            }, this),
+                            /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("span", {
+                                className: "text-sm font-medium flex-1",
+                                children: notification.message
+                            }, void 0, false, {
+                                fileName: "[project]/components/notification.tsx",
+                                lineNumber: 97,
+                                columnNumber: 13
+                            }, this),
+                            /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("button", {
+                                onClick: ()=>onRemove(notification.id),
+                                className: "text-current hover:opacity-70 transition-opacity flex-shrink-0",
+                                "aria-label": "Dismiss notification",
+                                children: /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])(__TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$lucide$2d$react$2f$dist$2f$esm$2f$icons$2f$x$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__$3c$export__default__as__X$3e$__["X"], {
+                                    className: "w-4 h-4"
+                                }, void 0, false, {
+                                    fileName: "[project]/components/notification.tsx",
+                                    lineNumber: 104,
+                                    columnNumber: 15
+                                }, this)
+                            }, void 0, false, {
+                                fileName: "[project]/components/notification.tsx",
+                                lineNumber: 99,
+                                columnNumber: 13
+                            }, this)
+                        ]
+                    }, void 0, true, {
+                        fileName: "[project]/components/notification.tsx",
+                        lineNumber: 74,
                         columnNumber: 11
                     }, this)
                 ]
             }, notification.id, true, {
                 fileName: "[project]/components/notification.tsx",
-                lineNumber: 44,
+                lineNumber: 51,
                 columnNumber: 9
             }, this))
     }, void 0, false, {
         fileName: "[project]/components/notification.tsx",
-        lineNumber: 42,
+        lineNumber: 49,
         columnNumber: 5
     }, this);
 }
