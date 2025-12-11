@@ -78,37 +78,30 @@
     --color-red-400: #ff6568;
     --color-red-500: #fb2c36;
     --color-red-600: #e40014;
-    --color-red-700: #bf000f;
     --color-red-800: #9f0712;
     --color-red-950: #460809;
     --color-orange-500: #fe6e00;
     --color-orange-600: #f05100;
     --color-orange-700: #c53c00;
     --color-yellow-200: #fff085;
-    --color-yellow-300: #ffe02a;
-    --color-yellow-400: #fac800;
     --color-yellow-500: #edb200;
     --color-yellow-600: #cd8900;
-    --color-yellow-700: #a36100;
     --color-yellow-800: #874b00;
     --color-yellow-950: #432004;
     --color-green-50: #f0fdf4;
     --color-green-200: #b9f8cf;
-    --color-green-400: #05df72;
     --color-green-500: #00c758;
     --color-green-600: #00a544;
     --color-green-700: #008138;
     --color-green-800: #016630;
     --color-green-950: #032e15;
     --color-blue-200: #bedbff;
-    --color-blue-400: #54a2ff;
     --color-blue-500: #3080ff;
     --color-blue-600: #155dfc;
     --color-blue-700: #1447e6;
     --color-blue-800: #193cb8;
     --color-blue-950: #162456;
     --color-purple-500: #ac4bff;
-    --color-gray-50: #f9fafb;
     --color-gray-100: #f3f4f6;
     --color-gray-200: #e5e7eb;
     --color-gray-700: #364153;
@@ -172,37 +165,30 @@
       --color-red-400: lab(63.7053% 60.7449 31.3109);
       --color-red-500: lab(55.4814% 75.0732 48.8528);
       --color-red-600: lab(48.4493% 77.4328 61.5452);
-      --color-red-700: lab(40.4273% 67.2623 53.7441);
       --color-red-800: lab(33.7174% 55.8993 41.0293);
       --color-red-950: lab(13.003% 29.04 16.7519);
       --color-orange-500: lab(64.272% 57.1788 90.3583);
       --color-orange-600: lab(57.1026% 64.2584 89.8886);
       --color-orange-700: lab(46.4615% 57.7275 70.8507);
       --color-yellow-200: lab(94.3433% -5.00426 52.9663);
-      --color-yellow-300: lab(89.7033% -.480324 84.4917);
-      --color-yellow-400: lab(83.2664% 8.65132 106.895);
       --color-yellow-500: lab(76.3898% 14.5258 98.4589);
       --color-yellow-600: lab(62.7799% 22.4198 86.1544);
-      --color-yellow-700: lab(47.8202% 25.2426 66.5015);
       --color-yellow-800: lab(38.7484% 23.5833 51.4916);
       --color-yellow-950: lab(16.8146% 15.7422 23.1133);
       --color-green-50: lab(98.1563% -5.60117 2.75913);
       --color-green-200: lab(92.4222% -26.4702 12.9427);
-      --color-green-400: lab(78.503% -64.9265 39.7492);
       --color-green-500: lab(70.5521% -66.5147 45.8072);
       --color-green-600: lab(59.0978% -58.6621 41.2579);
       --color-green-700: lab(47.0329% -47.0239 31.4788);
       --color-green-800: lab(37.4616% -36.7971 22.9692);
       --color-green-950: lab(15.6845% -20.4225 11.7249);
       --color-blue-200: lab(86.15% -4.04379 -21.0797);
-      --color-blue-400: lab(65.0361% -1.42062 -56.9803);
       --color-blue-500: lab(54.1736% 13.3368 -74.6839);
       --color-blue-600: lab(44.0605% 29.0279 -86.0352);
       --color-blue-700: lab(36.9089% 35.0961 -85.6872);
       --color-blue-800: lab(30.2514% 27.7854 -70.2699);
       --color-blue-950: lab(15.6723% 8.86233 -32.2945);
       --color-purple-500: lab(52.0183% 66.11 -78.2316);
-      --color-gray-50: lab(98.2596% -.247031 -.706708);
       --color-gray-100: lab(96.1596% -.082314 -1.13575);
       --color-gray-200: lab(91.6229% -.159085 -2.26791);
       --color-gray-700: lab(27.1134% -.956401 -12.3224);
@@ -478,10 +464,6 @@
 
   .invisible {
     visibility: hidden;
-  }
-
-  .visible {
-    visibility: visible;
   }
 
   .sr-only {
@@ -1719,24 +1701,8 @@
     border-color: var(--color-border);
   }
 
-  .border-blue-800 {
-    border-color: var(--color-blue-800);
-  }
-
   .border-gray-100 {
     border-color: var(--color-gray-100);
-  }
-
-  .border-gray-200 {
-    border-color: var(--color-gray-200);
-  }
-
-  .border-green-800 {
-    border-color: var(--color-green-800);
-  }
-
-  .border-red-800 {
-    border-color: var(--color-red-800);
   }
 
   .border-transparent {
@@ -1745,10 +1711,6 @@
 
   .border-white {
     border-color: var(--color-white);
-  }
-
-  .border-yellow-800 {
-    border-color: var(--color-yellow-800);
   }
 
   .border-t-transparent {
@@ -1777,16 +1739,8 @@
     }
   }
 
-  .bg-blue-400 {
-    background-color: var(--color-blue-400);
-  }
-
   .bg-blue-500 {
     background-color: var(--color-blue-500);
-  }
-
-  .bg-blue-950 {
-    background-color: var(--color-blue-950);
   }
 
   .bg-gray-200 {
@@ -1797,10 +1751,6 @@
     background-color: var(--color-green-50);
   }
 
-  .bg-green-400 {
-    background-color: var(--color-green-400);
-  }
-
   .bg-green-500 {
     background-color: var(--color-green-500);
   }
@@ -1809,20 +1759,8 @@
     background-color: var(--color-green-600);
   }
 
-  .bg-green-950 {
-    background-color: var(--color-green-950);
-  }
-
-  .bg-red-400 {
-    background-color: var(--color-red-400);
-  }
-
   .bg-red-500 {
     background-color: var(--color-red-500);
-  }
-
-  .bg-red-950 {
-    background-color: var(--color-red-950);
   }
 
   .bg-transparent {
@@ -1833,20 +1771,8 @@
     background-color: var(--color-white);
   }
 
-  .bg-yellow-300 {
-    background-color: var(--color-yellow-300);
-  }
-
-  .bg-yellow-400 {
-    background-color: var(--color-yellow-400);
-  }
-
   .bg-yellow-500 {
     background-color: var(--color-yellow-500);
-  }
-
-  .bg-yellow-950 {
-    background-color: var(--color-yellow-950);
   }
 
   .bg-gradient-to-br {
@@ -2189,24 +2115,12 @@
     color: var(--color-black);
   }
 
-  .text-blue-200 {
-    color: var(--color-blue-200);
-  }
-
   .text-blue-500 {
     color: var(--color-blue-500);
   }
 
   .text-blue-600 {
     color: var(--color-blue-600);
-  }
-
-  .text-blue-700 {
-    color: var(--color-blue-700);
-  }
-
-  .text-blue-800 {
-    color: var(--color-blue-800);
   }
 
   .text-current {
@@ -2217,20 +2131,12 @@
     color: var(--color-gray-900);
   }
 
-  .text-green-200 {
-    color: var(--color-green-200);
-  }
-
   .text-green-600 {
     color: var(--color-green-600);
   }
 
   .text-green-700 {
     color: var(--color-green-700);
-  }
-
-  .text-green-800 {
-    color: var(--color-green-800);
   }
 
   .text-orange-500 {
@@ -2241,40 +2147,16 @@
     color: var(--color-purple-500);
   }
 
-  .text-red-200 {
-    color: var(--color-red-200);
-  }
-
   .text-red-600 {
     color: var(--color-red-600);
-  }
-
-  .text-red-700 {
-    color: var(--color-red-700);
-  }
-
-  .text-red-800 {
-    color: var(--color-red-800);
   }
 
   .text-white {
     color: var(--color-white);
   }
 
-  .text-yellow-200 {
-    color: var(--color-yellow-200);
-  }
-
   .text-yellow-600 {
     color: var(--color-yellow-600);
-  }
-
-  .text-yellow-700 {
-    color: var(--color-yellow-700);
-  }
-
-  .text-yellow-800 {
-    color: var(--color-yellow-800);
   }
 
   .lowercase {
@@ -2361,11 +2243,6 @@
 
   .shadow-xs {
     --tw-shadow: 0 1px 2px 0 var(--tw-shadow-color, #0000000d);
-    box-shadow: var(--tw-inset-shadow), var(--tw-inset-ring-shadow), var(--tw-ring-offset-shadow), var(--tw-ring-shadow), var(--tw-shadow);
-  }
-
-  .ring {
-    --tw-ring-shadow: var(--tw-ring-inset, ) 0 0 0 calc(1px + var(--tw-ring-offset-width)) var(--tw-ring-color, currentcolor);
     box-shadow: var(--tw-inset-shadow), var(--tw-inset-ring-shadow), var(--tw-ring-offset-shadow), var(--tw-ring-shadow), var(--tw-shadow);
   }
 
@@ -2913,12 +2790,6 @@
   }
 
   @media (hover: hover) {
-    .hover\:bg-gray-50:hover {
-      background-color: var(--color-gray-50);
-    }
-  }
-
-  @media (hover: hover) {
     .hover\:bg-transparent:hover {
       background-color: #0000;
     }
@@ -2927,12 +2798,6 @@
   @media (hover: hover) {
     .hover\:\!text-black:hover {
       color: var(--color-black) !important;
-    }
-  }
-
-  @media (hover: hover) {
-    .hover\:text-gray-900:hover {
-      color: var(--color-gray-900);
     }
   }
 
@@ -3958,12 +3823,6 @@
   }
 
   @media (prefers-color-scheme: dark) {
-    .dark\:text-gray-100 {
-      color: var(--color-gray-100);
-    }
-  }
-
-  @media (prefers-color-scheme: dark) {
     .dark\:text-green-200 {
       color: var(--color-green-200);
     }
@@ -4134,11 +3993,6 @@
   .\[\&_svg\:not\(\[class\*\=\'size-\'\]\)\]\:size-6 svg:not([class*="size-"]) {
     width: calc(var(--spacing) * 6);
     height: calc(var(--spacing) * 6);
-  }
-
-  .\[\&_svg\:not\(\[class\*\=\\\'size-\\\'\]\)\]\:size-4 svg:not([class*="'size-'"]) {
-    width: calc(var(--spacing) * 4);
-    height: calc(var(--spacing) * 4);
   }
 
   .\[\&_tr\]\:border-b tr {

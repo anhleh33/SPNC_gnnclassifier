@@ -1,9 +1,4 @@
-[00:00:00.932] Server  WARN     ⚠ The "middleware" file convention is deprecated. Please use "proxy" instead. Learn more: https://nextjs.org/docs/messages/middleware-to-proxy
-[00:00:01.107] Server  LOG      ✓ Ready in 765ms
-[00:00:02.994] Browser INFO    %cDownload the React DevTools for a better development experience: https://react.dev/link/react-devtools font-weight:bold
-[00:00:25.795] Server  LOG      ✓ Compiled in 143ms
-[00:02:52.294] Server  LOG      ✓ Compiled in 125ms
-[00:04:07.497] Server  LOG      ✓ Compiled in 133ms
-[00:04:17.401] Server  LOG      ✓ Compiled in 71ms
-[00:27:40.102] Server  LOG      ✓ Compiled in 108ms
-[01:21:27.660] Server  LOG      ✓ Compiled in 96ms
+[00:00:01.725] Server  WARN     ⚠ The "middleware" file convention is deprecated. Please use "proxy" instead. Learn more: https://nextjs.org/docs/messages/middleware-to-proxy
+[00:00:01.943] Server  LOG      ✓ Ready in 1379ms
+[00:00:07.188] Server  LOG      ○ Compiling / ...
+[00:00:08.514] Browser INFO    %cDownload the React DevTools for a better development experience: https://react.dev/link/react-devtools font-weight:bold
