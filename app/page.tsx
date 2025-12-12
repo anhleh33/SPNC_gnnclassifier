@@ -37,10 +37,10 @@ export default function Home() {
 
   const handleSignIn = (email: string, password: string) => {
     const users = JSON.parse(localStorage.getItem("users") || "[]")
-    const user = users.find((u: any) => 
+    const user = users.find((u: any) =>
       (u.email === email || u.username === email) && u.password === password
     )
-    
+
     if (!user) {
       addNotification("Invalid email/username or password", "error")
       return
@@ -58,12 +58,12 @@ export default function Home() {
   const handleSignUp = (userData: { fullName: string, username: string, email: string, avatarColor: string, password: string }) => {
     const { avatarColor, fullName, username, email, password } = userData
     const users = JSON.parse(localStorage.getItem("users") || "[]")
-    
+
     users.push({ fullName, username, email, password, avatarColor })
     localStorage.setItem("users", JSON.stringify(users))
     localStorage.setItem("currentUser", JSON.stringify({ fullName, username, email }))
     localStorage.setItem("userAvatarColor", avatarColor)
-    
+
     setUser({ fullName, username, email })
     setIsAuthenticated(true)
     setShowSignUp(false)
@@ -98,14 +98,13 @@ export default function Home() {
                 <Button
                   variant="outline"
                   onClick={() => setShowSignIn(true)}
-                  className="!text-black !border-black hover:!bg-white hover:!text-black dark:!text-white dark:!border-white"
                 >
                   Sign In
                 </Button>
+
                 <Button
                   variant="outline"
                   onClick={() => setShowSignUp(true)}
-                  className="!text-black !border-black hover:!bg-white hover:!text-black dark:!text-white dark:!border-white"
                 >
                   Sign Up
                 </Button>
@@ -179,7 +178,7 @@ export default function Home() {
               <div className="flex-1">
                 <h3 className="font-semibold text-lg mb-2 text-foreground">Built with Educational Excellence</h3>
                 <p className="text-muted-foreground">
-                  Our training dataset has been carefully curated and developed by our team through an educational program in Vietnam. 
+                  Our training dataset has been carefully curated and developed by our team through an educational program in Vietnam.
                   This collaborative effort ensures high-quality, diverse data that powers our GNN model with real-world accuracy and reliability.
                 </p>
               </div>
