@@ -172,7 +172,7 @@ export function AuthModals({
               />
             </div>
 
-            <Button type="submit" className="w-full !text-black dark:!text-white" size="lg">
+            <Button type="submit" className="w-full" size="lg">
               Sign In
             </Button>
 
@@ -306,7 +306,7 @@ export function AuthModals({
               />
             </div>
 
-            <Button type="submit" className="w-full !text-black dark:!text-white" size="lg" disabled={isSigningUp}>
+            <Button type="submit" className="w-full" size="lg" disabled={isSigningUp}>
               {isSigningUp ? "Creating account..." : "Sign Up"}
             </Button>
 
