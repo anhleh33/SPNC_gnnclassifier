@@ -20,6 +20,7 @@ export default function Home() {
     username: "",
     email: "",
   })
+  const [logoutSignal, setLogoutSignal] = useState(0)
 
   useEffect(() => {
     localStorage.clear()
@@ -77,6 +78,7 @@ export default function Home() {
     setIsAuthenticated(false)
     setShowProfile(false)
     setUser({ fullName: "", username: "", email: "" })
+    setLogoutSignal((s) => s + 1)
     addNotification("Logged out successfully", "success")
   }
 
@@ -135,7 +137,7 @@ export default function Home() {
             </p>
           </div>
 
-          <ImageClassifier isAuthenticated={isAuthenticated} onNotification={addNotification} />
+          <ImageClassifier isAuthenticated={isAuthenticated} onNotification={addNotification} resetSignal={logoutSignal} />
 
           <div className="grid grid-cols-1 md:grid-cols-2 gap-6 pt-8">
             <div className="p-6 rounded-lg border border-border bg-card">

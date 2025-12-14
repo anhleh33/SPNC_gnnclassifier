@@ -2,7 +2,7 @@
 
 import type React from "react"
 
-import { useState, useRef } from "react"
+import { useState, useRef, useEffect } from "react"
 import { Button } from "@/components/ui/button"
 import { Card } from "@/components/ui/card"
 import { Spinner } from "@/components/ui/spinner"
@@ -39,13 +39,26 @@ interface ClassificationResult {
   }
 }
 
-export function ImageClassifier({ isAuthenticated, onNotification }: { isAuthenticated: boolean; onNotification: (msg: string, type: 'success' | 'error' | 'info') => void }) {
+export function ImageClassifier({ isAuthenticated, onNotification, resetSignal }: { isAuthenticated: boolean; onNotification: (msg: string, type: 'success' | 'error' | 'info') => void; resetSignal?: number }) {
   const [selectedImage, setSelectedImage] = useState<string | null>(null)
   const [isProcessing, setIsProcessing] = useState(false)
   const [result, setResult] = useState<ClassificationResult | null>(null)
   const [uploadTime, setUploadTime] = useState<number>(0)
   const fileInputRef = useRef<HTMLInputElement>(null)
   const audioRef = useRef<HTMLAudioElement>(null)
+
+  useEffect(() => {
+    if (typeof resetSignal !== 'undefined') {
+      // clear local classifier state on logout/reset signal
+      setSelectedImage(null)
+      setIsProcessing(false)
+      setResult(null)
+      setUploadTime(0)
+      if (fileInputRef.current) {
+        try { fileInputRef.current.value = "" } catch (e) { /* ignore readonly */ }
+      }
+    }
+  }, [resetSignal])
 
   const handleImageSelect = (event: React.ChangeEvent<HTMLInputElement>) => {
     const file = event.target.files?.[0]
@@ -236,7 +249,7 @@ export function ImageClassifier({ isAuthenticated, onNotification }: { isAuthent
                     </Badge>
                     <span className="text-sm text-muted-foreground">Model: {result.modelVersion}</span>
                   </div>
-                  <div className="w-full bg-gray-200 rounded-full h-2 dark:bg-gray-700">
+                  <div className="w-full bg-white-100 rounded-full h-2 dark:bg-gray-700">
                     <div
                       className="h-2 rounded-full"
                       style={{
