@@ -54,3 +54,7 @@ package-lock.json
 .settings/
 *.sublime-workspace
 
+__pycache__/
+*.pyc
+*.venv
+
