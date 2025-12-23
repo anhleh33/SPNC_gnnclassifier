@@ -1,5 +1,8 @@
 from flask import Flask
 from backend.presentation.routes.user_routes import user_bp
+from dotenv import load_dotenv
+load_dotenv()
+
 
 def create_app():
     app = Flask(__name__)
