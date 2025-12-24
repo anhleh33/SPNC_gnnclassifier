@@ -1,56 +1,56 @@
 from flask import Blueprint, request, jsonify
 
+from backend.domain.entities.user import User
+from backend.infrastructure.repositories.postgres_user_repository import PostgresUserRepository
 from backend.application.services.user_service import UserService
-from backend.infrastructure.repositories.json_user_repository import JsonUserRepository
 
 user_bp = Blueprint("users", __name__, url_prefix="/users")
 
 # Dependency wiring (manual DI)
-user_repository = JsonUserRepository()
+user_repository = PostgresUserRepository()
 user_service = UserService(user_repository)
 
 
-@user_bp.route("", methods=["POST"])
+@user_bp.route("/users", methods=["POST"])
 def create_user():
-    """
-    Create a new user
-    """
     data = request.get_json()
 
-    if not data:
-        return jsonify({"error": "Invalid JSON payload"}), 400
+    user = User(
+        id=None,
+        full_name=data["full_name"],
+        username=data["username"],
+        email=data["email"],
+        password=data["password"].encode(),  # hashing comes later
+        avatar_color=data["avatar_color"],
+        created_at=None,
+    )
 
-    name = data.get("name")
-    email = data.get("email")
+    created_user = user_service.create_user(user)
 
-    if not name or not email:
-        return jsonify({"error": "name and email are required"}), 400
+    return jsonify({
+        "id": created_user.id,
+        "username": created_user.username,
+        "email": created_user.email,
+    }), 201
 
-    try:
-        user = user_service.register_user(name=name, email=email)
+@user_bp.route("/test-create", methods=["GET"])
+def test_create():
+    repo = PostgresUserRepository()
 
-        return jsonify({
-            "id": user.id,
-            "name": user.name,
-            "email": user.email
-        }), 201
+    user = User(
+        id=None,
+        full_name="Route User",
+        username="route_user",
+        email="route@example.com",
+        password=b"123",
+        avatar_color="#00ffaa",
+        created_at=None,
+    )
 
-    except ValueError as e:
-        return jsonify({"error": str(e)}), 400
+    created = repo.create(user)
 
-
-@user_bp.route("", methods=["GET"])
-def list_users():
-    """
-    List all users
-    """
-    users = user_service.list_users()
-
-    return jsonify([
-        {
-            "id": user.id,
-            "name": user.name,
-            "email": user.email
-        }
-        for user in users
-    ]), 200
+    return {
+        "id": created.id,
+        "username": created.username,
+        "email": created.email,
+    }
