@@ -23,6 +23,38 @@ http://localhost:3000
    
 Or you can find the browser link in terminal where you execute the commands.
 
+# Backend
+1. Create and Activate Virtual Environment
+```bash
+cd backend
+python -m venv .venv
+source venv/Scripts/Activate
+```
+
+2. Packages and library installations
+```bash
+cd backend
+pip install -r Requirements.txt
+```
+
+3. Setup .env
+`.env` file should be put in `backend` folder
+content in `.env` file will be:
+```env
+DATABASE_URL=postgresql+psycopg://postgres:[Password]@db.kmgxlpoiuohradgrwwlm.supabase.co:5432/postgres
+```
+🔐 Replace [Password] with your actual database password.
+
+3. Run backend
+Run the backend from the project root:
+```bash
+python -m backend.app
+```
+The backend will be available at:
+```bash
+http://localhost:5000
+```
+
 # 🐞 UI Bugs
 - Pop-up notification in light mode are in dark-mode state => make it be lighter in light mode
 
