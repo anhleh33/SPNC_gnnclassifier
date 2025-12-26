@@ -1,4 +1,5 @@
 from typing import Optional, List
+from sqlalchemy.exc import IntegrityError
 
 from backend.domain.entities.user import User
 from backend.interfaces.repositories.user_repository_interface import IUserRepository
@@ -7,9 +8,6 @@ from backend.infrastructure.database.postgres import SessionLocal
 from backend.infrastructure.database.models.user_model import UserModel
 
 class PostgresUserRepository(IUserRepository):
-    def __init__(self):
-        self.db = SessionLocal()
-
     def _to_entity(self, model: UserModel) -> User:
         return User(
             id=model.id,
@@ -32,11 +30,26 @@ class PostgresUserRepository(IUserRepository):
 
     # CRUD
     def create(self, user: User) -> User:
-        model = self._to_model(user)
-        self.db.add(model)
-        self.db.commit()
-        self.db.refresh(model)
-        return self._to_entity(model)
+        db = SessionLocal()
+        try:
+            model = self._to_model(user)
+            db.add(model)
+            db.commit()
+            db.refresh(model)
+            return self._to_entity(model)
+
+        except IntegrityError:
+            db.rollback()
+            raise
+
+        except Exception:
+            db.rollback()
+            raise
+
+        finally:
+            db.close()
+
+
     
     def get_by_id(self, user_id: int) -> Optional[User]:
         model = self.db.query(UserModel).filter(UserModel.id == user_id).first()

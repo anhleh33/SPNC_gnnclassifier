@@ -3,13 +3,15 @@ from backend.presentation.routes.default_routes import default_bp
 from backend.presentation.routes.user_routes import user_bp
 from flask_swagger_ui import get_swaggerui_blueprint
 from dotenv import load_dotenv
+import os
+
 load_dotenv()
 
 
 def create_app():
     app = Flask(__name__)
     app.register_blueprint(default_bp)
-    app.register_blueprint(user_bp, url_prefix="/user")
+    app.register_blueprint(user_bp, url_prefix="/users")
 
      # Swagger UI
     SWAGGER_URL = "/docs"
@@ -30,4 +32,7 @@ def create_app():
 app = create_app()
 
 if __name__ == "__main__":
+    DATABASE_URL = os.getenv("DATABASE_URL")
+    print("DATABASE_URL =", DATABASE_URL)
+
     app.run(debug=True)

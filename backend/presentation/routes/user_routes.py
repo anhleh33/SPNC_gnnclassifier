@@ -1,4 +1,5 @@
 from flask import Blueprint, request, jsonify
+import uuid
 
 from backend.domain.entities.user import User
 from backend.infrastructure.repositories.postgres_user_repository import PostgresUserRepository
@@ -11,46 +12,55 @@ user_repository = PostgresUserRepository()
 user_service = UserService(user_repository)
 
 
-@user_bp.route("/users", methods=["POST"])
+@user_bp.route("/create", methods=["POST"])
 def create_user():
-    data = request.get_json()
+    repo = PostgresUserRepository()
+    service = UserService(repo)
 
+    data = request.get_json()
     user = User(
         id=None,
         full_name=data["full_name"],
         username=data["username"],
         email=data["email"],
-        password=data["password"].encode(),  # hashing comes later
+        password=data["password"].encode(),
         avatar_color=data["avatar_color"],
         created_at=None,
     )
 
-    created_user = user_service.create_user(user)
+    created = service.create_user(user)
 
     return jsonify({
-        "id": created_user.id,
-        "username": created_user.username,
-        "email": created_user.email,
+        "id": created.id,
+        "username": created.username,
+        "email": created.email,
     }), 201
 
 @user_bp.route("/test-create", methods=["GET"])
 def test_create():
+    # Create fresh repository + service per request
     repo = PostgresUserRepository()
+    service = UserService(repo)
+
+    # Generate unique credentials every time
+    suffix = uuid.uuid4().hex[:8]
+    username = f"route_user_{suffix}"
+    email = f"{username}@example.com"
 
     user = User(
         id=None,
         full_name="Route User",
-        username="route_user",
-        email="route@example.com",
-        password=b"123",
+        username=username,
+        email=email,
+        password=b"123",          # BYTEA → OK
         avatar_color="#00ffaa",
         created_at=None,
     )
 
-    created = repo.create(user)
+    created = service.create_user(user)
 
-    return {
+    return jsonify({
         "id": created.id,
         "username": created.username,
         "email": created.email,
-    }
+    }), 201

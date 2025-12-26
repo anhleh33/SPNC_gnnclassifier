@@ -5,7 +5,7 @@ info:
   version: 0.1.1
   description: |
     Default system and infrastructure endpoints.
-    Includes health checks and connectivity tests.
+    Includes health checks, connectivity tests, and user management.
 
 servers:
   - url: http://127.0.0.1:5000
@@ -19,6 +19,14 @@ paths:
       responses:
         "200":
           description: Service is healthy
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  status:
+                    type: string
+                    example: healthy
 
   /ping:
     get:
@@ -38,10 +46,10 @@ paths:
         "418":
           description: I'm a teapot ☕
 
-  /users/users:
+  /users/create:
     post:
-      summary: Create a new user
-      description: Creates a user in PostgreSQL.
+      summary: Create a user
+      description: Creates a new user in PostgreSQL.
       tags: [Users]
       requestBody:
         required: true
@@ -73,7 +81,7 @@ paths:
                   example: "#00ffaa"
       responses:
         "201":
-          description: User created
+          description: User created successfully
           content:
             application/json:
               schema:
@@ -81,15 +89,18 @@ paths:
                 properties:
                   id:
                     type: integer
+                    example: 1
                   username:
                     type: string
+                    example: johndoe
                   email:
                     type: string
+                    example: john@example.com
 
   /users/test-create:
     get:
       summary: Create a test user
-      description: Creates a hardcoded test user (dev only).
+      description: Creates a hardcoded test user (development only).
       tags: [Users]
       responses:
         "200":
@@ -101,7 +112,16 @@ paths:
                 properties:
                   id:
                     type: integer
+                    example: 999
                   username:
                     type: string
+                    example: route_user
                   email:
                     type: string
+                    example: route@example.com
+
+tags:
+  - name: Default
+    description: Health and utility endpoints
+  - name: Users
+    description: User-related endpoints

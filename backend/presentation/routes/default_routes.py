@@ -24,6 +24,8 @@ def ping():
         health_repository = PostgresHealthRepository()
         health_service = HealthService(health_repository)
 
+        health_service.check()   # 🔥 THIS WAS MISSING
+
         return jsonify({
             "database": "postgresql",
             "provider": "supabase",
