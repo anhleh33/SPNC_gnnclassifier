@@ -55,6 +55,3 @@ The backend will be available at:
 http://localhost:5000
 ```
 
-# 🐞 UI Bugs
-- Pop-up notification in light mode are in dark-mode state => make it be lighter in light mode
-
