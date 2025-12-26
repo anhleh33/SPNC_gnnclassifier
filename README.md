@@ -39,7 +39,7 @@ pip install -r Requirements.txt
 `.env` file should be put in `backend` folder
 content in `.env` file will be:
 ```env
-DATABASE_URL=postgresql+psycopg://postgres.kmgxlpoiuohradgrwwlm:[Your-Password]@aws-1-ap-northeast-2.pooler.supabase.com:6543/postgres
+DATABASE_URL=postgresql://user:password@host/db
 ```
 🔐 Replace [Password] with your actual database password.
 
