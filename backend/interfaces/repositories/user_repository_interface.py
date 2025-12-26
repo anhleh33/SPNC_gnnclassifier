@@ -2,8 +2,7 @@ from abc import ABC, abstractmethod
 from typing import Optional, List
 from backend.domain.entities.user import User
 
-class UserRepository(ABC):
-
+class IUserRepository(ABC):
     @abstractmethod
     def create(self, user: User) -> User:
         """

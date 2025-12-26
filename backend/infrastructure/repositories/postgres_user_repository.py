@@ -1,12 +1,12 @@
 from typing import Optional, List
 
 from backend.domain.entities.user import User
-from backend.interfaces.repositories.user_repository import UserRepository
+from backend.interfaces.repositories.user_repository_interface import IUserRepository
 
 from backend.infrastructure.database.postgres import SessionLocal
 from backend.infrastructure.database.models.user_model import UserModel
 
-class PostgresUserRepository(UserRepository):
+class PostgresUserRepository(IUserRepository):
     def __init__(self):
         self.db = SessionLocal()
 

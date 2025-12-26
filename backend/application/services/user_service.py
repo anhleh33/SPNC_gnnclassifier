@@ -1,8 +1,8 @@
-from backend.interfaces.repositories.user_repository import UserRepository
+from backend.interfaces.repositories.user_repository_interface import IUserRepository
 from backend.domain.entities.user import User
 
 class UserService:
-    def __init__(self, user_repository: UserRepository):
+    def __init__(self, user_repository: IUserRepository):
         self.user_repository = user_repository
 
     def create_user(self, user: User) -> User:

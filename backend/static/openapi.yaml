@@ -1,0 +1,107 @@
+openapi: 3.0.3
+
+info:
+  title: GNN Classifier API
+  version: 0.1.1
+  description: |
+    Default system and infrastructure endpoints.
+    Includes health checks and connectivity tests.
+
+servers:
+  - url: http://127.0.0.1:5000
+    description: Local development server
+
+paths:
+  /health:
+    get:
+      summary: Application health check
+      tags: [Default]
+      responses:
+        "200":
+          description: Service is healthy
+
+  /ping:
+    get:
+      summary: Database connectivity check
+      tags: [Default]
+      responses:
+        "200":
+          description: Database reachable
+        "500":
+          description: Database unreachable
+
+  /teapot:
+    get:
+      summary: Easter egg
+      tags: [Default]
+      responses:
+        "418":
+          description: I'm a teapot ☕
+
+  /users/users:
+    post:
+      summary: Create a new user
+      description: Creates a user in PostgreSQL.
+      tags: [Users]
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              required:
+                - full_name
+                - username
+                - email
+                - password
+                - avatar_color
+              properties:
+                full_name:
+                  type: string
+                  example: John Doe
+                username:
+                  type: string
+                  example: johndoe
+                email:
+                  type: string
+                  example: john@example.com
+                password:
+                  type: string
+                  example: secret123
+                avatar_color:
+                  type: string
+                  example: "#00ffaa"
+      responses:
+        "201":
+          description: User created
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  id:
+                    type: integer
+                  username:
+                    type: string
+                  email:
+                    type: string
+
+  /users/test-create:
+    get:
+      summary: Create a test user
+      description: Creates a hardcoded test user (dev only).
+      tags: [Users]
+      responses:
+        "200":
+          description: Test user created
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  id:
+                    type: integer
+                  username:
+                    type: string
+                  email:
+                    type: string
