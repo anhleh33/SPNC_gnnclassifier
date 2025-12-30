@@ -12,40 +12,6 @@ servers:
     description: Local development server
 
 paths:
-  /health:
-    get:
-      summary: Application health check
-      tags: [Default]
-      responses:
-        "200":
-          description: Service is healthy
-          content:
-            application/json:
-              schema:
-                type: object
-                properties:
-                  status:
-                    type: string
-                    example: healthy
-
-  /ping:
-    get:
-      summary: Database connectivity check
-      tags: [Default]
-      responses:
-        "200":
-          description: Database reachable
-        "500":
-          description: Database unreachable
-
-  /teapot:
-    get:
-      summary: Easter egg
-      tags: [Default]
-      responses:
-        "418":
-          description: I'm a teapot ☕
-
   /users/create:
     post:
       summary: Create a user
@@ -97,6 +63,113 @@ paths:
                     type: string
                     example: john@example.com
 
+  /users/login:
+    post:
+      tags:
+        - Users
+        - Authentication
+      summary: User login
+      description: >
+        Authenticate a user using username or email and password.
+        Returns basic user information on success.
+      operationId: loginUser
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              required:
+                - identifier
+                - password
+              properties:
+                identifier:
+                  type: string
+                  description: Username or email
+                  example: johndoe@example.com
+                password:
+                  type: string
+                  format: password
+                  example: supersecretpassword
+      responses:
+        "200":
+          description: Login successful
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  id:
+                    type: integer
+                    example: 1
+                  username:
+                    type: string
+                    example: johndoe
+                  email:
+                    type: string
+                    example: johndoe@example.com
+        "401":
+          description: Invalid credentials
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  error:
+                    type: string
+                    example: Invalid credentials
+        "400":
+          description: Invalid request payload
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  error:
+                    type: string
+                    example: Missing identifier or password
+        "500":
+          description: Internal server error
+
+  /users/check:
+    get:
+      tags:
+        - Users
+      summary: Check username availability
+      description: >
+        Checks whether a given username is available for registration.
+      operationId: checkUsernameAvailability
+      parameters:
+        - name: username
+          in: query
+          required: true
+          description: Username to check for availability
+          schema:
+            type: string
+            minLength: 1
+            example: johndoe
+      responses:
+        "200":
+          description: Username availability result
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  available:
+                    type: boolean
+                    example: true
+        "400":
+          description: Missing or invalid username parameter
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  error:
+                    type: string
+                    example: username is required
+
   /users/test-create:
     get:
       summary: Create a test user
@@ -119,6 +192,40 @@ paths:
                   email:
                     type: string
                     example: route@example.com
+
+  /health:
+    get:
+      summary: Application health check
+      tags: [Default]
+      responses:
+        "200":
+          description: Service is healthy
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  status:
+                    type: string
+                    example: healthy
+
+  /ping:
+    get:
+      summary: Database connectivity check
+      tags: [Default]
+      responses:
+        "200":
+          description: Database reachable
+        "500":
+          description: Database unreachable
+
+  /teapot:
+    get:
+      summary: Easter egg
+      tags: [Default]
+      responses:
+        "418":
+          description: I'm a teapot ☕
 
 tags:
   - name: Default

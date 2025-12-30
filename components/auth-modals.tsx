@@ -7,6 +7,7 @@ import { X, Check } from 'lucide-react'
 import { PasswordInput } from "@/components/password-input"
 import { useNotification } from "@/components/notification"
 import { getAvatarColorForUser } from "@/components/github-avatar"
+import { checkUsername } from "@/lib/api/users"
 
 interface AuthModalsProps {
   onSignInClose: () => void
@@ -60,19 +61,41 @@ export function AuthModals({
   const [checkingUsername, setCheckingUsername] = useState(false)
   const [isSigningUp, setIsSigningUp] = useState(false)
 
+  // useEffect(() => {
+  //   if (signUpUsername.length > 0) {
+  //     setCheckingUsername(true)
+  //     const timer = setTimeout(() => {
+  //       const users = JSON.parse(localStorage.getItem("users") || "[]")
+  //       const exists = users.some((u: any) => u.username.toLowerCase() === signUpUsername.toLowerCase())
+  //       setUsernameAvailable(!exists)
+  //       setCheckingUsername(false)
+  //     }, 500)
+  //     return () => clearTimeout(timer)
+  //   } else {
+  //     setUsernameAvailable(null)
+  //   }
+  // }, [signUpUsername])
+
   useEffect(() => {
-    if (signUpUsername.length > 0) {
-      setCheckingUsername(true)
-      const timer = setTimeout(() => {
-        const users = JSON.parse(localStorage.getItem("users") || "[]")
-        const exists = users.some((u: any) => u.username.toLowerCase() === signUpUsername.toLowerCase())
-        setUsernameAvailable(!exists)
-        setCheckingUsername(false)
-      }, 500)
-      return () => clearTimeout(timer)
-    } else {
+    if (!signUpUsername) {
       setUsernameAvailable(null)
+      return
     }
+  
+    setCheckingUsername(true)
+  
+    const timer = setTimeout(async () => {
+      try {
+        const res = await checkUsername(signUpUsername)
+        setUsernameAvailable(res.available)
+      } catch {
+        setUsernameAvailable(null)
+      } finally {
+        setCheckingUsername(false)
+      }
+    }, 500)
+  
+    return () => clearTimeout(timer)
   }, [signUpUsername])
 
   const handleSignInSubmit = (e: React.FormEvent) => {

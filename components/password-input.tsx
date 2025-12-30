@@ -11,6 +11,7 @@ interface PasswordInputProps {
   onChange: (e: React.ChangeEvent<HTMLInputElement>) => void
   disabled?: boolean
   required?: boolean
+  className?: string   // ✅ ADD THIS
 }
 
 export function PasswordInput({

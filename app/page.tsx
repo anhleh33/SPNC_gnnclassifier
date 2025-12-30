@@ -1,4 +1,6 @@
 "use client"
+import { createUser } from "@/lib/api/users"
+import { login } from "@/lib/api/auth"
 
 import { ImageClassifier } from "@/components/image-classifier"
 import { ThemeToggle } from "@/components/theme-toggle"
@@ -36,40 +38,121 @@ export default function Home() {
     localStorage.setItem("users", JSON.stringify(defaultUsers))
   }, [])
 
-  const handleSignIn = (email: string, password: string) => {
-    const users = JSON.parse(localStorage.getItem("users") || "[]")
-    const user = users.find((u: any) =>
-      (u.email === email || u.username === email) && u.password === password
-    )
+//   const handleSignIn = async (identifier: string, password: string) => {
+//   try {
+//     const res = await fetch("http://localhost:5000/users/login", {
+//       method: "POST",
+//       headers: {
+//         "Content-Type": "application/json",
+//       },
+//       body: JSON.stringify({
+//         identifier,
+//         password,
+//       }),
+//     })
 
-    if (!user) {
-      addNotification("Invalid email/username or password", "error")
-      return
+//     if (!res.ok) {
+//       addNotification("Invalid email/username or password", "error")
+//       return
+//     }
+
+//     const user = await res.json()
+
+//     localStorage.setItem("isLoggedIn", "true")
+//     localStorage.setItem(
+//       "currentUser",
+//       JSON.stringify({
+//         fullName: user.full_name,
+//         username: user.username,
+//         email: user.email,
+//       })
+//     )
+//     localStorage.setItem("userAvatarColor", user.avatar_color)
+
+//     setUser({
+//       fullName: user.full_name,
+//       username: user.username,
+//       email: user.email,
+//     })
+//     setIsAuthenticated(true)
+//     setShowSignIn(false)
+
+//     addNotification("Logged in successfully!", "success")
+//   } catch (err) {
+//     addNotification("Server error. Please try again.", "error")
+//   }
+// }
+
+  const handleSignIn = async (identifier: string, password: string) => {
+    try {
+      const user = await login({ identifier, password })
+
+      localStorage.setItem("isLoggedIn", "true")
+      localStorage.setItem(
+        "currentUser",
+        JSON.stringify({
+          fullName: user.full_name,
+          username: user.username,
+          email: user.email,
+        })
+      )
+      localStorage.setItem("userAvatarColor", user.avatar_color)
+
+      setUser({
+        fullName: user.full_name,
+        username: user.username,
+        email: user.email,
+      })
+
+      setIsAuthenticated(true)
+      setShowSignIn(false)
+
+      addNotification("Logged in successfully!", "success")
+    } catch (err) {
+      addNotification(
+        err instanceof Error ? err.message : "Login failed",
+        "error"
+      )
     }
-
-    localStorage.setItem("isLoggedIn", "true")
-    localStorage.setItem("currentUser", JSON.stringify({ fullName: user.fullName, username: user.username, email: user.email }))
-    localStorage.setItem("userAvatarColor", user.avatarColor)
-    setUser({ fullName: user.fullName, username: user.username, email: user.email })
-    setIsAuthenticated(true)
-    setShowSignIn(false)
-    addNotification("Logged in successfully!", "success")
   }
 
-  const handleSignUp = (userData: { fullName: string, username: string, email: string, avatarColor: string, password: string }) => {
-    const { avatarColor, fullName, username, email, password } = userData
-    const users = JSON.parse(localStorage.getItem("users") || "[]")
+  const handleSignUp = async (userData: { fullName: string, username: string, email: string, avatarColor: string, password: string }) => {
+    // const { avatarColor, fullName, username, email, password } = userData
+    // const users = JSON.parse(localStorage.getItem("users") || "[]")
 
-    users.push({ fullName, username, email, password, avatarColor })
-    localStorage.setItem("users", JSON.stringify(users))
-    localStorage.setItem("currentUser", JSON.stringify({ fullName, username, email }))
-    localStorage.setItem("userAvatarColor", avatarColor)
+    // users.push({ fullName, username, email, password, avatarColor })
+    // localStorage.setItem("users", JSON.stringify(users))
+    // localStorage.setItem("currentUser", JSON.stringify({ fullName, username, email }))
+    // localStorage.setItem("userAvatarColor", avatarColor)
 
-    setUser({ fullName, username, email })
-    setIsAuthenticated(true)
-    setShowSignUp(false)
-    setShowSignIn(false)
-    addNotification("Account created successfully!", "success")
+    // setUser({ fullName, username, email })
+    // setIsAuthenticated(true)
+    // setShowSignUp(false)
+    // setShowSignIn(false)
+    // addNotification("Account created successfully!", "success")
+    try {
+      await createUser({
+        full_name: userData.fullName,
+        username: userData.username,
+        email: userData.email,
+        password: userData.password,
+        avatar_color: userData.avatarColor,
+      })
+  
+      setUser({
+        fullName: userData.fullName,
+        username: userData.username,
+        email: userData.email,
+      })
+  
+      setIsAuthenticated(true)
+      setShowSignUp(false)
+      setShowSignIn(false)
+  
+      addNotification("Account created successfully!", "success")
+    } catch (err: any) {
+      addNotification(err.message || "Signup failed", "error")
+    }
   }
 
   const handleLogout = () => {

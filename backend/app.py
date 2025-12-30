@@ -2,6 +2,7 @@ from flask import Flask
 from backend.presentation.routes.default_routes import default_bp
 from backend.presentation.routes.user_routes import user_bp
 from flask_swagger_ui import get_swaggerui_blueprint
+from flask_cors import CORS
 from dotenv import load_dotenv
 import os
 
@@ -10,6 +11,9 @@ load_dotenv()
 
 def create_app():
     app = Flask(__name__)
+
+    CORS(app)
+
     app.register_blueprint(default_bp)
     app.register_blueprint(user_bp, url_prefix="/users")
 

@@ -1,7 +1,6 @@
 from flask import Blueprint, jsonify
 
-from backend.application.services.health_service import HealthService
-from backend.infrastructure.repositories.postgres_health_repository import PostgresHealthRepository
+from backend.di import health_service
 
 default_bp = Blueprint("default", __name__)
 
@@ -21,10 +20,7 @@ def teapot():
 @default_bp.route("/ping", methods=["GET"])
 def ping():
     try:
-        health_repository = PostgresHealthRepository()
-        health_service = HealthService(health_repository)
-
-        health_service.check()   # 🔥 THIS WAS MISSING
+        health_service.check()
 
         return jsonify({
             "database": "postgresql",

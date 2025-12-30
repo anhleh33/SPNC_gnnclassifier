@@ -54,8 +54,9 @@
 |   |       |-- __init__.py
 |   |       |-- default_routes.py
 |   |       `-- user_routes.py
+|   |-- settings.py
 |   `-- static
-|       `-- openapi.yml
+|       `-- openapi.yaml
 |-- components
 |   |-- auth-modals.tsx
 |   |-- github-avatar.tsx
@@ -154,4 +155,4 @@
 |   `-- globals.css
 `-- tsconfig.json
 
-25 directories, 129 files
+25 directories, 130 files
