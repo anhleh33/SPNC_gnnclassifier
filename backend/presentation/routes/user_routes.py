@@ -55,7 +55,7 @@ def login():
         }), 200
 
     except InvalidCredentials:
-        return jsonify({"error": "Invalid credentials"}), 401
+        return jsonify({"error": "Incorrect username or password"}), 401
 
 @user_bp.get("/check")
 def check_username():
