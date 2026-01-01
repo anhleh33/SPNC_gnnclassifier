@@ -19,11 +19,13 @@
 |   |       |-- __init__.py
 |   |       |-- health_service.py
 |   |       `-- user_service.py
+|   |-- di.py
 |   |-- domain
 |   |   |-- __init__.py
-|   |   `-- entities
-|   |       |-- __init__.py
-|   |       `-- user.py
+|   |   |-- entities
+|   |   |   |-- __init__.py
+|   |   |   `-- user.py
+|   |   `-- exception.py
 |   |-- infrastructure
 |   |   |-- __init__.py
 |   |   |-- database
@@ -132,6 +134,9 @@
 |   |-- use-mobile.ts
 |   `-- use-toast.ts
 |-- lib
+|   |-- api
+|   |   |-- auth.ts
+|   |   `-- users.ts
 |   `-- utils.ts
 |-- middleware.ts
 |-- next-env.d.ts
@@ -155,4 +160,4 @@
 |   `-- globals.css
 `-- tsconfig.json
 
-25 directories, 130 files
+26 directories, 134 files

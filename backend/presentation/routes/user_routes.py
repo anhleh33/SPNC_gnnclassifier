@@ -30,8 +30,6 @@ def create_user():
         "email": created.email,
     }), 201
 
-from werkzeug.security import check_password_hash
-
 @user_bp.route("/login", methods=["POST"])
 def login():
     data = request.get_json()
