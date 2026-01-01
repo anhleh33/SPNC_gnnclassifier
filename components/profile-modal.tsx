@@ -100,7 +100,7 @@ export function ProfileModal({ isOpen, onClose, onLogout, user }: ProfileModalPr
 
           {/* Classification History */}
           <div className="border-t border-border pt-6">
-            <h3 className="font-semibold text-lg mb-4 text-foreground">Classification History (Last 3)</h3>
+            <h3 className="font-semibold text-lg mb-4 text-foreground">Classification History</h3>
             <div className="space-y-3 max-h-96 overflow-y-auto pr-2">
               {classificationHistory.map((item) => (
                 <Card key={item.id} className="p-3 hover:border-primary/50 transition-colors">

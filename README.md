@@ -44,6 +44,7 @@ DATABASE_URL=postgresql://user:password@host/db
 🔐 Replace [Password] with your actual database password.
 
 4. Run backend
+
 Run the backend from the project root:
 ```bash
 source backend/.venv/Scripts/Activate
