@@ -36,7 +36,4 @@ def create_app():
 app = create_app()
 
 if __name__ == "__main__":
-    DATABASE_URL = os.getenv("DATABASE_URL")
-    print("DATABASE_URL =", DATABASE_URL)
-
     app.run(debug=True)

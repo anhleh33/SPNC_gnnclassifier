@@ -24,6 +24,15 @@ const validateEmail = (email: string) => {
   return emailRegex.test(email)
 }
 
+const validateUsername = (username: string) => {
+  const usernameRegex = /^[a-z0-9]+$/
+  return {
+    valid: usernameRegex.test(username),
+    message:
+      "Username can only contain lowercase letters and numbers, with no spaces or special characters",
+  }
+}
+
 // Password policy validation
 const validatePassword = (password: string) => {
   return {
@@ -77,8 +86,17 @@ export function AuthModals({
   // }, [signUpUsername])
 
   useEffect(() => {
+    // 🔴 RESET STATE WHEN INPUT IS EMPTY
     if (!signUpUsername) {
       setUsernameAvailable(null)
+      setCheckingUsername(false)
+      return
+    }
+  
+    const { valid } = validateUsername(signUpUsername)
+    if (!valid) {
+      setUsernameAvailable(false)
+      setCheckingUsername(false)
       return
     }
   
@@ -97,6 +115,7 @@ export function AuthModals({
   
     return () => clearTimeout(timer)
   }, [signUpUsername])
+  
 
   const handleSignInSubmit = (e: React.FormEvent) => {
     e.preventDefault()
@@ -114,6 +133,12 @@ export function AuthModals({
     
     if (!signUpFullName || !signUpUsername || !signUpEmail || !signUpPassword || !signUpConfirmPassword) {
       onNotification("Please fill in all fields", "error")
+      return
+    }
+
+    const { valid, message } = validateUsername(signUpUsername)
+    if (!valid) {
+      onNotification(message, "error")
       return
     }
 
@@ -253,7 +278,12 @@ export function AuthModals({
                 <Input
                   placeholder="Choose a username"
                   value={signUpUsername}
-                  onChange={(e) => setSignUpUsername(e.target.value)}
+                  onChange={(e) => {
+                    const value = e.target.value.toLowerCase()
+                    if (/^[a-z0-9]*$/.test(value)) {
+                      setSignUpUsername(value)
+                    }
+                  }}
                   required
                   className="flex-1 dark:bg-input dark:text-white dark:placeholder-muted-foreground bg-background text-foreground"
                 />

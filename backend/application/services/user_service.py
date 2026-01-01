@@ -1,13 +1,35 @@
+import re
 from werkzeug.security import generate_password_hash, check_password_hash
 
 from backend.interfaces.repositories.user_repository_interface import IUserRepository
 from backend.domain.entities.user import User
-from backend.domain.exception import InvalidCredentials
+from backend.domain.exception import InvalidCredentials, InvalidUserData
+
+USERNAME_REGEX = re.compile(r"^[a-z0-9]{3,20}$")
 
 class UserService:
     def __init__(self, user_repository: IUserRepository):
         self.user_repository = user_repository
 
+    #====================
+    #  PRIVATE CLASSES
+    #====================
+    def _validate_username(self, username: str):
+        if not username:
+            raise InvalidUserData("Username is required")
+
+        if not USERNAME_REGEX.match(username):
+            raise InvalidUserData(
+                "Username must be lowercase, alphanumeric, no spaces"
+            )
+
+    def _normalize_user(self, user: User):
+        user.username = user.username.strip().lower()
+        user.email = user.email.strip().lower()
+        user.full_name = user.full_name.strip()
+    #====================
+    #  PUBLIC CLASSES
+    #====================
     def authenticate(self, identifier: str, password: str) -> User:
         user = self.get_user_by_identifier(identifier)
 
@@ -20,10 +42,13 @@ class UserService:
         return user
 
     def create_user(self, user: User) -> User:
-        # 🔐 business rule: passwords must be hashed
-        hashed_password = generate_password_hash(user.password.decode())
-        user.password = hashed_password.encode()
+        self._normalize_user(user)
+        self._validate_username(user.username)
 
+        if not self.is_username_available(user.username):
+            raise InvalidUserData("Username already exists")
+
+        user.password = generate_password_hash(user.password).encode()
         return self.user_repository.create(user)
     
     def get_user_by_identifier(self, identifier: str):
