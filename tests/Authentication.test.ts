@@ -7,8 +7,8 @@ test.describe("[GNN-01] Login", () => {
     test.beforeEach(async ({ page }) => {
         page.goto(Enviroment.BASE_URL!)
         login = new LoginPage(page)
+        await page.waitForTimeout(5000)
         await login.accessToLoginForm()
-        await page.waitForTimeout(3000)
     })
 
     test('Check UI', async ({ page }) => {

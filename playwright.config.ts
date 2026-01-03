@@ -32,6 +32,7 @@ export default defineConfig({
   use: {
     trace: 'on-first-retry',
     baseURL: process.env.BASE_URL,
+    screenshot: 'only-on-failure'
   },
   projects: [
     {
