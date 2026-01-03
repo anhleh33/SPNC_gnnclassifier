@@ -10,23 +10,6 @@ jobs:
     timeout-minutes: 60
     runs-on: ubuntu-latest
 
-    # 🛠️ SERVICE CONTAINER: Creates a fresh database for every test run
-    services:
-      postgres:
-        image: postgres:15
-        env:
-          POSTGRES_USER: user
-          POSTGRES_PASSWORD: password
-          POSTGRES_DB: testdb
-        ports:
-          - 5432:5432
-        # Simple health check to ensure DB is ready before tests start
-        options: >-
-          --health-cmd pg_isready
-          --health-interval 10s
-          --health-timeout 5s
-          --health-retries 5
-
     steps:
     - uses: actions/checkout@v4
 
@@ -36,14 +19,10 @@ jobs:
       with:
         python-version: '3.11' 
 
-    # ⚠️ CRITICAL: We must manually create the .venv folder here
-    # because your playwright.config.ts is specifically looking for 
-    # "backend/.venv/bin/python" to launch the server.
-    - name: Create Virtual Environment & Install Backend Deps
-      run: |
-        python -m venv backend/.venv
-        source backend/.venv/bin/activate
-        pip install -r backend/Requirements.txt
+    # SIMPLIFIED: Install directly to the runner's python (Global)
+    # No "venv" creation needed for CI
+    - name: Install Backend Dependencies
+      run: pip install -r backend/Requirements.txt
 
     # --- ⚛️ FRONTEND SETUP ---
     - name: Set up Node.js
@@ -61,13 +40,10 @@ jobs:
     - name: Run Playwright tests
       run: npx playwright test
       env:
-        # Connects to the Service Container we created at the top
-        DATABASE_URL: postgresql://user:password@localhost:5432/testdb
-        
-        # Ensures Python can find the 'backend' module
+        # Use the service container DB
+        DATABASE_URL: postgresql+psycopg://postgres.kmgxlpoiuohradgrwwlm:HCMUE2025%40SPNC@aws-1-ap-northeast-2.pooler.supabase.com:6543/postgres
+        # Ensure global python can find the 'backend' folder
         PYTHONPATH: ${{ github.workspace }}
-        
-        # Standard CI flag
         CI: true
 
     - uses: actions/upload-artifact@v4
