@@ -10,37 +10,19 @@ jobs:
     timeout-minutes: 60
     runs-on: ubuntu-latest
 
-    services:
-      postgres:
-        image: postgres:15
-        env:
-          POSTGRES_USER: user
-          POSTGRES_PASSWORD: password
-          POSTGRES_DB: testdb
-        ports:
-          - 5432:5432
-        options: >-
-          --health-cmd pg_isready
-          --health-interval 10s
-          --health-timeout 5s
-          --health-retries 5
-
     steps:
     - uses: actions/checkout@v4
 
-    # --- 🐍 BACKEND SETUP ---
+    # --- 🐍 BACKEND SETUP (GLOBAL) ---
     - name: Set up Python
       uses: actions/setup-python@v5
       with:
         python-version: '3.11' 
 
-    # 🟢 OPTIMAL FIX: Create the .venv explicitly in CI
-    # We use the venv's python to install pip packages directly.
-    # This guarantees 'flask' ends up inside 'backend/.venv'
-    - name: Create .venv and Install Requirements
-      run: |
-        python -m venv backend/.venv
-        backend/.venv/bin/python -m pip install -r backend/Requirements.txt
+    # 👇 SIMPLIFIED: Install to the global runner environment
+    # Do NOT create a .venv folder here. CI is ephemeral (temporary) anyway.
+    - name: Install Backend Dependencies
+      run: pip install -r backend/Requirements.txt
 
     # --- ⚛️ FRONTEND SETUP ---
     - name: Set up Node.js
@@ -58,9 +40,7 @@ jobs:
     - name: Run Playwright tests
       run: npx playwright test
       env:
-        # Use the CI Service Database
         DATABASE_URL: postgresql+psycopg://postgres.kmgxlpoiuohradgrwwlm:HCMUE2025%40SPNC@aws-1-ap-northeast-2.pooler.supabase.com:6543/postgres
-        # Ensure Python knows where to look for modules
         PYTHONPATH: ${{ github.workspace }}
         CI: true
 
