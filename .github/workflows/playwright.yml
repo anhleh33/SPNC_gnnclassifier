@@ -26,9 +26,6 @@ jobs:
         python -m pip install --upgrade pip
         python -m pip install -r backend/Requirements.txt
         python -m pip list
-        
-    - name: Install Flask
-      run: python -m pip install flask
 
     # --- ⚛️ FRONTEND SETUP ---
     - name: Set up Node.js
