@@ -64,3 +64,4 @@ __pycache__/
 /blob-report/
 /playwright/.cache/
 /playwright/.auth/
+env/

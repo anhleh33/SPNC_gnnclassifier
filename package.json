@@ -6,7 +6,10 @@
     "build": "next build",
     "dev": "next dev",
     "lint": "next lint",
-    "start": "next start"
+    "start": "next start",
+    "test:qa": "cross-env TEST_ENV=test npx playwright test",
+    "test:prod": "cross-env TEST_ENV=prod npx playwright test",
+    "test": "npx playwright test"
   },
   "dependencies": {
     "@hookform/resolvers": "^3.10.0",
@@ -65,7 +68,11 @@
     "@types/node": "^22",
     "@types/react": "^19",
     "@types/react-dom": "^19",
+    "allure-commandline": "^2.36.0",
+    "allure-playwright": "^3.4.3",
     "autoprefixer": "^10.4.22",
+    "cross-env": "^10.1.0",
+    "dotenv": "^17.2.3",
     "postcss": "^8.5.6",
     "tailwindcss": "^4.1.9",
     "typescript": "^5"
