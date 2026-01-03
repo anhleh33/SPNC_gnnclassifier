@@ -6,9 +6,9 @@ test.describe("[GNN-01] Login", () => {
     let login: LoginPage
     test.beforeEach(async ({ page }) => {
         page.goto(Enviroment.BASE_URL!)
-        await page.waitForTimeout(3000)
         login = new LoginPage(page)
         await login.accessToLoginForm()
+        await page.waitForTimeout(3000)
     })
 
     test('Check UI', async ({ page }) => {
@@ -40,3 +40,7 @@ test.describe("[GNN-01] Login", () => {
         await expect(await page.locator("//span[contains(@class,'text-sm font-medium')]").getByText("Logged in successfully!")).toBeVisible({timeout: 5000})
     })
 })
+
+// test.describe('[GNN-02] Sign Up', () => {
+
+// })

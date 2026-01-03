@@ -9,6 +9,7 @@
     "start": "next start",
     "test:qa": "cross-env TEST_ENV=test npx playwright test",
     "test:prod": "cross-env TEST_ENV=prod npx playwright test",
+    "allure": "allure serve allure-results",
     "test": "npx playwright test"
   },
   "dependencies": {
