@@ -22,7 +22,10 @@ jobs:
     # 👇 SIMPLIFIED: Install to the global runner environment
     # Do NOT create a .venv folder here. CI is ephemeral (temporary) anyway.
     - name: Install Backend Dependencies
-      run: pip install -r backend/Requirements.txt
+      run: |
+        python -m pip install --upgrade pip
+        python -m pip install -r backend/Requirements.txt
+        python -m pip list
 
     # --- ⚛️ FRONTEND SETUP ---
     - name: Set up Node.js
