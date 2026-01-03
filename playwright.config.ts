@@ -14,8 +14,22 @@ import path from 'path';
  * See https://playwright.dev/docs/test-configuration.
  */
 
+// --- 1. SETUP ENV VARS ---
+dotenv.config({ path: path.resolve(__dirname, 'backend', '.env') });
 const env = process.env.TEST_ENV || 'test';
 dotenv.config({ path: path.resolve(__dirname, `env/.env.${env}`) });
+
+// --- 2. BUILD THE PYTHON PATH SAFELY ---
+const isWin = process.platform === 'win32';
+
+// This creates a full path like: "C:\Users\Admin\...\backend\.venv\Scripts\python.exe"
+const pythonExecutable = path.join(
+  __dirname,
+  'backend',
+  '.venv',
+  isWin ? 'Scripts' : 'bin',
+  isWin ? 'python.exe' : 'python'
+);
 
 export default defineConfig({
   testDir: './tests',
@@ -26,11 +40,11 @@ export default defineConfig({
   /* Retry on CI only */
   retries: process.env.CI ? 2 : 0,
   /* Opt out of parallel tests on CI. */
-  workers: process.env.CI ? 5 : undefined,
+  workers: process.env.CI ? 1 : undefined,
   /* Reporter to use. See https://playwright.dev/docs/test-reporters */
   reporter: [
     ['html'],
-    ['allure-playwright']
+    // ['allure-playwright']
   ],
   /* Shared settings for all the projects below. See https://playwright.dev/docs/api/class-testoptions. */
   use: {
@@ -81,9 +95,28 @@ export default defineConfig({
   ],
 
   /* Run your local dev server before starting the tests */
-  // webServer: {
-  //   command: 'npm run start',
-  //   url: 'http://localhost:3000',
-  //   reuseExistingServer: !process.env.CI,
-  // },
+  webServer: [
+    {
+      // 🐍 BACKEND
+      // We wrap the path in quotes "" just in case there are spaces in your folder names
+      command: `"${pythonExecutable}" -m backend.app`,
+
+      port: 5000,
+      timeout: 120 * 1000,
+      reuseExistingServer: !process.env.CI,
+      cwd: '.',
+      env: {
+        PYTHONPATH: process.cwd(),
+        DATABASE_URL: process.env.DATABASE_URL || '',
+      }
+    },
+    {
+      // ⚛️ FRONTEND
+      command: 'npm run dev',
+      port: 3000,
+      timeout: 120 * 1000,
+      reuseExistingServer: !process.env.CI,
+      cwd: '.',
+    }
+  ],
 });

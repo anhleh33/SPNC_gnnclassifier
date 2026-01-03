@@ -32,12 +32,12 @@ test.describe("[GNN-01] Login", () => {
 
     test('Login with INVALID credentials', async ({ page }) => {
         await login.LogintoGNN("faker", "nopass", page)
-        await expect(await page.locator("//span[contains(@class,'text-sm font-medium')]").getByText("Incorrect username or password")).toBeVisible({timeout: 5000})
+        await expect(await page.locator("//span[contains(@class,'text-sm font-medium')]").getByText("Incorrect username or password")).toBeVisible({ timeout: 5000 })
     })
 
     test('Login with VALID credentials', async ({ page }) => {
         await login.LogintoGNN(Enviroment.USER!, Enviroment.PWD!, page)
-        await expect(await page.locator("//span[contains(@class,'text-sm font-medium')]").getByText("Logged in successfully!")).toBeVisible({timeout: 5000})
+        await expect(await page.locator("//span[contains(@class,'text-sm font-medium')]").getByText("Logged in successfully!")).toBeVisible({ timeout: 5000 })
     })
 })
 
