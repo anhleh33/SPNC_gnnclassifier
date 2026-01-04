@@ -170,6 +170,55 @@ paths:
                     type: string
                     example: username is required
 
+  /users/list:
+    get:
+      summary: List users
+      description: Returns a list of users.
+      tags:
+        - Users
+      responses:
+        "200":
+          description: Successful response
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  status:
+                    type: boolean
+                    example: true
+                  data:
+                    type: array
+                    items:
+                      $ref: "#/components/schemas/UserResponse"
+      components:
+        schemas:
+          UserResponse:
+            type: object
+            properties:
+              id:
+                type: integer
+                example: 1
+              full_name:
+                type: string
+                example: John Doe
+              username:
+                type: string
+                example: johndoe
+              email:
+                type: string
+                format: email
+                example: john@example.com
+              avatar_color:
+                type: string
+                example: "#FF5733"
+              created_at:
+                type: string
+                format: date-time
+                example: "2025-01-01T12:00:00Z"
+
+
+
   /users/test-create:
     get:
       summary: Create a test user

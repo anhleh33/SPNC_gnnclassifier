@@ -64,7 +64,7 @@ class PostgresUserRepository(IUserRepository):
         finally:
             db.close()
 
-    def list_all(self):
+    def list_all(self) -> List[User]:
         db = SessionLocal()
         try:
             models = db.query(UserModel).all()

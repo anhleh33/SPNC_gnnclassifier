@@ -5,6 +5,7 @@ from werkzeug.security import check_password_hash
 
 from backend.domain.entities.user import User
 from backend.domain.exception import InvalidCredentials, InvalidUserData
+from backend.presentation.mappers.user_response_mapper import UserResponseMapper
 from backend.di import user_service
 
 user_bp = Blueprint("users", __name__, url_prefix="/users")
@@ -57,7 +58,7 @@ def login():
     except InvalidCredentials:
         return jsonify({"error": "Incorrect username or password"}), 401
 
-@user_bp.get("/check")
+@user_bp.route("/check", methods=["GET"])
 def check_username():
     username = request.args.get("username")
 
@@ -69,6 +70,15 @@ def check_username():
     return jsonify({
         "available": available
     })
+
+@user_bp.route("/list", methods=["GET"])
+def list_users():
+    users = user_service.list_users()
+
+    return jsonify({
+        "status": True,
+        "data": [UserResponseMapper.to_json(u) for u in users]
+    }), 200
 
 # @user_bp.route("/test-create", methods=["GET"])
 # def test_create():
