@@ -21,7 +21,7 @@ test.describe('[GNN-02] Sign Up', () => {
     })
 
     test('Check UI', async({page}) => {
-        await expect(page.locator("//h2[contains(@class,'text-2xl font-semibold')]")).toHaveValue("Sign Up")
+        await expect(await page.locator("//h2[contains(@class,'text-2xl font-semibold')]").textContent()).toBe("Sign Up")
         await expect(signup.eleFullNameField()).toBeVisible()
         await expect(signup.eleUsernameField()).toBeVisible()
         await expect(signup.eleEmailField()).toBeVisible()
@@ -37,11 +37,15 @@ test.describe('[GNN-02] Sign Up', () => {
         await signup.elePasswordField().fill(myInfo.password)
         await signup.eleConfirmPasswordField().fill(myInfo.confirm_password)
         
+
         await expect(signup.eleFullNameField()).toHaveValue(myInfo.fullname)
         await expect(signup.eleUsernameField()).toHaveValue(myInfo.username)
         await expect(signup.eleEmailField()).toHaveValue(myInfo.email)
+        await signup.changePasswordToggle()
+        await signup.changeConfirmPasswordToggle()
         await expect(signup.elePasswordField()).toHaveValue(myInfo.password)
         await expect(signup.eleConfirmPasswordField()).toHaveValue(myInfo.confirm_password)
-
     })
+
+
 })

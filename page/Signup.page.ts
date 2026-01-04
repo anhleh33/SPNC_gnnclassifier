@@ -1,43 +1,63 @@
-// import { Page } from "@playwright/test";
+import { Page } from "@playwright/test";
+import { emit } from "process";
 
-// export default class SignUpPage {
-//     private page: Page;
-//     constructor(page: Page) {
-//         this.page = page
-//     }
+export default class SignUpPage {
+    private page: Page;
+    constructor(page: Page) {
+        this.page = page
+    }
 
-//     public eleEmailField = () => {
-//         return this.page.locator("(//input[@data-slot='input'])[1]")
-//     }
+    public eleFullNameField = () => {
+        return this.page.locator("(//input[@data-slot='input'])[1]")
+    }
 
-//     public elePasswordField = () => {
-//         return this.page.locator("(//input[@data-slot='input'])[2]")
-//     }
+    public eleUsernameField = () => {
+        return this.page.locator("(//input[@data-slot='input'])[2]")
+    }
 
-//     public LoginButton() {
-//         return this.page.locator("//button[@type='submit']")
-//     }
+    public eleEmailField = () => {
+        return this.page.locator("(//input[@data-slot='input'])[3]")
+    }
 
-//     public async LogintoGNN(name: string, pwd: string, page:Page) {
-//         await this.eleEmailField().fill(name)
-//         await this.elePasswordField().fill(pwd)
-//         await this.LoginButton().click()
-//         // await page.waitForTimeout(2000)
-//     }
+    public elePasswordField = () => {
+        return this.page.locator("(//label[normalize-space(text())='Password']/following::input)[1]")
+    }
 
-//     public changePasswordToggle = async () => {
-//         await this.page.click("(//button[contains(@class,'inline-flex items-center')])[3]")
-//     }
+    public eleConfirmPasswordField = () => {
+        return this.page.locator("(//label[normalize-space(text())='Password']/following::input)[2]")
+    }
 
-//     accessToLoginForm = async () => {
-//         await this.page.click("(//button[@data-slot='button'])[1]")
-//     }
+    public SignUpButton() {
+        return this.page.locator("//button[@type='submit']")
+    }
 
-//     async closeLoginForm() {
-//         await this.page.click("(//h2[contains(@class,'text-2xl font-semibold')]/following-sibling::button)[1]")
-//     }
+    public async SignUptoGNN(fullname: string, username: string, email: string, pwd: string, page:Page) {
+        let confirmPwd: string = pwd
+        await this.eleFullNameField().fill(fullname)
+        await this.eleUsernameField().fill(username)
+        await this.eleEmailField().fill(email)
+        await this.elePasswordField().fill(pwd)
+        await this.eleConfirmPasswordField().fill(confirmPwd)
+        await this.SignUpButton().click()
+    }
 
-//     public redirectToSignUpForm = async () => {
-//         await this.page.click("//button[normalize-space(text())='Create one']")
-//     }
-// }
+    public changePasswordToggle = async () => {
+        await this.page.click("(//button[@type='button'])[2]")
+    }
+
+    public changeConfirmPasswordToggle = async() => {
+        await this.page.click("(//button[@type='button'])[3]")
+    }
+
+    accessToSignUpForm = async () => {
+        await this.page.click("(//button[@data-slot='button'])[2]")
+    }
+
+    async closeLoginForm() {
+        await this.page.click("(//h2[contains(@class,'text-2xl font-semibold')]/following-sibling::button)[1]")
+    }
+
+    public redirectToSignUpForm = async () => {
+        await this.page.click("//button[normalize-space(text())='Sign in']")
+    }
+}
