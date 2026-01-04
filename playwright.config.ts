@@ -6,6 +6,7 @@ import path from 'path';
 dotenv.config({ path: path.resolve(__dirname, 'backend', '.env') });
 const env = process.env.TEST_ENV || 'test';
 dotenv.config({ path: path.resolve(__dirname, `env/.env.${env}`) });
+dotenv.config({ path: path.resolve(__dirname, '.env.local') });
 
 // --- 2. INTELLIGENT PYTHON SELECTION (THE FIX) ---
 const isCI = !!process.env.CI;

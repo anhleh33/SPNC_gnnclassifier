@@ -39,5 +39,7 @@ test.describe("[GNN-01] Login", () => {
     test('Login with VALID credentials', async ({ page }) => {
         await login.LogintoGNN(Enviroment.GNN_USER!, Enviroment.GNN_PASSWORD!, page)
         await expect(await page.locator("//span[contains(@class,'text-sm font-medium')]").getByText("Logged in successfully!")).toBeVisible({ timeout: 5000 })
+        await expect(page.locator("(//button[contains(@class,'flex items-center')])[2]")).toBeVisible()
+        await expect(page.locator(`//span[normalize-space(text())='${Enviroment.GNN_USER}']`)).toBeVisible()
     })
 })
