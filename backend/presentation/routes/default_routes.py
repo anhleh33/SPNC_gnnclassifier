@@ -4,18 +4,9 @@ from backend.di import health_service
 
 default_bp = Blueprint("default", __name__)
 
-@default_bp.route("/health", methods=["GET"])
+@default_bp.route("/health", methods=["HEAD"])
 def health():
-    return jsonify({
-        "status": "healthy",
-    }), 200
-
-
-@default_bp.route("/teapot", methods=["GET"])
-def teapot():
-    return jsonify({
-        "message": "I'm a teapot ☕",
-    }), 418
+    return "", 200
 
 @default_bp.route("/ping", methods=["GET"])
 def ping():
@@ -35,3 +26,10 @@ def ping():
             "status": "unhealthy",
             "error": str(e)
         }), 500
+
+
+@default_bp.route("/teapot", methods=["GET"])
+def teapot():
+    return jsonify({
+        "message": "I'm a teapot ☕",
+    }), 418

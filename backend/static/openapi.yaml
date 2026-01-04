@@ -194,20 +194,19 @@ paths:
                     example: route@example.com
 
   /health:
-    get:
-      summary: Application health check
+    head:
+      summary: Application health check (HEAD only)
       tags: [Default]
       responses:
         "200":
-          description: Service is healthy
-          content:
-            application/json:
+          description: Service is healthy (HEAD returns headers only)
+          headers:
+            # Optional: you can define custom headers if needed
+            X-Health-Checked:
+              description: Indicates the health check was performed
               schema:
-                type: object
-                properties:
-                  status:
-                    type: string
-                    example: healthy
+                type: string
+                example: ok
 
   /ping:
     get:
