@@ -19,8 +19,6 @@ jobs:
       with:
         python-version: '3.11' 
 
-    # 👇 SIMPLIFIED: Install to the global runner environment
-    # Do NOT create a .venv folder here. CI is ephemeral (temporary) anyway.
     - name: Install Backend Dependencies
       run: |
         python -m pip install --upgrade pip
@@ -43,9 +41,10 @@ jobs:
     - name: Run Playwright tests
       run: npx playwright test
       env:
-        DATABASE_URL: postgresql+psycopg://postgres.kmgxlpoiuohradgrwwlm:HCMUE2025%40SPNC@aws-1-ap-northeast-2.pooler.supabase.com:6543/postgres
+        DATABASE_URL: postgresql+psycopg://postgres.kmgxlpoiuohradgrwwlm:HCMUE2025%40SPNC@aws-1-ap-northeast-2.pooler.supabase.com:6543/postgre
         PYTHONPATH: ${{ github.workspace }}
         CI: true
+        NEXT_PUBLIC_API_URL: "http://localhost:5000"
 
     - uses: actions/upload-artifact@v4
       if: ${{ !cancelled() }}
