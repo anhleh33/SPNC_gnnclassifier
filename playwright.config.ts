@@ -34,7 +34,7 @@ export default defineConfig({
   forbidOnly: !!process.env.CI,
   retries: process.env.CI ? 2 : 0,
   workers: process.env.CI ? 1 : undefined, // Keep at 1 to avoid DB collisions
-  reporter: [['html'], ['allure-report']],
+  reporter: [['html']],
   
   use: {
     trace: 'on-first-retry',
