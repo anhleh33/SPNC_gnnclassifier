@@ -41,7 +41,7 @@ jobs:
     - name: Run Playwright tests
       run: npx playwright test
       env:
-        DATABASE_URL: postgresql+psycopg://postgres.kmgxlpoiuohradgrwwlm:HCMUE2025%40SPNC@aws-1-ap-northeast-2.pooler.supabase.com:6543/postgre
+        DATABASE_URL: postgresql+psycopg://postgres.kmgxlpoiuohradgrwwlm:HCMUE2025%40SPNC@aws-1-ap-northeast-2.pooler.supabase.com:6543/postgres
         PYTHONPATH: ${{ github.workspace }}
         CI: true
         NEXT_PUBLIC_API_URL: "http://localhost:5000"
