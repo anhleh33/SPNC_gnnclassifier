@@ -10,7 +10,16 @@ from backend.di import user_service
 
 user_bp = Blueprint("users", __name__, url_prefix="/users")
 
-@user_bp.route("/create", methods=["POST"])
+@user_bp.route("", methods=["GET"])
+def list_users():
+    users = user_service.list_users()
+
+    return jsonify({
+        "status": True,
+        "data": [UserResponseMapper.to_json(u) for u in users]
+    }), 200
+
+@user_bp.route("", methods=["POST"])
 def create_user():
     data = request.get_json(silent=True)
 
@@ -38,6 +47,35 @@ def create_user():
 
     except (ValueError, InvalidUserData) as e:
         return jsonify({"error": str(e)}), 400
+
+@user_bp.route("", methods=["DELETE"])
+def delete_user():
+    """
+    Dummy endpoint – user deletion not implemented yet
+    """
+    return jsonify({
+        "status": False,
+        "message": "DELETE /users is not implemented yet"
+    }), 501
+
+@user_bp.route("", methods=["PATCH"])
+def update_user():
+    """
+    Dummy endpoint – user update not implemented yet
+    """
+    return jsonify({
+        "status": False,
+        "message": "PATCH /users is not implemented yet"
+    }), 501
+
+@user_bp.route("", methods=["OPTIONS"])
+def users_options():
+    """
+    OPTIONS endpoint for /users
+    """
+    return jsonify({
+        "methods": ["GET", "POST", "PATCH", "DELETE", "OPTIONS"]
+    }), 200
 
 @user_bp.route("/login", methods=["POST"])
 def login():
@@ -70,15 +108,6 @@ def check_username():
     return jsonify({
         "available": available
     })
-
-@user_bp.route("/list", methods=["GET"])
-def list_users():
-    users = user_service.list_users()
-
-    return jsonify({
-        "status": True,
-        "data": [UserResponseMapper.to_json(u) for u in users]
-    }), 200
 
 # @user_bp.route("/test-create", methods=["GET"])
 # def test_create():

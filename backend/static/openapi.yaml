@@ -12,7 +12,27 @@ servers:
     description: Local development server
 
 paths:
-  /users/create:
+  /users:
+    get:
+        summary: List users
+        description: Returns a list of users.
+        tags:
+          - Users
+        responses:
+          "200":
+            description: Successful response
+            content:
+              application/json:
+                schema:
+                  type: object
+                  properties:
+                    status:
+                      type: boolean
+                      example: true
+                    data:
+                      type: array
+                      items:
+                        $ref: "#/components/schemas/UserResponse"
     post:
       summary: Create a user
       description: Creates a new user in PostgreSQL.
@@ -62,6 +82,52 @@ paths:
                   email:
                     type: string
                     example: john@example.com
+      components:
+        schemas:
+          UserResponse:
+            type: object
+            properties:
+              id:
+                type: integer
+                example: 1
+              full_name:
+                type: string
+                example: John Doe
+              username:
+                type: string
+                example: johndoe
+              email:
+                type: string
+                format: email
+                example: john@example.com
+              avatar_color:
+                type: string
+                example: "#FF5733"
+              created_at:
+                type: string
+                format: date-time
+                example: "2025-01-01T12:00:00Z"
+    delete:
+      summary: Delete user (not implemented)
+      tags:
+        - Users
+      responses:
+        "501":
+          description: Not implemented
+    patch:
+      summary: Update user (not implemented)
+      tags:
+        - Users
+      responses:
+        "501":
+          description: Not implemented
+    options:
+      summary: Supported HTTP methods
+      tags:
+        - Users
+      responses:
+        "200":
+          description: OK
 
   /users/login:
     post:
@@ -170,54 +236,69 @@ paths:
                     type: string
                     example: username is required
 
-  /users/list:
-    get:
-      summary: List users
-      description: Returns a list of users.
-      tags:
-        - Users
-      responses:
-        "200":
-          description: Successful response
-          content:
-            application/json:
-              schema:
-                type: object
-                properties:
-                  status:
-                    type: boolean
-                    example: true
-                  data:
-                    type: array
-                    items:
-                      $ref: "#/components/schemas/UserResponse"
-      components:
-        schemas:
-          UserResponse:
-            type: object
-            properties:
-              id:
-                type: integer
-                example: 1
-              full_name:
-                type: string
-                example: John Doe
-              username:
-                type: string
-                example: johndoe
-              email:
-                type: string
-                format: email
-                example: john@example.com
-              avatar_color:
-                type: string
-                example: "#FF5733"
-              created_at:
-                type: string
-                format: date-time
-                example: "2025-01-01T12:00:00Z"
+  # /users:
+  #   get:
+  #     summary: List users
+  #     description: Returns a list of users.
+  #     tags:
+  #       - Users
+  #     responses:
+  #       "200":
+  #         description: Successful response
+  #         content:
+  #           application/json:
+  #             schema:
+  #               type: object
+  #               properties:
+  #                 status:
+  #                   type: boolean
+  #                   example: true
+  #                 data:
+  #                   type: array
+  #                   items:
+  #                     $ref: "#/components/schemas/UserResponse"
+  #     components:
+  #       schemas:
+  #         UserResponse:
+  #           type: object
+  #           properties:
+  #             id:
+  #               type: integer
+  #               example: 1
+  #             full_name:
+  #               type: string
+  #               example: John Doe
+  #             username:
+  #               type: string
+  #               example: johndoe
+  #             email:
+  #               type: string
+  #               format: email
+  #               example: john@example.com
+  #             avatar_color:
+  #               type: string
+  #               example: "#FF5733"
+  #             created_at:
+  #               type: string
+  #               format: date-time
+  #               example: "2025-01-01T12:00:00Z"
 
-
+  # /users:
+  #   delete:
+  #     summary: Delete user (not implemented)
+  #     responses:
+  #       "501":
+  #         description: Not implemented
+  #   patch:
+  #     summary: Update user (not implemented)
+  #     responses:
+  #       "501":
+  #         description: Not implemented
+  #   options:
+  #     summary: Supported HTTP methods
+  #     responses:
+  #       "200":
+  #         description: OK
 
   /users/test-create:
     get:
