@@ -19,9 +19,11 @@ export default class LoginPage {
     }
 
     public async LogintoGNN(name: string, pwd: string, page:Page) {
+        console.log(`Name: ${name} , Password: ${pwd}`)
         await expect(this.eleEmailField()).toBeVisible()
         await expect(this.elePasswordField()).toBeVisible()
         await this.eleEmailField().fill(name)
+        await this.changePasswordToggle()
         await this.elePasswordField().fill(pwd)
         await this.LoginButton().click()
         // await page.waitForTimeout(2000)

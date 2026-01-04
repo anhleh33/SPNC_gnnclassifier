@@ -38,7 +38,11 @@ export default defineConfig({
   use: {
     trace: 'on-first-retry',
     baseURL: process.env.BASE_URL,
-    screenshot: 'only-on-failure'
+    screenshot: 'only-on-failure',
+    video: 'on',
+    launchOptions: {
+      slowMo: 500,
+    },
   },
   
   projects: [

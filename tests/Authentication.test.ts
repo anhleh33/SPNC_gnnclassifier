@@ -19,10 +19,10 @@ test.describe("[GNN-01] Login", () => {
     })
 
     test('Acceptance of fields', async ({ page }) => {
-        await login.eleEmailField().fill(Enviroment.USER!)
-        await login.elePasswordField().fill(Enviroment.PWD!)
-        await expect(login.eleEmailField()).toHaveValue(Enviroment.USER!)
-        await expect(login.elePasswordField()).toHaveValue(Enviroment.PWD!);
+        await login.eleEmailField().fill(Enviroment.GNN_USER!)
+        await login.elePasswordField().fill(Enviroment.GNN_PASSWORD!)
+        await expect(login.eleEmailField()).toHaveValue(Enviroment.GNN_USER!)
+        await expect(login.elePasswordField()).toHaveValue(Enviroment.GNN_PASSWORD!);
     })
 
     test('Redirect to Sign Up form', async ({ page }) => {
@@ -36,7 +36,7 @@ test.describe("[GNN-01] Login", () => {
     })
 
     test('Login with VALID credentials', async ({ page }) => {
-        await login.LogintoGNN(Enviroment.USER!, Enviroment.PWD!, page)
+        await login.LogintoGNN(Enviroment.GNN_USER!, Enviroment.GNN_PASSWORD!, page)
         await expect(await page.locator("//span[contains(@class,'text-sm font-medium')]").getByText("Logged in successfully!")).toBeVisible({ timeout: 5000 })
     })
 })
