@@ -5,7 +5,7 @@ import Enviroment from '@/utils/Enviroment'
 test.describe("[GNN-01] Login", () => {
     let login: LoginPage
     test.beforeEach(async ({ page }) => {
-        page.goto(Enviroment.BASE_URL!)
+        await page.goto(Enviroment.BASE_URL!)
         login = new LoginPage(page)
         await page.waitForTimeout(5000)
         await login.accessToLoginForm()
@@ -41,6 +41,6 @@ test.describe("[GNN-01] Login", () => {
     })
 })
 
-// test.describe('[GNN-02] Sign Up', () => {
-
-// })
+test.describe('[GNN-02] Sign Up', () => {
+    
+})

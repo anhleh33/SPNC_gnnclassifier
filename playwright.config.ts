@@ -59,7 +59,9 @@ export default defineConfig({
       env: {
         PYTHONPATH: process.cwd(),
         DATABASE_URL: process.env.DATABASE_URL || '',
-      }
+      },
+      stdout: 'pipe',
+      stderr: 'pipe',
     },
     {
       // ⚛️ FRONTEND
@@ -68,6 +70,8 @@ export default defineConfig({
       timeout: 120 * 1000,
       reuseExistingServer: !process.env.CI,
       cwd: '.', 
+      stdout: 'pipe',
+      stderr: 'pipe',
     }
   ],
 });

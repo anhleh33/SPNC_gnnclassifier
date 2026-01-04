@@ -1,4 +1,4 @@
-import { Page } from "@playwright/test";
+import { expect, Page } from "@playwright/test";
 
 export default class LoginPage {
     private page: Page;
@@ -19,6 +19,8 @@ export default class LoginPage {
     }
 
     public async LogintoGNN(name: string, pwd: string, page:Page) {
+        await expect(this.eleEmailField()).toBeVisible()
+        await expect(this.elePasswordField()).toBeVisible()
         await this.eleEmailField().fill(name)
         await this.elePasswordField().fill(pwd)
         await this.LoginButton().click()
