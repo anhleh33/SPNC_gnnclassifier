@@ -25,7 +25,8 @@
 |   |   |-- entities
 |   |   |   |-- __init__.py
 |   |   |   `-- user.py
-|   |   `-- exception.py
+|   |   |-- exception.py
+|   |   `-- re.py
 |   |-- infrastructure
 |   |   |-- __init__.py
 |   |   |-- database
@@ -46,12 +47,16 @@
 |   |       `-- postgres_user_repository_test.py
 |   |-- interfaces
 |   |   |-- __init__.py
-|   |   `-- repositories
-|   |       |-- __init__.py
-|   |       |-- health_repository_interface.py
-|   |       `-- user_repository_interface.py
+|   |   |-- repositories
+|   |   |   |-- __init__.py
+|   |   |   |-- health_repository_interface.py
+|   |   |   `-- user_repository_interface.py
+|   |   `-- services
 |   |-- presentation
 |   |   |-- __init__.py
+|   |   |-- mappers
+|   |   |   |-- __init__.py
+|   |   |   `-- user_response_mapper.py
 |   |   `-- routes
 |   |       |-- __init__.py
 |   |       |-- default_routes.py
@@ -130,6 +135,7 @@
 |-- components.json
 |-- data
 |   `-- users.json
+|-- env
 |-- hooks
 |   |-- use-mobile.ts
 |   `-- use-toast.ts
@@ -160,4 +166,4 @@
 |   `-- globals.css
 `-- tsconfig.json
 
-26 directories, 134 files
+29 directories, 137 files
