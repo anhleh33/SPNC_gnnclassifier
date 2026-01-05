@@ -2,10 +2,11 @@ import { expect, test } from '@playwright/test'
 import Enviroment from '@/utils/Enviroment'
 import SignUpPage from '@/page/Signup.page'
 
+const randomSuffix = Date.now();
 const myInfo = {
-    fullname: "Jessica",
-    username: "jessica123",
-    email: "jessbt@mailto.plus",
+    fullname: `Jessica ${randomSuffix}`,
+    username: `jessica${randomSuffix}`,
+    email: `jess${randomSuffix}@mailto.plus`,
     password: "12345678x@X",
     confirm_password: "12345678x@X"
 }
