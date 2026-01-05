@@ -4,11 +4,11 @@ from backend.di import health_service
 
 default_bp = Blueprint("default", __name__)
 
-@default_bp.route("/health", methods=["HEAD"])
+@default_bp.route("/health/app", methods=["HEAD"])
 def health():
     return "", 200
 
-@default_bp.route("/ping", methods=["GET"])
+@default_bp.route("/health/database", methods=["GET"])
 def ping():
     try:
         health_service.check()

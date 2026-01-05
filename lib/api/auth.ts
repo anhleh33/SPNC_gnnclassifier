@@ -4,7 +4,7 @@ export async function login(payload: {
     password: string
   }) {
     const res = await fetch(
-      `${process.env.NEXT_PUBLIC_API_URL}/users/login`,
+      `${process.env.NEXT_PUBLIC_API_URL}/auth/login`,
       {
         method: "POST",
         headers: { "Content-Type": "application/json" },

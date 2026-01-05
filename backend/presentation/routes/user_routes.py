@@ -1,5 +1,3 @@
-import uuid
-
 from flask import Blueprint, request, jsonify
 from werkzeug.security import check_password_hash
 
@@ -77,27 +75,8 @@ def users_options():
         "methods": ["GET", "POST", "PATCH", "DELETE", "OPTIONS"]
     }), 200
 
-@user_bp.route("/login", methods=["POST"])
-def login():
-    data = request.get_json()
-
-    try:
-        user = user_service.authenticate(
-            identifier=data["identifier"],
-            password=data["password"]
-        )
-
-        return jsonify({
-            "id": user.id,
-            "username": user.username,
-            "email": user.email,
-        }), 200
-
-    except InvalidCredentials:
-        return jsonify({"error": "Incorrect username or password"}), 401
-
-@user_bp.route("/check", methods=["GET"])
-def check_username():
+@user_bp.route("/availability", methods=["GET"])
+def username_availability():
     username = request.args.get("username")
 
     if not username:

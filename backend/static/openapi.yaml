@@ -129,10 +129,9 @@ paths:
         "200":
           description: OK
 
-  /users/login:
+  /auth/login:
     post:
       tags:
-        - Users
         - Authentication
       summary: User login
       description: >
@@ -236,94 +235,7 @@ paths:
                     type: string
                     example: username is required
 
-  # /users:
-  #   get:
-  #     summary: List users
-  #     description: Returns a list of users.
-  #     tags:
-  #       - Users
-  #     responses:
-  #       "200":
-  #         description: Successful response
-  #         content:
-  #           application/json:
-  #             schema:
-  #               type: object
-  #               properties:
-  #                 status:
-  #                   type: boolean
-  #                   example: true
-  #                 data:
-  #                   type: array
-  #                   items:
-  #                     $ref: "#/components/schemas/UserResponse"
-  #     components:
-  #       schemas:
-  #         UserResponse:
-  #           type: object
-  #           properties:
-  #             id:
-  #               type: integer
-  #               example: 1
-  #             full_name:
-  #               type: string
-  #               example: John Doe
-  #             username:
-  #               type: string
-  #               example: johndoe
-  #             email:
-  #               type: string
-  #               format: email
-  #               example: john@example.com
-  #             avatar_color:
-  #               type: string
-  #               example: "#FF5733"
-  #             created_at:
-  #               type: string
-  #               format: date-time
-  #               example: "2025-01-01T12:00:00Z"
-
-  # /users:
-  #   delete:
-  #     summary: Delete user (not implemented)
-  #     responses:
-  #       "501":
-  #         description: Not implemented
-  #   patch:
-  #     summary: Update user (not implemented)
-  #     responses:
-  #       "501":
-  #         description: Not implemented
-  #   options:
-  #     summary: Supported HTTP methods
-  #     responses:
-  #       "200":
-  #         description: OK
-
-  /users/test-create:
-    get:
-      summary: Create a test user
-      description: Creates a hardcoded test user (development only).
-      tags: [Users]
-      responses:
-        "200":
-          description: Test user created
-          content:
-            application/json:
-              schema:
-                type: object
-                properties:
-                  id:
-                    type: integer
-                    example: 999
-                  username:
-                    type: string
-                    example: route_user
-                  email:
-                    type: string
-                    example: route@example.com
-
-  /health:
+  /health/app:
     head:
       summary: Application health check (HEAD only)
       tags: [Default]
@@ -338,7 +250,7 @@ paths:
                 type: string
                 example: ok
 
-  /ping:
+  /health/database:
     get:
       summary: Database connectivity check
       tags: [Default]
@@ -348,16 +260,19 @@ paths:
         "500":
           description: Database unreachable
 
-  /teapot:
-    get:
-      summary: Easter egg
-      tags: [Default]
-      responses:
-        "418":
-          description: I'm a teapot ☕
+
+  # /teapot:
+  #   get:
+  #     summary: Easter egg
+  #     tags: [internal]
+  #     responses:
+  #       "418":
+  #         description: I'm a teapot ☕
 
 tags:
   - name: Default
     description: Health and utility endpoints
   - name: Users
     description: User-related endpoints
+  - name: Authentication
+    description: Authorization-related endpoints

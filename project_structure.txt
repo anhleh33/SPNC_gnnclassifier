@@ -60,6 +60,7 @@
 |   |   `-- routes
 |   |       |-- __init__.py
 |   |       |-- default_routes.py
+|   |       |-- swagger_routes.py
 |   |       `-- user_routes.py
 |   |-- settings.py
 |   `-- static
@@ -166,4 +167,4 @@
 |   `-- globals.css
 `-- tsconfig.json
 
-29 directories, 137 files
+29 directories, 138 files

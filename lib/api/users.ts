@@ -27,7 +27,7 @@ export async function createUser(payload: {
   
 export async function checkUsername(username: string) {
   const res = await fetch(
-    `${process.env.NEXT_PUBLIC_API_URL}/users/check?username=${username}`
+    `${process.env.NEXT_PUBLIC_API_URL}/users/availability?username=${username}`
   )
   if (!res.ok) throw new Error("Failed")
   return res.json()
