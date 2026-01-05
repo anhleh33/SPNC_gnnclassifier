@@ -33,11 +33,11 @@ export default class LoginPage {
         await this.page.click("(//button[contains(@class,'inline-flex items-center')])[3]")
     }
 
-    accessToLoginForm = async () => {
+    public accessToLoginForm = async () => {
         await this.page.click("(//button[@data-slot='button'])[1]")
     }
 
-    async closeLoginForm() {
+    public async closeLoginForm() {
         await this.page.click("(//h2[contains(@class,'text-2xl font-semibold')]/following-sibling::button)[1]")
     }
 

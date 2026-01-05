@@ -47,6 +47,11 @@ test.describe('[GNN-02] Sign Up', () => {
         await expect(signup.eleConfirmPasswordField()).toHaveValue(myInfo.confirm_password)
     })
 
+    test('Redirect to Sign In form', async ({ page }) => {
+        await signup.redirectToSignInForm()
+        await expect(await page.locator("//h2[contains(@class,'text-2xl font-semibold')]").textContent()).toBe("Sign Up")
+    })
+
     test('Check if username IS ALREADY HAD in database', async ({ page }) => {
         await signup.eleUsernameField().fill("testuser")
         await page.waitForTimeout(3000)

@@ -1,4 +1,4 @@
-import { Page } from "@playwright/test";
+import { expect, Page } from "@playwright/test";
 import { emit } from "process";
 
 export default class SignUpPage {
@@ -49,15 +49,16 @@ export default class SignUpPage {
         await this.page.click("(//button[@type='button'])[3]")
     }
 
-    accessToSignUpForm = async () => {
+    public accessToSignUpForm = async () => {
         await this.page.click("(//button[@data-slot='button'])[2]")
     }
 
-    async closeLoginForm() {
+    public async closeSignUpForm() {
         await this.page.click("(//h2[contains(@class,'text-2xl font-semibold')]/following-sibling::button)[1]")
     }
 
-    public redirectToSignUpForm = async () => {
+    public redirectToSignInForm = async () => {
+        await expect(this.page.locator("//button[normalize-space(text())='Sign in']")).toBeVisible()
         await this.page.click("//button[normalize-space(text())='Sign in']")
     }
 }
