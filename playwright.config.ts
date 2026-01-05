@@ -30,10 +30,11 @@ if (isCI) {
 
 export default defineConfig({
   testDir: './tests',
-  fullyParallel: true,
+  fullyParallel: false,
+  workers: 1,
   forbidOnly: !!process.env.CI,
   retries: process.env.CI ? 2 : 0,
-  workers: process.env.CI ? 1 : undefined, // Keep at 1 to avoid DB collisions
+  // workers: process.env.CI ? 1 : undefined, // Keep at 1 to avoid DB collisions
   reporter: [['html'], ['allure-playwright']],
   
   use: {
