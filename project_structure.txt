@@ -19,6 +19,9 @@
 |   |       |-- __init__.py
 |   |       |-- health_service.py
 |   |       `-- user_service.py
+|   |-- development
+|   |   |-- json_user_repository.py
+|   |   `-- postgres_user_repository_test.py
 |   |-- di.py
 |   |-- domain
 |   |   |-- __init__.py
@@ -39,12 +42,11 @@
 |   |   |   |   `-- user_model.py
 |   |   |   |-- postgres.py
 |   |   |   `-- session_test.py
+|   |   |-- ml
 |   |   `-- repositories
 |   |       |-- __init__.py
-|   |       |-- json_user_repository.py
 |   |       |-- postgres_health_repository.py
-|   |       |-- postgres_user_repository.py
-|   |       `-- postgres_user_repository_test.py
+|   |       `-- postgres_user_repository.py
 |   |-- interfaces
 |   |   |-- __init__.py
 |   |   |-- repositories
@@ -52,6 +54,9 @@
 |   |   |   |-- health_repository_interface.py
 |   |   |   `-- user_repository_interface.py
 |   |   `-- services
+|   |       |-- __init__.py
+|   |       |-- health_service_interface.py
+|   |       `-- user_service_interface.py
 |   |-- presentation
 |   |   |-- __init__.py
 |   |   |-- mappers
@@ -59,6 +64,7 @@
 |   |   |   `-- user_response_mapper.py
 |   |   `-- routes
 |   |       |-- __init__.py
+|   |       |-- auth_routes.py
 |   |       |-- default_routes.py
 |   |       |-- swagger_routes.py
 |   |       `-- user_routes.py
@@ -167,4 +173,4 @@
 |   `-- globals.css
 `-- tsconfig.json
 
-29 directories, 138 files
+31 directories, 142 files

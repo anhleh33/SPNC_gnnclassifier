@@ -4,5 +4,9 @@ from backend.infrastructure.repositories.postgres_health_repository import Postg
 from backend.application.services.user_service import UserService
 from backend.infrastructure.repositories.postgres_user_repository import PostgresUserRepository
 
+from backend.infrastructure.ml.image_classifier import ImageClassifier
+from backend.application.services.image_classifier_service import ImageClassificationService
+
 health_service = HealthService(PostgresHealthRepository())
 user_service = UserService(PostgresUserRepository())
+image_classifier_service = ImageClassificationService(ImageClassifier())

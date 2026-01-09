@@ -7,6 +7,7 @@ from backend.presentation.routes.default_routes import default_bp
 from backend.presentation.routes.user_routes import user_bp
 from backend.presentation.routes.swagger_routes import swagger_bp
 from backend.presentation.routes.auth_routes import auth_bp
+from backend.presentation.routes.model_routes import model_bp
 
 load_dotenv()
 
@@ -21,6 +22,7 @@ def create_app():
     app.register_blueprint(user_bp, url_prefix="/users")
     app.register_blueprint(swagger_bp, url_prefix=SWAGGER_URL)
     app.register_blueprint(auth_bp, url_prefix="/auth")
+    app.register_blueprint(model_bp, url_prefix="/model")
 
     # ✅ Startup message (modern Flask way)
     if SHOW_STARTUP_MESSAGE and DOCS_URL:

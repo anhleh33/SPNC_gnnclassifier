@@ -234,6 +234,61 @@ paths:
                   error:
                     type: string
                     example: username is required
+  
+  /model/predictions:
+    post:
+      summary: Create a prediction from an image
+      description: >
+        Accepts an image file and returns a model prediction.
+        This endpoint is currently a placeholder and always returns 501.
+      operationId: createPrediction
+      tags:
+        - Model
+      requestBody:
+        required: true
+        content:
+          multipart/form-data:
+            schema:
+              type: object
+              required:
+                - image
+              properties:
+                image:
+                  type: string
+                  format: binary
+                  description: Image file to classify
+      responses:
+        "501":
+          description: Model not implemented
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/ModelNotImplementedResponse"
+        "400":
+          description: Invalid request (e.g. missing image)
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/ErrorResponse"
+
+  components:
+    schemas:
+      ModelNotImplementedResponse:
+        type: object
+        properties:
+          status:
+            type: string
+            example: model_not_implemented
+          message:
+            type: string
+            example: The classification model is not implemented yet.
+
+      ErrorResponse:
+        type: object
+        properties:
+          error:
+            type: string
+            example: Image file is required
 
   /health/app:
     head:
@@ -276,3 +331,5 @@ tags:
     description: User-related endpoints
   - name: Authentication
     description: Authorization-related endpoints
+  - name: Model
+    description: TBA
