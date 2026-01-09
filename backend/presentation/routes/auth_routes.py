@@ -11,7 +11,7 @@ def login():
 
     try:
         user = user_service.authenticate(
-            identifier=data["identifier"],
+            username=data["identifier"],
             password=data["password"]
         )
 

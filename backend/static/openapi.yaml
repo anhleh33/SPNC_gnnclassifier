@@ -196,7 +196,7 @@ paths:
         "500":
           description: Internal server error
 
-  /users/check:
+  /users/availability:
     get:
       tags:
         - Users

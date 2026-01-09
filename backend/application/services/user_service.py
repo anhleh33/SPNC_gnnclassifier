@@ -1,13 +1,14 @@
 import re
 from werkzeug.security import generate_password_hash, check_password_hash
 
+from backend.interfaces.services.user_service_interface import IUserService
 from backend.interfaces.repositories.user_repository_interface import IUserRepository
 from backend.domain.entities.user import User
 from backend.domain.exception import InvalidCredentials, InvalidUserData
 
 USERNAME_REGEX = re.compile(r"^[a-z0-9]{3,20}$")
 
-class UserService:
+class UserService(IUserService):
     def __init__(self, user_repository: IUserRepository):
         self.user_repository = user_repository
 
@@ -30,8 +31,8 @@ class UserService:
     #====================
     #  PUBLIC CLASSES
     #====================
-    def authenticate(self, identifier: str, password: str) -> User:
-        user = self.get_user_by_identifier(identifier)
+    def authenticate(self, username: str, password: str) -> User:
+        user = self.user_repository.get_by_username(username)
 
         if not user:
             raise InvalidCredentials("Invalid credentials")
