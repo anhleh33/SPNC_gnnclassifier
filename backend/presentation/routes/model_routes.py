@@ -1,7 +1,6 @@
 from flask import Blueprint, request, jsonify, current_app
 
 from backend.di import image_classifier_service
-from backend.application.services.image_classifier_service import ImageClassificationService
 
 model_bp = Blueprint("model", __name__, url_prefix="/model")
 

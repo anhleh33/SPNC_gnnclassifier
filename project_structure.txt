@@ -18,6 +18,7 @@
 |   |   `-- services
 |   |       |-- __init__.py
 |   |       |-- health_service.py
+|   |       |-- image_classifier_service.py
 |   |       `-- user_service.py
 |   |-- development
 |   |   |-- json_user_repository.py
@@ -43,6 +44,8 @@
 |   |   |   |-- postgres.py
 |   |   |   `-- session_test.py
 |   |   |-- ml
+|   |   |   |-- __init__.py
+|   |   |   `-- image_classifier.py
 |   |   `-- repositories
 |   |       |-- __init__.py
 |   |       |-- postgres_health_repository.py
@@ -56,6 +59,7 @@
 |   |   `-- services
 |   |       |-- __init__.py
 |   |       |-- health_service_interface.py
+|   |       |-- image_classifier_service_interface.py
 |   |       `-- user_service_interface.py
 |   |-- presentation
 |   |   |-- __init__.py
@@ -66,6 +70,7 @@
 |   |       |-- __init__.py
 |   |       |-- auth_routes.py
 |   |       |-- default_routes.py
+|   |       |-- model_routes.py
 |   |       |-- swagger_routes.py
 |   |       `-- user_routes.py
 |   |-- settings.py
@@ -152,6 +157,8 @@
 |   |   `-- users.ts
 |   `-- utils.ts
 |-- middleware.ts
+|-- ml-kernel
+|   `-- project_structure.txt
 |-- next-env.d.ts
 |-- next.config.mjs
 |-- package-lock.json
@@ -173,4 +180,4 @@
 |   `-- globals.css
 `-- tsconfig.json
 
-31 directories, 142 files
+32 directories, 148 files
