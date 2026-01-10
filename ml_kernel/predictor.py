@@ -15,7 +15,7 @@ from ml_kernel.postprocess import combine_subject_grade
 
 
 BASE = Path(__file__).parent
-ART = BASE / "artifacts"
+ART = BASE / "artifacts/v2"
 
 # ---------- Model definition ----------
 class GraphSAGE(torch.nn.Module):
