@@ -1,7 +1,10 @@
+from pathlib import Path
 import os
 from dotenv import load_dotenv
 
 load_dotenv()
+
+BASE = Path(__file__).parent
 
 # ─────────────────────────────
 # Database
@@ -19,3 +22,9 @@ DOCS_URL: str = "http://127.0.0.1:5000/docs"
 # ─────────────────────────────
 SWAGGER_URL: str = "/docs"
 API_URL: str = "/static/openapi.yaml"
+
+# ─────────────────────────────
+# Artifact Location
+# ─────────────────────────────
+ARTIFACTS_VERSION: Path = "v2"
+ARTIFACTS_DIR: Path = BASE / "infrastructure/ml/artifacts"

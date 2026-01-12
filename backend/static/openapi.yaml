@@ -235,7 +235,7 @@ paths:
                     type: string
                     example: username is required
   
-  /model/predictions:
+  /model/classification:
     post:
       summary: Create a prediction from an image
       description: >

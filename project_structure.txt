@@ -10,6 +10,7 @@
 |   |-- layout.tsx
 |   `-- page.tsx
 |-- backend
+|   |-- Requirements-ML.txt
 |   |-- Requirements.txt
 |   |-- __init__.py
 |   |-- app.py
@@ -45,15 +46,54 @@
 |   |   |   `-- session_test.py
 |   |   |-- ml
 |   |   |   |-- __init__.py
-|   |   |   `-- image_classifier.py
+|   |   |   |-- artifacts
+|   |   |   |   |-- v1
+|   |   |   |   |   |-- grade_labels.json
+|   |   |   |   |   |-- graph_data.pt
+|   |   |   |   |   |-- graphsage_grade.pt
+|   |   |   |   |   |-- graphsage_subject.pt
+|   |   |   |   |   `-- subject_labels.json
+|   |   |   |   `-- v2
+|   |   |   |       |-- grade_labels.json
+|   |   |   |       |-- graph_data.pt
+|   |   |   |       |-- graphsage_grade.pt
+|   |   |   |       |-- graphsage_subject.pt
+|   |   |   |       `-- subject_labels.json
+|   |   |   |-- classifiers
+|   |   |   |   |-- __init__.py
+|   |   |   |   `-- graphsage_classifier.py
+|   |   |   |-- encoders
+|   |   |   |   |-- __init__.py
+|   |   |   |   |-- image_encoder.py
+|   |   |   |   `-- text_encoder.py
+|   |   |   |-- features
+|   |   |   |   |-- __init__.py
+|   |   |   |   |-- clip_image_feature.py
+|   |   |   |   |-- node_feature_builder.py
+|   |   |   |   `-- text_feature_builder.py
+|   |   |   |-- image_classifier.py
+|   |   |   |-- models
+|   |   |   |   |-- __init__.py
+|   |   |   |   |-- assets.py
+|   |   |   |   `-- graphsage.py
+|   |   |   |-- ocr
+|   |   |   |   |-- __init__.py
+|   |   |   |   `-- ocr_engine.py
+|   |   |   |-- postprocess
+|   |   |   |   `-- subject_grade_combiner.py
+|   |   |   `-- similarity
+|   |   |       |-- __init__.py
+|   |   |       `-- neighbor_search.py
 |   |   `-- repositories
 |   |       |-- __init__.py
+|   |       |-- classifier_model_repository.py
 |   |       |-- postgres_health_repository.py
 |   |       `-- postgres_user_repository.py
 |   |-- interfaces
 |   |   |-- __init__.py
 |   |   |-- repositories
 |   |   |   |-- __init__.py
+|   |   |   |-- classifier_model_repository_interface.py
 |   |   |   |-- health_repository_interface.py
 |   |   |   `-- user_repository_interface.py
 |   |   `-- services
@@ -157,8 +197,179 @@
 |   |   `-- users.ts
 |   `-- utils.ts
 |-- middleware.ts
-|-- ml-kernel
-|   `-- project_structure.txt
+|-- ml_kernel
+|   |-- IMAGE.png
+|   |-- Requirements-ML.txt
+|   |-- __init__.py
+|   |-- accuracy.py
+|   |-- artifacts
+|   |   |-- v1
+|   |   |   |-- grade_labels.json
+|   |   |   |-- graph_data.pt
+|   |   |   |-- graphsage_grade.pt
+|   |   |   |-- graphsage_subject.pt
+|   |   |   `-- subject_labels.json
+|   |   `-- v2
+|   |       |-- grade_labels.json
+|   |       |-- graph_data.pt
+|   |       |-- graphsage_grade.pt
+|   |       |-- graphsage_subject.pt
+|   |       `-- subject_labels.json
+|   |-- encoders
+|   |   |-- __init__.py
+|   |   |-- clip_image.py
+|   |   |-- ocr.py
+|   |   `-- text.py
+|   |-- features
+|   |   |-- __init__.py
+|   |   |-- clip_feature.py
+|   |   |-- node_feature.py
+|   |   `-- text_feature.py
+|   |-- postprocess.py
+|   |-- predictions.csv
+|   |-- predictor.py
+|   |-- project_structure.txt
+|   `-- sample_test
+|       |-- AmNhac
+|       |   |-- 10_AmNhac_1.png
+|       |   |-- 10_AmNhac_2.png
+|       |   |-- 10_AmNhac_3.png
+|       |   |-- 11_AmNhac_1.png
+|       |   |-- 11_AmNhac_2.png
+|       |   |-- 11_AmNhac_3.png
+|       |   |-- 12_AmNhac_1.png
+|       |   |-- 12_AmNhac_2.png
+|       |   `-- 12_AmNhac_3.png
+|       |-- CongNghe
+|       |   |-- 10_CongNghe_1.png
+|       |   |-- 10_CongNghe_2.png
+|       |   |-- 10_CongNghe_3.png
+|       |   |-- 11_CongNghe_1.png
+|       |   |-- 11_CongNghe_2.png
+|       |   |-- 11_CongNghe_3.png
+|       |   |-- 12_CongNghe_1.png
+|       |   |-- 12_CongNghe_2.png
+|       |   `-- 12_CongNghe_3.png
+|       |-- DiaLi
+|       |   |-- 10_DiaLi_1.png
+|       |   |-- 10_DiaLi_2.png
+|       |   |-- 10_DiaLi_3.png
+|       |   |-- 11_DiaLi_1.png
+|       |   |-- 11_DiaLi_2.png
+|       |   |-- 11_DiaLi_3.png
+|       |   |-- 12_DiaLi_1.png
+|       |   |-- 12_DiaLi_2.png
+|       |   `-- 12_DiaLi_3.png
+|       |-- GDQPAN
+|       |   |-- 10_GDQPAN_1.png
+|       |   |-- 10_GDQPAN_2.png
+|       |   |-- 10_GDQPAN_3.png
+|       |   |-- 11_GDQPAN_1.png
+|       |   |-- 11_GDQPAN_2.png
+|       |   |-- 11_GDQPAN_3.png
+|       |   |-- 12_GDQPAN_1.png
+|       |   |-- 12_GDQPAN_2.png
+|       |   `-- 12_GDQPAN_3.png
+|       |-- HDTNHN
+|       |   |-- 10_HDTNHN_1.png
+|       |   |-- 10_HDTNHN_2.png
+|       |   |-- 10_HDTNHN_3.png
+|       |   |-- 11_HDTNHN_1.png
+|       |   |-- 11_HDTNHN_2.png
+|       |   |-- 11_HDTNHN_3.png
+|       |   |-- 12_HDTNHN_1.png
+|       |   |-- 12_HDTNHN_2.png
+|       |   `-- 12_HDTNHN_3.png
+|       |-- HoaHoc
+|       |   |-- 10_HoaHoc_1.png
+|       |   |-- 10_HoaHoc_2.png
+|       |   |-- 10_HoaHoc_3.png
+|       |   |-- 11_HoaHoc_1.png
+|       |   |-- 11_HoaHoc_2.png
+|       |   |-- 11_HoaHoc_3.png
+|       |   |-- 12_HoaHoc_1.png
+|       |   |-- 12_HoaHoc_2.png
+|       |   `-- 12_HoaHoc_3.png
+|       |-- LichSu
+|       |   |-- 10_LichSu_1.png
+|       |   |-- 10_LichSu_2.png
+|       |   |-- 10_LichSu_3.png
+|       |   |-- 11_LichSu_1.png
+|       |   |-- 11_LichSu_2.png
+|       |   |-- 11_LichSu_3.png
+|       |   |-- 12_LichSu_1.png
+|       |   |-- 12_LichSu_2.png
+|       |   `-- 12_LichSu_3.png
+|       |-- MiThuat
+|       |   |-- 10_MiThuat_1.png
+|       |   |-- 10_MiThuat_2.png
+|       |   |-- 10_MiThuat_3.png
+|       |   |-- 11_MiThuat_1.png
+|       |   |-- 11_MiThuat_2.png
+|       |   |-- 11_MiThuat_3.png
+|       |   |-- 12_MiThuat_1.png
+|       |   |-- 12_MiThuat_2.png
+|       |   `-- 12_MiThuat_3.png
+|       |-- NguVan
+|       |   |-- 10_NguVan_1.png
+|       |   |-- 10_NguVan_2.png
+|       |   |-- 10_NguVan_3.png
+|       |   |-- 11_NguVan_1.png
+|       |   |-- 11_NguVan_2.png
+|       |   |-- 11_NguVan_3.png
+|       |   |-- 12_NguVan_1.png
+|       |   |-- 12_NguVan_2.png
+|       |   `-- 12_NguVan_3.png
+|       |-- SinhHoc
+|       |   |-- 10_SinhHoc_1.png
+|       |   |-- 10_SinhHoc_2.png
+|       |   |-- 10_SinhHoc_3.png
+|       |   |-- 11_SinhHoc_1.png
+|       |   |-- 11_SinhHoc_2.png
+|       |   |-- 11_SinhHoc_3.png
+|       |   |-- 12_SinhHoc_1.png
+|       |   |-- 12_SinhHoc_2.png
+|       |   `-- 12_SinhHoc_3.png
+|       |-- TiengAnh
+|       |   |-- 10_TiengAnh_1.png
+|       |   |-- 10_TiengAnh_2.png
+|       |   |-- 10_TiengAnh_3.png
+|       |   |-- 11_TiengAnh_1.png
+|       |   |-- 11_TiengAnh_2.png
+|       |   |-- 11_TiengAnh_3.png
+|       |   |-- 12_TiengAnh_1.png
+|       |   |-- 12_TiengAnh_2.png
+|       |   `-- 12_TiengAnh_3.png
+|       |-- TinHoc
+|       |   |-- 10_TinHoc_1.png
+|       |   |-- 10_TinHoc_2.png
+|       |   |-- 10_TinHoc_3.png
+|       |   |-- 11_TinHoc_1.png
+|       |   |-- 11_TinHoc_2.png
+|       |   |-- 11_TinHoc_3.png
+|       |   |-- 12_TinHoc_1.png
+|       |   |-- 12_TinHoc_2.png
+|       |   `-- 12_TinHoc_3.png
+|       |-- Toan
+|       |   |-- 10_Toan_1.png
+|       |   |-- 10_Toan_2.png
+|       |   |-- 10_Toan_3.png
+|       |   |-- 11_Toan_1.png
+|       |   |-- 11_Toan_2.png
+|       |   |-- 11_Toan_3.png
+|       |   |-- 12_Toan_1.png
+|       |   |-- 12_Toan_2.png
+|       |   `-- 12_Toan_3.png
+|       `-- VatLy
+|           |-- 10_VatLy_1.png
+|           |-- 10_VatLy_2.png
+|           |-- 10_VatLy_3.png
+|           |-- 11_VatLy_1.png
+|           |-- 11_VatLy_2.png
+|           |-- 11_VatLy_3.png
+|           |-- 12_VatLy_1.png
+|           |-- 12_VatLy_2.png
+|           `-- 12_VatLy_3.png
 |-- next-env.d.ts
 |-- next.config.mjs
 |-- package-lock.json
@@ -180,4 +391,4 @@
 |   `-- globals.css
 `-- tsconfig.json
 
-32 directories, 148 files
+62 directories, 329 files

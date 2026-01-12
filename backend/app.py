@@ -1,6 +1,7 @@
 from flask import Flask
 from flask_cors import CORS
 from dotenv import load_dotenv
+import logging
 
 from backend.settings import SHOW_STARTUP_MESSAGE, DOCS_URL, SWAGGER_URL
 from backend.presentation.routes.default_routes import default_bp

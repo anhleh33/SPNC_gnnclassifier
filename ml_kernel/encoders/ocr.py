@@ -18,5 +18,5 @@ class OCRReader:
             text for _, text, conf in results
             if conf >= min_conf
         ]
-
+        
         return " ".join(texts).strip()

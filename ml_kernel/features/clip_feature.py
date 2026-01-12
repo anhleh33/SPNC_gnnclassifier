@@ -1,12 +1,19 @@
 import torch
-from ml_kernel.encoders.clip_image import CLIPImageEncoder
+from pathlib import Path
+
+from backend.infrastructure.ml.features.clip_image_feature import CLIPImageFeatureBuilder
+from backend.infrastructure.ml.features.text_feature import TextFeatureBuilder
 
 
-class CLIPImageFeatureBuilder:
+class NodeFeatureBuilder:
     def __init__(self, device="cpu"):
-        self.image_encoder = CLIPImageEncoder(device=device)
+        self.image_builder = CLIPImageFeatureBuilder(device=device)
+        self.text_builder = TextFeatureBuilder()
 
-    def build(self, image_path: str) -> torch.Tensor:
-        img_feat = self.image_encoder.encode(image_path)  # (1, 512)
+    def build(self, image_path: Path) -> torch.Tensor:
+        img_feat = self.image_builder.build(image_path)   # (1, 512)
+        text_feat = self.text_builder.build(image_path)   # (1, 384)
 
-        return img_feat
+        node_feat = torch.cat([text_feat, img_feat], dim=1)  # (1, 896)
+
+        return node_feat
