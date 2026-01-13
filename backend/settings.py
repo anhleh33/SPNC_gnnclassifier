@@ -28,3 +28,4 @@ API_URL: str = "/static/openapi.yaml"
 # ─────────────────────────────
 ARTIFACTS_VERSION: Path = "v2"
 ARTIFACTS_DIR: Path = BASE / "infrastructure/ml/artifacts"
+OPEN_CLIP_MODEL_DIR: Path = BASE / "infrastructure/ml/hf_models/vit_base_patch32_clip_224.openai"

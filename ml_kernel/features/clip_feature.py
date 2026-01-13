@@ -2,7 +2,7 @@ import torch
 from pathlib import Path
 
 from backend.infrastructure.ml.features.clip_image_feature import CLIPImageFeatureBuilder
-from backend.infrastructure.ml.features.text_feature import TextFeatureBuilder
+from backend.infrastructure.ml.features.text_feature_builder import TextFeatureBuilder
 
 
 class NodeFeatureBuilder:

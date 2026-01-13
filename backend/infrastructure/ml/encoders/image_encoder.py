@@ -3,6 +3,8 @@ from PIL import Image
 import open_clip
 from pathlib import Path
 
+from backend.settings import OPEN_CLIP_MODEL_DIR
+
 
 class CLIPImageEncoder:
     def __init__(self, device="cpu"):
@@ -10,7 +12,8 @@ class CLIPImageEncoder:
 
         self.model, _, self.preprocess = open_clip.create_model_and_transforms(
             'ViT-B-32',
-            pretrained='openai'
+            # pretrained='openai'
+            pretrained=str(OPEN_CLIP_MODEL_DIR / "open_clip_model.safetensors")
         )
         self.model.to(self.device)
         self.model.eval()
