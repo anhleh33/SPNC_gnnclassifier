@@ -1,5 +1,6 @@
-from flask import Blueprint, request, jsonify, current_app
+from flask import Blueprint, request, jsonify
 
+from backend.application.exception import MLServiceUnavailable
 from backend.di import image_classifier_service
 
 model_bp = Blueprint("model", __name__, url_prefix="/model")
@@ -16,7 +17,12 @@ def create_prediction():
 
     image_bytes = image_file.read()
 
-    result = image_classifier_service.classify_image(image_bytes)
+    try:
+        result = image_classifier_service.classify_image(image_bytes)
+        return jsonify(result), 200
 
-    # Placeholder → explicitly return 501
-    return jsonify(result), 501
+    except MLServiceUnavailable:
+        return jsonify({
+            "error": "Model temporarily unavailable",
+            "retryable": True
+        }), 503

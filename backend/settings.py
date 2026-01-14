@@ -26,6 +26,7 @@ API_URL: str = "/static/openapi.yaml"
 # ─────────────────────────────
 # Artifact Location
 # ─────────────────────────────
-ARTIFACTS_VERSION: Path = "v2"
+ARTIFACTS_VERSION: Path = "GNN_dual_v2"
 ARTIFACTS_DIR: Path = BASE / "infrastructure/ml/artifacts"
 OPEN_CLIP_MODEL_DIR: Path = BASE / "infrastructure/ml/hf_models/vit_base_patch32_clip_224.openai"
+TEXT_ENCODER_MODEL_DIR: Path = BASE / "infrastructure/ml/hf_models/all-MiniLM-L6-v2"

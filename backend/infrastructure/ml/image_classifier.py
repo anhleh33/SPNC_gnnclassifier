@@ -19,14 +19,14 @@ class ImageClassifier:
         node_feat = self.node_feature_builder.build(image_path)
 
         subjects, grades = self.classifier.classify(node_feat)
-        pairs = combine_subject_grade(subjects, grades)
-
+        # pairs = combine_subject_grade(subjects, grades, "weighted")
+        
         return {
             "subjects": subjects,
             "grades": grades,
-            "pairs": pairs
+            # "pairs": pairs
         }
-
+    
     def _save_temp_image(self, image_bytes: bytes) -> Path:
         tmp = tempfile.NamedTemporaryFile(delete=False, suffix=".png")
         tmp.write(image_bytes)

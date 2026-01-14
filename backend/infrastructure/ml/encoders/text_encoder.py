@@ -1,18 +1,27 @@
+from sentence_transformers import SentenceTransformer, models
 import torch
-from sentence_transformers import SentenceTransformer
+
+from backend.settings import TEXT_ENCODER_MODEL_DIR
 
 
 class TextEncoder:
-    def __init__(
-        self,
-        model_name="all-MiniLM-L6-v2",
-        device=None
-    ):
+    def __init__(self, device=None):
         self.device = device or (
             "cuda" if torch.cuda.is_available() else "cpu"
         )
+
+        transformer = models.Transformer(
+            str(TEXT_ENCODER_MODEL_DIR),
+            max_seq_length=256
+        )
+
+        pooling = models.Pooling(
+            word_embedding_dimension=transformer.get_word_embedding_dimension(),
+            pooling_mode_mean_tokens=True
+        )
+
         self.model = SentenceTransformer(
-            model_name,
+            modules=[transformer, pooling],
             device=self.device
         )
 

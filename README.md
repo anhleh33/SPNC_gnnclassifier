@@ -25,12 +25,23 @@ Or you can find the browser link in terminal where you execute the commands.
 
 # Backend
 1. Create Virtual Environment
+Open either in PowerShell or Git Bash
 ```bash
 cd backend
 python -m venv .venv
 ```
 
+Open virtual environment
+```bash
+source .venv/Scripts/Activate
+```
+If you are in root, use this
+```bash
+source backend/.venv/Scripts/Activate
+```
+
 2. Packages and library installations
+Make sure there is (.venv) on terminal
 ```bash
 pip install -r Requirements.txt
 ```
@@ -45,7 +56,7 @@ DATABASE_URL=postgresql://user:password@host/db
 
 4. Run backend
 
-Run the backend from the project root:
+Open Git Bash and run the backend from the project root:
 ```bash
 source backend/.venv/Scripts/Activate
 python -m backend.app
