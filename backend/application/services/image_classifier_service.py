@@ -62,7 +62,7 @@ class ImageClassificationService:
                     "label": label,
                     "confidence": score,
                     "subject": self._split_subject_grade(label)[0],
-                    "subject_code": self._subject_code(label),
+                    "subject_code": self._subject_code(self._split_subject_grade(label)[0]),
                     "grade": self._split_subject_grade(label)[1],
                 }
                 for label, score in pairs
