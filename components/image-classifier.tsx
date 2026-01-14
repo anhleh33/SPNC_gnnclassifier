@@ -330,7 +330,7 @@ export function ImageClassifier({ isAuthenticated, onNotification, resetSignal }
                   <Card className="p-4">
                     <div className="flex items-center gap-2 mb-2">
                       <Target className="w-4 h-4 text-purple-500" />
-                      <span className="font-medium text-foreground">Model Accuracy</span>
+                      <span className="font-medium text-foreground">Model Confidence</span>
                     </div>
                     <p className="text-2xl font-bold text-foreground">{(result.analysisMetrics.accuracy * 100).toFixed(1)}%</p>
                   </Card>
@@ -398,7 +398,7 @@ export function ImageClassifier({ isAuthenticated, onNotification, resetSignal }
                       <span className="font-medium text-foreground">{result.technicalDetails.graphEdges}</span>
                     </div>
                     <div className="flex justify-between">
-                      <span className="text-foreground">Model Accuracy:</span>
+                      <span className="text-foreground">Model Conficence:</span>
                       <span className="font-medium text-foreground">{(result.analysisMetrics.accuracy * 100).toFixed(1)}%</span>
                     </div>
                   </div>
