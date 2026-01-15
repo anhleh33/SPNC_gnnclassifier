@@ -4,9 +4,7 @@ import json
 import torch
 from pathlib import Path
 
-from backend.interfaces.repositories.classifier_model_repository_interface import (
-    IClassifierModelRepository
-)
+from backend.interfaces.repositories.classifier_model_repository_interface import IClassifierModelRepository
 from backend.infrastructure.ml.models.graphsage import GraphSAGE
 from backend.infrastructure.ml.models.assets import GraphSAGEAssets
 

@@ -18,7 +18,7 @@ def create_prediction():
     image_bytes = image_file.read()
 
     try:
-        result = image_classifier_service.classify_image(image_bytes)
+        result = image_classifier_service.classify_image_single(image_bytes)
         return jsonify(result), 200
 
     except MLServiceUnavailable:

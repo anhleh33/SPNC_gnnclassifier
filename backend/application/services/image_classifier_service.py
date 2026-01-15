@@ -1,5 +1,7 @@
 # backend/application/services/image_classifier_service.py
 import time
+import traceback
+import math
 
 from backend.application.exception import MLServiceUnavailable
 from backend.interfaces.services.image_classifier_service_interface import IImageClassifierInterface
@@ -19,15 +21,23 @@ class ImageClassificationService:
     def _subject_code(subject: str) -> SubjectCode:
         return SUBJECT_VI_TO_CODE.get(subject, SubjectCode.UNKNOWN)
 
-    def classify_image(self, image_bytes: bytes) -> dict:
+    @staticmethod
+    def _softmax(items: dict) -> dict:
+        values = list(items.values())
+        max_v = max(values)
+
+        exps = {k: math.exp(v - max_v) for k, v in items.items()}
+        total = sum(exps.values())
+
+        return {k: v / total for k, v in exps.items()}
+
+    def classify_image_dual(self, image_bytes: bytes) -> dict:
         start_time = time.perf_counter()
         
         try:
             raw = self.classifier.classify(image_bytes)
         except Exception as e:
             raise MLServiceUnavailable("ML inference failed") from e
-
-        raw = self.classifier.classify(image_bytes)
 
         subjects = raw["subjects"]
         grades = raw["grades"]
@@ -68,3 +78,59 @@ class ImageClassificationService:
                 for label, score in pairs
             ],
         }
+
+    def classify_image_single(self, image_bytes: bytes) -> dict:
+        start_time = time.perf_counter()
+
+        try:
+            raw = self.classifier.classify(image_bytes)
+        except Exception as e:
+            print("🔥 ML ROOT ERROR:")
+            traceback.print_exc()
+            raise MLServiceUnavailable("ML inference failed") from e
+
+        pairs = raw.get("pairs", {})
+        if not pairs:
+            raise MLServiceUnavailable("No predictions returned")
+
+        # Softmax normalization
+        pairs_prob = self._softmax(pairs)
+
+        # Primary prediction
+        primary_label, primary_conf = max(
+            pairs_prob.items(),
+            key=lambda x: x[1]
+        )
+
+        subject, grade = self._split_subject_grade(primary_label)
+
+        # Top-k by raw score, displayed by probability
+        top_labels = sorted(
+            pairs.items(),
+            key=lambda x: x[1],
+            reverse=True
+        )[:5]
+
+        processing_time_ms = (time.perf_counter() - start_time) * 1000
+
+        return {
+            "label": primary_label,
+            "confidence": float(primary_conf),
+            "subject": subject,
+            "subject_code": self._subject_code(subject),
+            "grade": grade,
+            "processing_time_ms": round(processing_time_ms, 2),
+            "top_predictions": [
+                {
+                    "label": label,
+                    "confidence": float(pairs_prob[label]),
+                    "subject": self._split_subject_grade(label)[0],
+                    "subject_code": self._subject_code(
+                        self._split_subject_grade(label)[0]
+                    ),
+                    "grade": self._split_subject_grade(label)[1],
+                }
+                for label, _ in top_labels
+            ],
+        }
+
