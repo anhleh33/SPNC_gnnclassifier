@@ -16,7 +16,7 @@ from backend.infrastructure.ml.features.node_feature_builder import NodeFeatureB
 from backend.infrastructure.ml.features.text_feature_builder import TextFeatureBuilder
 from backend.infrastructure.ml.classifiers.graphsage_classifier import GraphSAGEClassifier
 from backend.infrastructure.ml.similarity.neighbor_search import NeighborSearcher
-from backend.infrastructure.ml.image_classifier import VotingImageClassifier
+from backend.infrastructure.ml.image_classifier import VotingImageClassifier, GraphSAGEImageClassifier
 from backend.infrastructure.repositories.classifier_model_repository import FileSystemClassifierModelRepository
 from backend.application.services.image_classifier_service import ImageClassificationService
 from backend.settings import ARTIFACTS_DIR, ARTIFACTS_VERSION
@@ -30,14 +30,7 @@ health_service = HealthService(PostgresHealthRepository())
 user_service = UserService(PostgresUserRepository())
 
 # Load assets
-artifact_dir = ARTIFACTS_DIR / ARTIFACTS_VERSION
-# repo = FileSystemClassifierModelRepository(artifact_dir)
-# assets = repo.load_assets()
-# print("Graph x shape:", assets.x.shape)
-
-# neighbor_searcher = NeighborSearcher(assets.x.numpy())
-# graphsage_classifier = GraphSAGEClassifier(assets, neighbor_searcher)
-
+# artifact_dir = ARTIFACTS_DIR / ARTIFACTS_VERSION
 artifact_dir = ARTIFACTS_DIR / "GNN_single_v1"
 
 repo = FileSystemVotingModelRepository(artifact_dir)
@@ -48,6 +41,7 @@ print("Metadata rows:", len(assets.metadata))
 
 ocr = OCRReader()
 
+# GNN_SINGLE_V1
 image_encoder = ResNetImageEncoder(device="cpu")   # (1, 2048)
 text_encoder = MiniLML12TextEncoder()              # (1, 384)
 
@@ -68,10 +62,6 @@ image_classifier = VotingImageClassifier(
     node_feature_builder=node_feature_builder,
     voting_classifier=voting_classifier
 )
-
-image_classifier_service = ImageClassificationService(image_classifier)
-
-ocr = OCRReader()
 
 image_encoder = ResNetImageEncoder(device="cpu")   # (1, 2048)
 text_encoder = MiniLML12TextEncoder()              # (1, 384)
@@ -95,27 +85,32 @@ voting_classifier = VotingClassifier(
     top_k=10,
 )
 
+# GNN_DUAL_V2
+artifact_dir_2 = ARTIFACTS_DIR / "GNN_dual_v2"
+repo_2 = FileSystemClassifierModelRepository(artifact_dir_2)
+assets_2 = repo_2.load_assets()
+print("Graph x shape:", assets_2.x.shape)
 
-image_classifier_service = ImageClassificationService(image_classifier)
+neighbor_searcher = NeighborSearcher(assets_2.x.numpy())
+graphsage_classifier = GraphSAGEClassifier(assets_2, neighbor_searcher)
 
-# ocr = OCRReader()
+clip_encoder = CLIPImageEncoder(device="cpu")
+text_dual_encoder = MiniLML6TextEncoder()
 
-# clip_encoder = CLIPImageEncoder(device="cpu")
-# text_encoder = MiniLML6TextEncoder()
+image_feature_dual_builder = CLIPImageFeatureBuilder(clip_encoder)
+text_feature_dual_builder = TextFeatureBuilder(ocr, text_dual_encoder)
 
-# image_feature_builder = CLIPImageFeatureBuilder(clip_encoder)
-# text_feature_builder = TextFeatureBuilder(ocr, text_encoder)
+node_dual_feature_builder = NodeFeatureBuilder(
+    image_feature_dual_builder,
+    text_feature_dual_builder
+)
+# Infra orchestrator
+image_dual_classifier = GraphSAGEImageClassifier(
+    node_feature_builder=node_dual_feature_builder,
+    graphsage_classifier=graphsage_classifier
+)
 
-# node_feature_builder = NodeFeatureBuilder(
-#     image_feature_builder,
-#     text_feature_builder
-# )
-
-# # Infra orchestrator
-# image_classifier = ImageClassifier(
-#     node_feature_builder=node_feature_builder,
-#     graphsage_classifier=graphsage_classifier
-# )
-
-# # Application service
-# image_classifier_service = ImageClassificationService(image_classifier)
+image_classifier_service = ImageClassificationService(
+    single_classifier=image_classifier,
+    dual_classifier=image_dual_classifier
+)

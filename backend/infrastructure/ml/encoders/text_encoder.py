@@ -17,24 +17,15 @@ class MiniLML6TextEncoder:
             "cuda" if torch.cuda.is_available() else "cpu"
         )
 
-        transformer = models.Transformer(
-            str(TEXT_ENCODER_MODEL_DIR),
-            max_seq_length=256
-        )
-
-        pooling = models.Pooling(
-            word_embedding_dimension=transformer.get_word_embedding_dimension(),
-            pooling_mode_mean_tokens=True
-        )
-
+        # Downloadable Hugging Face model
         self.model = SentenceTransformer(
-            modules=[transformer, pooling],
+            "all-MiniLM-L6-v2",
             device=self.device
         )
 
     def encode(self, text: str) -> torch.Tensor:
         if not text or not text.strip():
-            return torch.zeros(1, 384)
+            return torch.zeros(1, 384, device=self.device)
 
         emb = self.model.encode(
             text,

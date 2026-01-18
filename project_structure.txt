@@ -10,6 +10,7 @@
 |   |-- layout.tsx
 |   `-- page.tsx
 |-- backend
+|   |-- Requirements-Full.txt
 |   |-- Requirements-ML.txt
 |   |-- Requirements.txt
 |   |-- __init__.py
@@ -63,9 +64,12 @@
 |   |   |   |   |   |-- graphsage_subject.pt
 |   |   |   |   |   `-- subject_labels.json
 |   |   |   |   `-- GNN_single_v1
+|   |   |   |       |-- graph_data_multimodal.pt
+|   |   |   |       `-- metadata.csv
 |   |   |   |-- classifiers
 |   |   |   |   |-- __init__.py
-|   |   |   |   `-- graphsage_classifier.py
+|   |   |   |   |-- graphsage_classifier.py
+|   |   |   |   `-- voting_classifier.py
 |   |   |   |-- encoders
 |   |   |   |   |-- __init__.py
 |   |   |   |   |-- image_encoder.py
@@ -101,7 +105,8 @@
 |   |   |   |-- models
 |   |   |   |   |-- __init__.py
 |   |   |   |   |-- assets.py
-|   |   |   |   `-- graphsage.py
+|   |   |   |   |-- graphsage.py
+|   |   |   |   `-- voting_assets.py
 |   |   |   |-- ocr
 |   |   |   |   |-- __init__.py
 |   |   |   |   `-- ocr_engine.py
@@ -118,7 +123,8 @@
 |   |       |-- __init__.py
 |   |       |-- classifier_model_repository.py
 |   |       |-- postgres_health_repository.py
-|   |       `-- postgres_user_repository.py
+|   |       |-- postgres_user_repository.py
+|   |       `-- voting_model_repository.py
 |   |-- interfaces
 |   |   |-- __init__.py
 |   |   |-- repositories
@@ -252,4 +258,4 @@
 |   `-- globals.css
 `-- tsconfig.json
 
-47 directories, 205 files
+47 directories, 211 files

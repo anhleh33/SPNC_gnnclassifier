@@ -9,8 +9,13 @@ from backend.domain.value_objects.subject import SubjectCode, SUBJECT_VI_TO_CODE
 from backend.infrastructure.ml.postprocess.subject_grade_combiner import combine_subject_grade
 
 class ImageClassificationService:
-    def __init__(self, classifier: IImageClassifierInterface):
-        self.classifier = classifier
+    def __init__(
+        self,
+        single_classifier: IImageClassifierInterface,
+        dual_classifier: IImageClassifierInterface,
+    ):
+        self.single_classifier = single_classifier
+        self.dual_classifier = dual_classifier
 
     @staticmethod
     def _split_subject_grade(label: str) -> tuple[str, int]:
@@ -35,8 +40,10 @@ class ImageClassificationService:
         start_time = time.perf_counter()
         
         try:
-            raw = self.classifier.classify(image_bytes)
+            raw = self.dual_classifier.classify(image_bytes)
         except Exception as e:
+            print("🔥 ML ROOT ERROR:")
+            traceback.print_exc()
             raise MLServiceUnavailable("ML inference failed") from e
 
         subjects = raw["subjects"]
@@ -83,7 +90,7 @@ class ImageClassificationService:
         start_time = time.perf_counter()
 
         try:
-            raw = self.classifier.classify(image_bytes)
+            raw = self.single_classifier.classify(image_bytes)
         except Exception as e:
             print("🔥 ML ROOT ERROR:")
             traceback.print_exc()

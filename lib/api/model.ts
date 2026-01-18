@@ -27,6 +27,9 @@ export interface ModelClassificationResponse {
       `${process.env.NEXT_PUBLIC_API_URL}/model/classification`,
       {
         method: "POST",
+        headers: {
+          "X-Model-Variant": "dual", //CHANGE LATER, HARDCODED VALUE
+        },
         body: formData, // ✅ multipart/form-data automatically
       }
     )

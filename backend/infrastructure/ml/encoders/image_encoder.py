@@ -12,14 +12,18 @@ from backend.settings import OPEN_CLIP_MODEL_DIR
 
 
 class CLIPImageEncoder:
+    """
+    Image encoder using OpenCLIP ViT-B-32 (512-dim).
+    """
+
     def __init__(self, device="cpu"):
         self.device = device
 
         self.model, _, self.preprocess = open_clip.create_model_and_transforms(
-            'ViT-B-32',
-            # pretrained='openai'
-            pretrained=str(OPEN_CLIP_MODEL_DIR / "open_clip_model.safetensors")
+            model_name="ViT-B-32",
+            pretrained="openai"  # downloadable
         )
+
         self.model.to(self.device)
         self.model.eval()
 

@@ -1,7 +1,7 @@
 import type { ModelClassificationResponse } from "./model"
 import type { ClassificationResult } from "@/lib/types/classification"
 
-const TOP_K = 5
+const TOP_K = 3
 /**
  * Default fallback for unknown subjects
  */
