@@ -11,6 +11,14 @@ import { Upload, X, ImageIcon, BarChart3, Clock, Target } from 'lucide-react'
 import { classifyImage } from "@/lib/api/model"
 import type { ClassificationResult } from "@/lib/types/classification"
 import { mapModelToClassificationResult } from "@/lib/api/model.mapper"
+import {
+  Select,
+  SelectContent,
+  SelectItem,
+  SelectTrigger,
+  SelectValue,
+} from "@/components/ui/select"
+
 
 // interface ClassificationResult {
 //   subject: string
@@ -50,6 +58,8 @@ export function ImageClassifier({ isAuthenticated, onNotification, resetSignal }
   const fileInputRef = useRef<HTMLInputElement>(null)
   const audioRef = useRef<HTMLAudioElement>(null)
   const [selectedFile, setSelectedFile] = useState<File | null>(null)
+  const [selectedModel, setSelectedModel] = useState<"single" | "dual">("single")
+
 
   useEffect(() => {
     if (typeof resetSignal !== 'undefined') {
@@ -171,6 +181,7 @@ export function ImageClassifier({ isAuthenticated, onNotification, resetSignal }
     try {
       const raw = await classifyImage({
         file: selectedFile, // ✅ real File
+        model: selectedModel // ✅ add this
       })
   
       const mapped = mapModelToClassificationResult(raw)
@@ -264,12 +275,34 @@ export function ImageClassifier({ isAuthenticated, onNotification, resetSignal }
                 </div>
               </div>
             )}
-
+{/* 
             {!result && !isProcessing && (
               <Button onClick={handleClassify} className="w-full" size="lg">
                 <ImageIcon className="w-4 h-4 mr-2" />
                 Classify Image
               </Button>
+            )} */}
+
+            {!result && !isProcessing && (
+              <div className="flex gap-4 items-stretch">
+                <Button onClick={handleClassify} className="flex-1" size="lg">
+                  <ImageIcon className="w-4 h-4 mr-2" />
+                  Classify Image
+                </Button>
+
+                <Select
+                  value={selectedModel}
+                  onValueChange={(v) => setSelectedModel(v as any)}
+                >
+                  <SelectTrigger size="md" className="w-[170px]">
+                    <SelectValue placeholder="Choose model" />
+                  </SelectTrigger>
+                  <SelectContent>
+                    <SelectItem value="single">GNN_single_v1 (Newest)</SelectItem>
+                    <SelectItem value="dual">GNN_dual_v2 (Legacy)</SelectItem>
+                  </SelectContent>
+                </Select>
+              </div>
             )}
 
             {isProcessing && (

@@ -1,4 +1,5 @@
 // lib/api/model.ts
+export type ModelVariant = "dual" | "single"
 
 export interface ModelClassificationResponse {
     subject: string
@@ -19,6 +20,7 @@ export interface ModelClassificationResponse {
   
   export async function classifyImage(payload: {
     file: File
+    model: ModelVariant
   }) {
     const formData = new FormData()
     formData.append("image", payload.file)
@@ -28,7 +30,7 @@ export interface ModelClassificationResponse {
       {
         method: "POST",
         headers: {
-          "X-Model-Variant": "dual", //CHANGE LATER, HARDCODED VALUE
+          "X-Model-Variant": payload.model, //CHANGE LATER, HARDCODED VALUE
         },
         body: formData, // ✅ multipart/form-data automatically
       }
