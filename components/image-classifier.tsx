@@ -298,8 +298,8 @@ export function ImageClassifier({ isAuthenticated, onNotification, resetSignal }
                     <SelectValue placeholder="Choose model" />
                   </SelectTrigger>
                   <SelectContent>
-                    <SelectItem value="single">GNN_single_v1 (Newest)</SelectItem>
-                    <SelectItem value="dual">GNN_dual_v2 (Legacy)</SelectItem>
+                    <SelectItem value="single">GNN_single_v1</SelectItem>
+                    <SelectItem value="dual">GNN_dual_v2</SelectItem>
                   </SelectContent>
                 </Select>
               </div>

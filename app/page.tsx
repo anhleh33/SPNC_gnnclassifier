@@ -17,6 +17,7 @@ export default function Home() {
   const [showSignIn, setShowSignIn] = useState(false)
   const [showSignUp, setShowSignUp] = useState(false)
   const [showProfile, setShowProfile] = useState(false)
+  const [authChecked, setAuthChecked] = useState(false)
   const [user, setUser] = useState({
     fullName: "",
     username: "",
@@ -24,19 +25,39 @@ export default function Home() {
   })
   const [logoutSignal, setLogoutSignal] = useState(0)
 
+  // useEffect(() => {
+  //   localStorage.clear()
+  //   setIsAuthenticated(false)
+  //   setUser({ fullName: "", username: "", email: "" })
+  //   const defaultUsers = [
+  //     { fullName: "John Doe", username: "john_doe", email: "john@example.com", password: "Password123!", avatarColor: "#FF6B6B" },
+  //     { fullName: "Jane Smith", username: "jane_smith", email: "jane@example.com", password: "Password456!", avatarColor: "#4ECDC4" },
+  //     { fullName: "Alex Chen", username: "alex_chen", email: "alex@example.com", password: "Password789!", avatarColor: "#45B7D1" },
+  //     { fullName: "Sarah Johnson", username: "sarah_johnson", email: "sarah@example.com", password: "Password012!", avatarColor: "#FFA07A" },
+  //     { fullName: "Mike Wilson", username: "mike_wilson", email: "mike@example.com", password: "Password345!", avatarColor: "#98D8C8" },
+  //   ]
+  //   localStorage.setItem("users", JSON.stringify(defaultUsers))
+  // }, [])
   useEffect(() => {
-    localStorage.clear()
-    setIsAuthenticated(false)
-    setUser({ fullName: "", username: "", email: "" })
-    const defaultUsers = [
-      { fullName: "John Doe", username: "john_doe", email: "john@example.com", password: "Password123!", avatarColor: "#FF6B6B" },
-      { fullName: "Jane Smith", username: "jane_smith", email: "jane@example.com", password: "Password456!", avatarColor: "#4ECDC4" },
-      { fullName: "Alex Chen", username: "alex_chen", email: "alex@example.com", password: "Password789!", avatarColor: "#45B7D1" },
-      { fullName: "Sarah Johnson", username: "sarah_johnson", email: "sarah@example.com", password: "Password012!", avatarColor: "#FFA07A" },
-      { fullName: "Mike Wilson", username: "mike_wilson", email: "mike@example.com", password: "Password345!", avatarColor: "#98D8C8" },
-    ]
-    localStorage.setItem("users", JSON.stringify(defaultUsers))
+    const token = localStorage.getItem("access_token")
+    const storedUser = localStorage.getItem("currentUser")
+  
+    if (token && storedUser) {
+      const user = JSON.parse(storedUser)
+  
+      setUser({
+        fullName: "",
+        username: user.username,
+        email: user.email,
+      })
+  
+      setIsAuthenticated(true)
+    }
+  
+    setAuthChecked(true)
   }, [])
+  
+  
 
 //   const handleSignIn = async (identifier: string, password: string) => {
 //   try {
@@ -83,38 +104,33 @@ export default function Home() {
 //   }
 // }
 
-  const handleSignIn = async (identifier: string, password: string) => {
-    try {
-      const user = await login({ identifier, password })
+const handleSignIn = async (identifier: string, password: string) => {
+  try {
+    const data = await login({ identifier, password })
 
-      localStorage.setItem("isLoggedIn", "true")
-      localStorage.setItem(
-        "currentUser",
-        JSON.stringify({
-          fullName: user.full_name,
-          username: user.username,
-          email: user.email,
-        })
-      )
-      localStorage.setItem("userAvatarColor", user.avatar_color)
+    localStorage.setItem("access_token", data.access_token)
+    localStorage.setItem("currentUser", JSON.stringify({
+      username: data.user.username,
+      email: data.user.email,
+    }))
 
-      setUser({
-        fullName: user.full_name,
-        username: user.username,
-        email: user.email,
-      })
+    setUser({
+      fullName: "", // unused
+      username: data.user.username,
+      email: data.user.email,
+    })
 
-      setIsAuthenticated(true)
-      setShowSignIn(false)
+    setIsAuthenticated(true)
+    setShowSignIn(false)
 
-      addNotification("Logged in successfully!", "success")
-    } catch (err) {
-      addNotification(
-        err instanceof Error ? err.message : "Login failed",
-        "error"
-      )
-    }
+    addNotification("Logged in successfully!", "success")
+  } catch (err) {
+    addNotification(
+      err instanceof Error ? err.message : "Login failed",
+      "error"
+    )
   }
+}
 
   const handleSignUp = async (userData: { fullName: string, username: string, email: string, avatarColor: string, password: string }) => {
     // const { avatarColor, fullName, username, email, password } = userData
@@ -156,8 +172,10 @@ export default function Home() {
   }
 
   const handleLogout = () => {
+    // localStorage.removeItem("currentUser")
+    // localStorage.removeItem("userAvatarColor")
+    localStorage.removeItem("access_token")
     localStorage.removeItem("currentUser")
-    localStorage.removeItem("userAvatarColor")
     setIsAuthenticated(false)
     setShowProfile(false)
     setUser({ fullName: "", username: "", email: "" })
@@ -178,7 +196,7 @@ export default function Home() {
             <h1 className="text-xl font-semibold text-foreground">Graph Neural Network Classifier</h1>
           </button>
           <div className="flex items-center gap-4">
-            {!isAuthenticated ? (
+            {!authChecked ? null : !isAuthenticated ? (
               <>
                 <Button
                   variant="outline"

@@ -8,6 +8,9 @@ from backend.infrastructure.repositories.postgres_health_repository import Postg
 from backend.application.services.user_service import UserService
 from backend.infrastructure.repositories.postgres_user_repository import PostgresUserRepository
 
+from backend.application.services.image_storage_service import SupabaseImageStorageService
+from backend.infrastructure.database.supabase import create_supabase_client
+
 from backend.infrastructure.ml.ocr.ocr_engine import OCRReader
 from backend.infrastructure.ml.encoders.image_encoder import CLIPImageEncoder
 from backend.infrastructure.ml.encoders.text_encoder import MiniLML6TextEncoder
@@ -28,6 +31,7 @@ from backend.infrastructure.ml.encoders.text_encoder import MiniLML12TextEncoder
 
 health_service = HealthService(PostgresHealthRepository())
 user_service = UserService(PostgresUserRepository())
+image_storage_service = SupabaseImageStorageService(create_supabase_client(), "GNN Classifier Image Storage")
 
 # Load assets
 # artifact_dir = ARTIFACTS_DIR / ARTIFACTS_VERSION

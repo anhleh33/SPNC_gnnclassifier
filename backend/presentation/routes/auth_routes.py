@@ -1,4 +1,5 @@
 from flask import Blueprint, request, jsonify
+from flask_jwt_extended import create_access_token
 
 from backend.domain.exception import InvalidCredentials
 from backend.di import user_service
@@ -15,10 +16,21 @@ def login():
             password=data["password"]
         )
 
+        access_token = create_access_token(
+            identity=str(user.id),
+            additional_claims={
+                "username": user.username,
+                "email": user.email,
+            }
+        )
+
         return jsonify({
-            "id": user.id,
-            "username": user.username,
-            "email": user.email,
+            "access_token": access_token,
+            "user": {
+                "id": user.id,
+                "username": user.username,
+                "email": user.email,
+            }
         }), 200
 
     except InvalidCredentials:
