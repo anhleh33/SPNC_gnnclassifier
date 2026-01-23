@@ -8,6 +8,9 @@ from backend.infrastructure.repositories.postgres_health_repository import Postg
 from backend.application.services.user_service import UserService
 from backend.infrastructure.repositories.postgres_user_repository import PostgresUserRepository
 
+from backend.application.services.classification_history_service import ClassificationHistoryService
+from backend.infrastructure.repositories.classification_analysis_repository import PostgresClassificationAnalysisRepository 
+
 from backend.application.services.image_storage_service import SupabaseImageStorageService
 from backend.infrastructure.database.supabase import create_supabase_client
 
@@ -31,6 +34,7 @@ from backend.infrastructure.ml.encoders.text_encoder import MiniLML12TextEncoder
 
 health_service = HealthService(PostgresHealthRepository())
 user_service = UserService(PostgresUserRepository())
+classification_history_service = ClassificationHistoryService(PostgresClassificationAnalysisRepository())
 image_storage_service = SupabaseImageStorageService(create_supabase_client(), "GNN Classifier Image Storage")
 
 # Load assets
