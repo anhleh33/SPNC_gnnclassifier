@@ -66,13 +66,20 @@ class PostgresClassificationAnalysisRepository(
     def list_by_user(
         self,
         user_id: int,
+        *,
+        page: int = 1,
+        limit: int = 3,
     ) -> List[ClassificationAnalysis]:
+        offset = (page - 1) * limit
+
         db = SessionLocal()
         try:
             models = (
                 db.query(ClassificationAnalysisModel)
                 .filter_by(user_id=user_id)
                 .order_by(ClassificationAnalysisModel.created_at.desc())
+                .limit(limit)
+                .offset(offset)
                 .all()
             )
             return [self._to_entity(m) for m in models]

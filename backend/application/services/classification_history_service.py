@@ -10,6 +10,8 @@ from backend.interfaces.services.classification_history_service_interface import
 
 class ClassificationHistoryService(IClassificationHistoryService):
 
+    DEFAULT_PAGE_SIZE = 3
+
     def __init__(self, repository: IClassificationAnalysisRepository):
         self.repository = repository
 
@@ -32,8 +34,14 @@ class ClassificationHistoryService(IClassificationHistoryService):
 
         return self.repository.create(analysis)
 
-    def list_by_user(
+    def list_user_history(
         self,
+        *,
         user_id: int,
+        page: int = 1,
     ) -> List[ClassificationAnalysis]:
-        return self.repository.list_by_user(user_id)
+        return self.repository.list_by_user(
+            user_id=user_id,
+            page=page,
+            limit=self.DEFAULT_PAGE_SIZE,
+        )
