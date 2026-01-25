@@ -46,7 +46,7 @@ export default function Home() {
       const user = JSON.parse(storedUser)
   
       setUser({
-        fullName: "",
+        fullName: user.full_name,
         username: user.username,
         email: user.email,
       })
