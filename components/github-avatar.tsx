@@ -52,7 +52,7 @@ export function GitHubAvatar({ username = "", size = 120 }: GitHubAvatarProps) {
 
   return (
     <div
-      className="bg-white flex items-center justify-center border border-gray-200"
+      className="flex items-center justify-center border border-gray-200"
       style={{
         width: size,
         height: size,
