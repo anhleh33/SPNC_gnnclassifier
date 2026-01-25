@@ -7,10 +7,8 @@ interface GitHubAvatarProps {
   size?: number
 }
 
-const getAvatarColorForUser = (username: string): string => {
-  if (!username || typeof username !== "string") {
-    return "#4ECDC4"
-  }
+export const getAvatarColorForUser = (username: string): string => {
+  if (!username || typeof username !== "string") return "#4ECDC4"
   
   const colors = [
     "#FF6B6B", "#4ECDC4", "#45B7D1", "#FFA07A", "#98D8C8",
@@ -25,60 +23,61 @@ const getAvatarColorForUser = (username: string): string => {
   return colors[Math.abs(hash) % colors.length]
 }
 
-export function GitHubAvatar({ username = "", size = 80 }: GitHubAvatarProps) {
+export function GitHubAvatar({ username = "", size = 120 }: GitHubAvatarProps) {
   const { blockColor, blocks } = useMemo(() => {
-    const validUsername = username || "guest"
-    const selectedColor = getAvatarColorForUser(validUsername)
+    const selectedColor = getAvatarColorForUser(username || "guest")
 
-    // Use username as seed for consistent block generation
-    let seed = 0
-    for (let i = 0; i < validUsername.length; i++) {
-      seed += validUsername.charCodeAt(i)
-    }
+    // Ma trận 11x11 để tái hiện chính xác từng pixel từ ảnh gốc
+    const grid = Array(11 * 11).fill(0)
     
-    const numBlocks = 3 + (seed % 5)
-    const blockPositions = new Set<number>()
-    
-    let position = seed % 9
-    while (blockPositions.size < numBlocks) {
-      blockPositions.add(position)
-      position = (position + 2) % 9
-    }
+    // Vẽ Mắt (2 pixel dọc mỗi bên)
+    grid[2 * 11 + 2] = 1; grid[3 * 11 + 2] = 1; // Mắt trái
+    grid[2 * 11 + 8] = 1; grid[3 * 11 + 8] = 1; // Mắt phải
 
-    const blockArray = Array.from({ length: 9 }, (_, i) => {
-      if (blockPositions.has(i)) {
-        return selectedColor
-      }
-      return null
-    })
+    // Vẽ Mũi (Chữ L ngược đặc trưng)
+    grid[2 * 11 + 5] = 1; 
+    grid[3 * 11 + 5] = 1; 
+    grid[4 * 11 + 5] = 1; 
+    grid[5 * 11 + 5] = 1; 
+    grid[6 * 11 + 5] = 1; // Thân mũi dọc
+    grid[6 * 11 + 4] = 1; // Chóp mũi ngang
 
-    return { blockColor: selectedColor, blocks: blockArray }
+    // Vẽ Miệng (Hình vòng cung pixel)
+    grid[8 * 11 + 3] = 1; // Khóe trái
+    grid[8 * 11 + 7] = 1; // Khóe phải
+    grid[9 * 11 + 4] = 1; grid[9 * 11 + 5] = 1; grid[9 * 11 + 6] = 1; // Đáy miệng
+
+    return { blockColor: selectedColor, blocks: grid }
   }, [username])
-
-  const blockSize = size / 3
 
   return (
     <div
-      className="rounded-lg overflow-hidden border-2 border-border"
+      className="bg-white flex items-center justify-center border border-gray-200"
       style={{
         width: size,
         height: size,
-        display: "grid",
-        gridTemplateColumns: "repeat(3, 1fr)",
+        borderRadius: "15%", // Bo góc avatar tổng thể
       }}
     >
-      {blocks.map((color, idx) => (
-        <div
-          key={idx}
-          style={{
-            backgroundColor: color || "transparent",
-            width: blockSize,
-            height: blockSize,
-          }}
-        />
-      ))}
+      <div
+        style={{
+          display: "grid",
+          gridTemplateColumns: "repeat(11, 1fr)",
+          width: "80%", // Giữ khoảng cách lề (padding)
+          height: "80%",
+        }}
+      >
+        {blocks.map((isActive, idx) => (
+          <div
+            key={idx}
+            style={{
+              backgroundColor: isActive ? blockColor : "transparent",
+              // Pixel vuông hoàn toàn để giống ảnh gốc, hoặc bo cực nhẹ (1px)
+              borderRadius: "1px", 
+            }}
+          />
+        ))}
+      </div>
     </div>
   )
 }
-
-export { getAvatarColorForUser }
