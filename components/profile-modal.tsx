@@ -172,7 +172,7 @@ export function ProfileModal({ isOpen, onClose, onLogout, user }: ProfileModalPr
                           <p className="font-medium text-foreground">{item.subject}</p>
                         </div>
                         <div>
-                          <p className="text-xs font-semibold text-muted-foreground uppercase">Accuracy</p>
+                          <p className="text-xs font-semibold text-muted-foreground uppercase">Confidence</p>
                           <p className="font-medium text-green-600">{item.modelAccuracy}</p>
                         </div>
                         <div className="md:col-span-2">
