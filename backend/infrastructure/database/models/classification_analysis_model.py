@@ -10,6 +10,8 @@ class ClassificationAnalysisModel(Base):
 
     id = Column(Integer, primary_key=True, index=True)
 
+    public_code = Column(Text, nullable=False, unique=True, index=True)
+
     user_id = Column(Integer, nullable=False)
 
     image_path = Column(Text, nullable=False)

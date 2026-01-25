@@ -8,7 +8,8 @@
 |   |   `-- page.tsx
 |   |-- globals.css
 |   |-- layout.tsx
-|   `-- page.tsx
+|   |-- page.tsx
+|   `-- providers
 |-- backend
 |   |-- Requirements-Full.txt
 |   |-- Requirements-ML.txt
@@ -20,17 +21,23 @@
 |   |   |-- exception.py
 |   |   `-- services
 |   |       |-- __init__.py
+|   |       |-- classification_history_service.py
 |   |       |-- health_service.py
 |   |       |-- image_classifier_service.py
+|   |       |-- image_storage_service.py
 |   |       `-- user_service.py
 |   |-- development
+|   |   |-- db_test.py
 |   |   |-- json_user_repository.py
-|   |   `-- postgres_user_repository_test.py
+|   |   |-- model_test.py
+|   |   |-- postgres_user_repository_test.py
+|   |   `-- session_test.py
 |   |-- di.py
 |   |-- domain
 |   |   |-- __init__.py
 |   |   |-- entities
 |   |   |   |-- __init__.py
+|   |   |   |-- classification_analysis.py
 |   |   |   `-- user.py
 |   |   |-- exception.py
 |   |   `-- value_objects
@@ -41,13 +48,13 @@
 |   |   |-- database
 |   |   |   |-- __init__.py
 |   |   |   |-- base.py
-|   |   |   |-- db_test.py
-|   |   |   |-- model_test.py
 |   |   |   |-- models
 |   |   |   |   |-- __init__.py
+|   |   |   |   |-- classification_analysis_model.py
+|   |   |   |   |-- subject_sequence_model.py
 |   |   |   |   `-- user_model.py
 |   |   |   |-- postgres.py
-|   |   |   `-- session_test.py
+|   |   |   `-- supabase.py
 |   |   |-- ml
 |   |   |   |-- __init__.py
 |   |   |   |-- artifacts
@@ -79,28 +86,6 @@
 |   |   |   |   |-- clip_image_feature.py
 |   |   |   |   |-- node_feature_builder.py
 |   |   |   |   `-- text_feature_builder.py
-|   |   |   |-- hf_models
-|   |   |   |   |-- all-MiniLM-L6-v2
-|   |   |   |   |   |-- config.json
-|   |   |   |   |   |-- model.safetensors
-|   |   |   |   |   |-- modules.json
-|   |   |   |   |   |-- sentence_bert_config.json
-|   |   |   |   |   |-- special_tokens_map.json
-|   |   |   |   |   |-- tokenizer.json
-|   |   |   |   |   |-- tokenizer_config.json
-|   |   |   |   |   `-- vocab.txt
-|   |   |   |   `-- vit_base_patch32_clip_224.openai
-|   |   |   |       |-- README.md
-|   |   |   |       |-- config.json
-|   |   |   |       |-- merges.txt
-|   |   |   |       |-- open_clip_config.json
-|   |   |   |       |-- open_clip_model.safetensors
-|   |   |   |       |-- open_clip_pytorch_model.bin
-|   |   |   |       |-- pytorch_model.bin
-|   |   |   |       |-- special_tokens_map.json
-|   |   |   |       |-- tokenizer.json
-|   |   |   |       |-- tokenizer_config.json
-|   |   |   |       `-- vocab.json
 |   |   |   |-- image_classifier.py
 |   |   |   |-- models
 |   |   |   |   |-- __init__.py
@@ -121,6 +106,7 @@
 |   |   |       `-- neighbor_search.py
 |   |   `-- repositories
 |   |       |-- __init__.py
+|   |       |-- classification_analysis_repository.py
 |   |       |-- classifier_model_repository.py
 |   |       |-- postgres_health_repository.py
 |   |       |-- postgres_user_repository.py
@@ -129,13 +115,16 @@
 |   |   |-- __init__.py
 |   |   |-- repositories
 |   |   |   |-- __init__.py
+|   |   |   |-- classification_analysis_repository_interface.py
 |   |   |   |-- classifier_model_repository_interface.py
 |   |   |   |-- health_repository_interface.py
 |   |   |   `-- user_repository_interface.py
 |   |   `-- services
 |   |       |-- __init__.py
+|   |       |-- classification_history_service_interface.py
 |   |       |-- health_service_interface.py
 |   |       |-- image_classifier_service_interface.py
+|   |       |-- image_storage_service_interface.py
 |   |       `-- user_service_interface.py
 |   |-- presentation
 |   |   |-- __init__.py
@@ -230,6 +219,7 @@
 |-- lib
 |   |-- api
 |   |   |-- auth.ts
+|   |   |-- history.mapper.ts
 |   |   |-- model.mapper.ts
 |   |   |-- model.ts
 |   |   `-- users.ts
@@ -237,6 +227,7 @@
 |   |   `-- classification.ts
 |   `-- utils.ts
 |-- middleware.ts
+|-- ml_kernel
 |-- next-env.d.ts
 |-- next.config.mjs
 |-- package-lock.json
@@ -256,6 +247,7 @@
 |-- structure.txt
 |-- styles
 |   `-- globals.css
+|-- tailwind.config.ts
 `-- tsconfig.json
 
-47 directories, 211 files
+46 directories, 204 files

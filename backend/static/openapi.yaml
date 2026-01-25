@@ -75,9 +75,6 @@ components:
         created_at:
           type: string
           format: date-time
-          
-security:
-  - BearerAuth: []
 
 paths:
   /users:
@@ -349,7 +346,9 @@ paths:
   /model/classifications:
     get:
       summary: Get user classification history
-      description: Returns paginated classification history (3 items per page)
+      description: >
+        Returns paginated classification history.
+        Supports optional search by public code or subject.
       tags: [Model]
       security:
         - BearerAuth: []
@@ -361,18 +360,48 @@ paths:
             type: integer
             minimum: 1
             default: 1
-          description: Page number (3 items per page)
+          description: Page number
+
+        - in: query
+          name: q
+          required: false
+          schema:
+            type: string
+          description: >
+            Optional search keyword.
+            Matches public code or subject.
+
       responses:
         "200":
-          description: List of classification history items
+          description: Paginated classification history
           content:
             application/json:
               schema:
-                type: array
-                items:
-                  $ref: "#/components/schemas/ClassificationHistoryItem"
+                type: object
+                properties:
+                  items:
+                    type: array
+                    items:
+                      $ref: "#/components/schemas/ClassificationHistoryItem"
+                  page:
+                    type: integer
+                    example: 1
+                  limit:
+                    type: integer
+                    example: 3
+                  total:
+                    type: integer
+                    example: 12
+                  total_pages:
+                    type: integer
+                    example: 4
+                  q:
+                    type: string
+                    nullable: true
+                    example: ENG
         "401":
           description: Unauthorized
+
 
   /health/app:
     head:

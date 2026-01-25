@@ -1,21 +1,25 @@
 'use client'
 
-import { useState, useMemo } from "react"
+// import { useState, useMemo } from "react"
 import { Button } from "@/components/ui/button"
 import { Card } from "@/components/ui/card"
 import { X, Search, ChevronLeft, ChevronRight } from 'lucide-react'
 import { GitHubAvatar, getAvatarColorForUser } from "@/components/github-avatar"
+import type { UIClassificationHistory } from "@/lib/api/history.mapper"
+import { useEffect, useState, useMemo } from "react"
+import { fetchClassificationHistory } from "@/lib/api/model"
+import { mapHistoryItemToUI } from "@/lib/api/history.mapper"
 
-interface ClassificationHistory {
-  id: string
-  image: string
-  createdDate: string
-  class: string
-  subject: string
-  modelAccuracy: string
-  category: string
-  categoryColor: string
-}
+// interface ClassificationHistory {
+//   id: string
+//   image: string
+//   createdDate: string
+//   class: string
+//   subject: string
+//   modelAccuracy: string
+//   category: string
+//   categoryColor: string
+// }
 
 interface ProfileModalProps {
   isOpen: boolean
@@ -29,70 +33,94 @@ interface ProfileModalProps {
 }
 
 export function ProfileModal({ isOpen, onClose, onLogout, user }: ProfileModalProps) {
-  const [searchTerm, setSearchTerm] = useState("")
+  // const [searchTerm, setSearchTerm] = useState("")
+  // const [currentPage, setCurrentPage] = useState(1)
+  // const itemsPerPage = 3
+  const [history, setHistory] = useState<UIClassificationHistory[]>([])
   const [currentPage, setCurrentPage] = useState(1)
-  const itemsPerPage = 3
+  const [totalPages, setTotalPages] = useState(1)
+  const [searchTerm, setSearchTerm] = useState("")
+  const [loading, setLoading] = useState(false)
 
-  const classificationHistory: ClassificationHistory[] = [
-    {
-      id: "ME2-001",
-      image: "/classified-image-1.jpg",
-      createdDate: "2024-01-15 14:30",
-      class: "Mountain Escape Two",
-      subject: "Cat",
-      modelAccuracy: "94.2%",
-      category: "Eight Class",
-      categoryColor: "#FF6B6B",
-    },
-    {
-      id: "ME2-002",
-      image: "/classified-image-2.jpg",
-      createdDate: "2024-01-14 09:15",
-      class: "Mountain Escape Two",
-      subject: "Dog",
-      modelAccuracy: "92.1%",
-      category: "Five Class",
-      categoryColor: "#4ECDC4",
-    },
-    {
-      id: "ME2-003",
-      image: "/classified-image-3.jpg",
-      createdDate: "2024-01-13 16:45",
-      class: "Mountain Escape Two",
-      subject: "Bird",
-      modelAccuracy: "88.5%",
-      category: "Three Class",
-      categoryColor: "#45B7D1",
-    },
-    {
-      id: "ME2-004",
-      image: "/classified-image-2.jpg",
-      createdDate: "2024-01-14 09:15",
-      class: "Mountain Escape Two",
-      subject: "Dog",
-      modelAccuracy: "92.1%",
-      category: "Five Class",
-      categoryColor: "#4ECDC4",
-    },
-  ]
-
-  // Filter and Paginate Data
-  const filteredData = useMemo(() => {
-    return classificationHistory.filter(item => 
-      item.subject.toLowerCase().includes(searchTerm.toLowerCase()) ||
-      item.id.toLowerCase().includes(searchTerm.toLowerCase())
-    )
-  }, [searchTerm])
-
-  const totalPages = Math.ceil(filteredData.length / itemsPerPage)
+  // const classificationHistory: ClassificationHistory[] = [
+  //   {
+  //     id: "ME2-001",
+  //     image: "/classified-image-1.jpg",
+  //     createdDate: "2024-01-15 14:30",
+  //     class: "Mountain Escape Two",
+  //     subject: "Cat",
+  //     modelAccuracy: "94.2%",
+  //     category: "Eight Class",
+  //     categoryColor: "#FF6B6B",
+  //   },
+  //   {
+  //     id: "ME2-002",
+  //     image: "/classified-image-2.jpg",
+  //     createdDate: "2024-01-14 09:15",
+  //     class: "Mountain Escape Two",
+  //     subject: "Dog",
+  //     modelAccuracy: "92.1%",
+  //     category: "Five Class",
+  //     categoryColor: "#4ECDC4",
+  //   },
+  //   {
+  //     id: "ME2-003",
+  //     image: "/classified-image-3.jpg",
+  //     createdDate: "2024-01-13 16:45",
+  //     class: "Mountain Escape Two",
+  //     subject: "Bird",
+  //     modelAccuracy: "88.5%",
+  //     category: "Three Class",
+  //     categoryColor: "#45B7D1",
+  //   },
+  //   {
+  //     id: "ME2-004",
+  //     image: "/classified-image-2.jpg",
+  //     createdDate: "2024-01-14 09:15",
+  //     class: "Mountain Escape Two",
+  //     subject: "Dog",
+  //     modelAccuracy: "92.1%",
+  //     category: "Five Class",
+  //     categoryColor: "#4ECDC4",
+  //   },
+  // ]
   
-  const paginatedData = useMemo(() => {
-    const start = (currentPage - 1) * itemsPerPage
-    return filteredData.slice(start, start + itemsPerPage)
-  }, [filteredData, currentPage])
+  // Filter and Paginate Data
+  // const filteredData = useMemo(() => {
+  //   return classificationHistory.filter(item => 
+  //     item.subject.toLowerCase().includes(searchTerm.toLowerCase()) ||
+  //     item.id.toLowerCase().includes(searchTerm.toLowerCase())
+  //   )
+  // }, [searchTerm])
 
-  const avatarColor = user?.username ? getAvatarColorForUser(user.username) : "#4ECDC4"
+  // const totalPages = Math.ceil(filteredData.length / itemsPerPage)
+  
+  // const paginatedData = useMemo(() => {
+  //   const start = (currentPage - 1) * itemsPerPage
+  //   return filteredData.slice(start, start + itemsPerPage)
+  // }, [filteredData, currentPage])
 
+  const avatarColor = user
+    ? getAvatarColorForUser(user.username)
+    : "#4ECDC4"
+
+  useEffect(() => {
+    if (!isOpen || !user) return
+
+    setLoading(true)
+
+    fetchClassificationHistory({
+      page: currentPage,
+      q: searchTerm || undefined,
+    })
+      .then((res) => {
+        setHistory(res.items.map(mapHistoryItemToUI))
+        setTotalPages(res.total_pages)
+      })
+      .finally(() => setLoading(false))
+  }, [isOpen, user, currentPage, searchTerm])
+
+  // 🔥 THIS is the critical fix
   if (!isOpen || !user) return null
 
   return (
@@ -149,8 +177,8 @@ export function ProfileModal({ isOpen, onClose, onLogout, user }: ProfileModalPr
             </div>
 
             <div className="space-y-3 min-h-[200px]">
-              {paginatedData.length > 0 ? (
-                paginatedData.map((item) => (
+              {history.length > 0 ? (
+                history.map((item) => (
                   <Card key={item.id} className="p-3 hover:border-primary/50 transition-colors bg-card">
                     <div className="flex gap-4 items-start">
                       <img
@@ -158,29 +186,68 @@ export function ProfileModal({ isOpen, onClose, onLogout, user }: ProfileModalPr
                         alt={item.subject}
                         className="w-20 h-20 rounded object-cover flex-shrink-0"
                       />
-                      <div className="flex-1 grid grid-cols-2 md:grid-cols-3 gap-3 text-sm">
-                        <div>
-                          <p className="text-xs font-semibold text-muted-foreground uppercase">ID</p>
-                          <p className="font-medium text-foreground">{item.id}</p>
-                        </div>
-                        <div>
-                          <p className="text-xs font-semibold text-muted-foreground uppercase">Class</p>
-                          <p className="font-medium text-foreground">{item.class}</p>
-                        </div>
-                        <div>
-                          <p className="text-xs font-semibold text-muted-foreground uppercase">Subject</p>
-                          <p className="font-medium text-foreground">{item.subject}</p>
-                        </div>
-                        <div>
-                          <p className="text-xs font-semibold text-muted-foreground uppercase">Confidence</p>
-                          <p className="font-medium text-green-600">{item.modelAccuracy}</p>
-                        </div>
-                        <div className="md:col-span-2">
-                          <p className="text-xs font-semibold text-muted-foreground uppercase">Created Date</p>
-                          <p className="font-medium text-foreground">{item.createdDate}</p>
-                        </div>
-                      </div>
-                    </div>
+              <div className="flex-1 grid grid-cols-2 md:grid-cols-3 gap-3 text-sm">
+                {/* ID */}
+                <div>
+                  <p className="text-xs font-semibold text-muted-foreground uppercase">
+                    ID
+                  </p>
+                  <p className="font-medium text-foreground">
+                    {item.id}
+                  </p>
+                </div>
+
+                {/* Subject */}
+                <div>
+                  <p className="text-xs font-semibold text-muted-foreground uppercase">
+                    Subject
+                  </p>
+                  <p className="font-medium text-foreground">
+                    {item.subject}
+                  </p>
+                </div>
+
+                {/* Grade — NEW */}
+                <div>
+                  <p className="text-xs font-semibold text-muted-foreground uppercase">
+                    Grade
+                  </p>
+                  <p className="font-medium text-foreground">
+                    {item.gradeLabel}
+                  </p>
+                </div>
+
+                {/* Confidence */}
+                <div>
+                  <p className="text-xs font-semibold text-muted-foreground uppercase">
+                    Confidence
+                  </p>
+                  <p className="font-medium text-green-600">
+                    {item.confidenceLabel}
+                  </p>
+                </div>
+
+                {/* Model — MOVED DOWN */}
+                <div>
+                  <p className="text-xs font-semibold text-muted-foreground uppercase">
+                    Model
+                  </p>
+                  <p className="font-medium text-foreground">
+                    {item.modelVariant}
+                  </p>
+                </div>
+
+                {/* Created Date */}
+                <div>
+                  <p className="text-xs font-semibold text-muted-foreground uppercase">
+                    Created Date
+                  </p>
+                  <p className="font-medium text-foreground">
+                    {item.createdDate}
+                  </p>
+                </div>
+              </div>
+              </div>
                   </Card>
                 ))
               ) : (
@@ -194,19 +261,20 @@ export function ProfileModal({ isOpen, onClose, onLogout, user }: ProfileModalPr
                 <Button
                   variant="ghost"
                   size="sm"
-                  onClick={() => setCurrentPage(prev => Math.max(prev - 1, 1))}
+                  onClick={() => setCurrentPage((p) => Math.max(p - 1, 1))}
                   disabled={currentPage === 1}
-                  className="flex items-center gap-1"
                 >
                   <ChevronLeft className="w-4 h-4" /> Previous
                 </Button>
+
                 <span className="text-sm font-medium">
                   Page {currentPage} of {totalPages}
                 </span>
+
                 <Button
                   variant="ghost"
                   size="sm"
-                  onClick={() => setCurrentPage(prev => Math.min(prev + 1, totalPages))}
+                  onClick={(p) => setCurrentPage((prev) => Math.min(prev + 1, totalPages))}
                   disabled={currentPage === totalPages}
                   className="flex items-center gap-1"
                 >

@@ -61,16 +61,18 @@ export default function Home() {
     const bootAuthCheck = async () => {
       try {
         await validateToken()
-
+  
         const storedUser = localStorage.getItem("currentUser")
         if (!storedUser) throw new Error()
-
+  
+        const parsed = JSON.parse(storedUser)
+  
         setUser({
-          fullName: user.fullName,
-          username: user.username,
-          email: user.email,
+          fullName: parsed.fullName ?? "",
+          username: parsed.username,
+          email: parsed.email,
         })
-
+  
         setIsAuthenticated(true)
       } catch {
         handleLogout()
@@ -78,9 +80,10 @@ export default function Home() {
         setAuthChecked(true)
       }
     }
-
+  
     bootAuthCheck()
   }, [])
+  
 
 
   //   const handleSignIn = async (identifier: string, password: string) => {

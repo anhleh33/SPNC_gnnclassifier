@@ -5,7 +5,9 @@ from typing import Optional
 class ClassificationAnalysis:
     def __init__(
         self,
-        id: Optional[int],
+        *,
+        id: Optional[int] = None,
+        public_code: Optional[str] = None,
         user_id: int,
         image_path: str,
         label: str,
@@ -25,10 +27,11 @@ class ClassificationAnalysis:
         if not label:
             raise ValueError("label is required")
 
-        if confidence < 0 or confidence > 1:
+        if not (0 <= confidence <= 1):
             raise ValueError("confidence must be between 0 and 1")
 
         self.id = id
+        self.public_code = public_code
         self.user_id = user_id
         self.image_path = image_path
         self.label = label

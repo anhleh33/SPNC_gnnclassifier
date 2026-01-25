@@ -57,23 +57,33 @@ def create_prediction():
 def list_classifications():
     user_id = int(get_jwt_identity())
     page = int(request.args.get("page", 1))
+    q = request.args.get("q")  # 👈 optional search keyword
 
-    analyses = classification_history_service.list_user_history(
+    result = classification_history_service.list_user_history(
         user_id=user_id,
         page=page,
+        q=q,
     )
 
-    return jsonify([
-        {
-            "id": a.id,
-            "image_path": a.image_path,
-            "label": a.label,
-            "confidence": a.confidence,
-            "subject": a.subject,
-            "subject_code": a.subject_code,
-            "grade": a.grade,
-            "model_variant": a.model_variant,
-            "created_at": a.created_at.isoformat(),
-        }
-        for a in analyses
-    ])
+    return jsonify({
+        "items": [
+            {
+                "id": a.id,
+                "public_code": a.public_code,
+                "image_path": a.image_path,
+                "label": a.label,
+                "confidence": a.confidence,
+                "subject": a.subject,
+                "subject_code": a.subject_code,
+                "grade": a.grade,
+                "model_variant": a.model_variant,
+                "created_at": a.created_at.isoformat(),
+            }
+            for a in result["items"]
+        ],
+        "page": result["page"],
+        "limit": result["limit"],
+        "total": result["total"],
+        "total_pages": result["total_pages"],
+        "q": q,
+    })

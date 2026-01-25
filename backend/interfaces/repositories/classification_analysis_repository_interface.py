@@ -5,8 +5,16 @@ from backend.domain.entities.classification_analysis import ClassificationAnalys
 
 
 class IClassificationAnalysisRepository:
-    def create(self, analysis: ClassificationAnalysis) -> ClassificationAnalysis:
+    def create(self, analysis: ClassificationAnalysis, db) -> ClassificationAnalysis:
         raise NotImplementedError
 
-    def list_by_user(self, user_id: int, page: int, limit: int) -> List[ClassificationAnalysis]:
+    def list_by_user(self, user_id: int, page: int, limit: int, q: str) -> List[ClassificationAnalysis]:
+        raise NotImplementedError
+
+    def get_next_subject_number(
+        self,
+        *,
+        subject_code: str,
+        db,
+    ) -> int:
         raise NotImplementedError
