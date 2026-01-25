@@ -158,7 +158,7 @@ export function ProfileModal({ isOpen, onClose, onLogout, user }: ProfileModalPr
           {/* History Section */}
           <div className="border-t border-border pt-6">
             <div className="flex flex-col md:flex-row md:items-center justify-between gap-4 mb-4">
-              <h3 className="font-semibold text-lg text-foreground">Classification History</h3>
+              <h3 className="font-semibold text-lg text-foreground">CLASSIFICATION HISTORY</h3>
               
               {/* Search Bar */}
               <div className="relative w-full md:w-72">
