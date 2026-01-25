@@ -5,7 +5,7 @@ import { ThemeProvider } from "@/components/theme-provider"
 import "./globals.css"
 
 export const metadata: Metadata = {
-  title: "GNN Image Classifier - AI-Powered Subject Recognition",
+  title: "Digital Learning Resources Image Classifier - AI-Powered Subject Recognition",
   description: "Upload images and classify subjects using Graph Neural Networks",
   generator: "v0.app",
 }
