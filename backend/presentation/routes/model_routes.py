@@ -9,14 +9,14 @@ from backend.di import image_classifier_service, image_storage_service, classifi
 model_bp = Blueprint("model", __name__, url_prefix="/model")
 
 CLASSIFIERS = {
-    "single": image_classifier_service.classify_image_single,
-    "dual": image_classifier_service.classify_image_dual,
+    "kNN-Voting": image_classifier_service.classify_image_single,
+    "GraphSAGE-I_v2": image_classifier_service.classify_image_dual,
 }
 
 @model_bp.route("/classification", methods=["POST"])
 @jwt_required()
 def create_prediction():
-    user_id = get_jwt_identity()
+    user_id = int(get_jwt_identity())
     print("JWT identity:", user_id, type(user_id))
 
     if "image" not in request.files:
@@ -25,7 +25,7 @@ def create_prediction():
     image_file = request.files["image"]
     image_bytes = image_file.read()
 
-    variant = request.headers.get("X-Model-Variant", "single")
+    variant = request.headers.get("X-Model-Variant", "kNN-Voting")
     classifier = CLASSIFIERS.get(variant)
     if not classifier:
         return jsonify({"error": "Invalid model variant"}), 400
@@ -52,3 +52,28 @@ def create_prediction():
     # 4️⃣ Return model result
     return jsonify(result), 200
 
+@model_bp.route("/classifications", methods=["GET"])
+@jwt_required()
+def list_classifications():
+    user_id = int(get_jwt_identity())
+    page = int(request.args.get("page", 1))
+
+    analyses = classification_history_service.list_user_history(
+        user_id=user_id,
+        page=page,
+    )
+
+    return jsonify([
+        {
+            "id": a.id,
+            "image_path": a.image_path,
+            "label": a.label,
+            "confidence": a.confidence,
+            "subject": a.subject,
+            "subject_code": a.subject_code,
+            "grade": a.grade,
+            "model_variant": a.model_variant,
+            "created_at": a.created_at.isoformat(),
+        }
+        for a in analyses
+    ])

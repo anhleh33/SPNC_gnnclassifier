@@ -8,5 +8,5 @@ class IClassificationAnalysisRepository:
     def create(self, analysis: ClassificationAnalysis) -> ClassificationAnalysis:
         raise NotImplementedError
 
-    def list_by_user(self, user_id: int) -> List[ClassificationAnalysis]:
+    def list_by_user(self, user_id: int, page: int, limit: int) -> List[ClassificationAnalysis]:
         raise NotImplementedError

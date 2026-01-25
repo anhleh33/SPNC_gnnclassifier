@@ -11,6 +11,74 @@ servers:
   - url: http://127.0.0.1:5000
     description: Local development server
 
+components:
+  securitySchemes:
+    BearerAuth:
+      type: http
+      scheme: bearer
+      bearerFormat: JWT
+  schemas:
+    ClassificationResult:
+      type: object
+      properties:
+        label:
+          type: string
+        confidence:
+          type: number
+          format: float
+        subject:
+          type: string
+        subject_code:
+          type: string
+        grade:
+          type: integer
+        processing_time_ms:
+          type: number
+          format: float
+        top_predictions:
+          type: array
+          items:
+            type: object
+            properties:
+              label:
+                type: string
+              confidence:
+                type: number
+                format: float
+              subject:
+                type: string
+              subject_code:
+                type: string
+              grade:
+                type: integer
+
+    ClassificationHistoryItem:
+      type: object
+      properties:
+        id:
+          type: integer
+        image_path:
+          type: string
+        label:
+          type: string
+        confidence:
+          type: number
+          format: float
+        subject:
+          type: string
+        subject_code:
+          type: string
+        grade:
+          type: integer
+        model_variant:
+          type: string
+        created_at:
+          type: string
+          format: date-time
+          
+security:
+  - BearerAuth: []
+
 paths:
   /users:
     get:
@@ -234,16 +302,14 @@ paths:
                   error:
                     type: string
                     example: username is required
-  
+
   /model/classification:
     post:
-      summary: Create a prediction from an image
-      description: >
-        Accepts an image file and returns a model prediction.
-        This endpoint is currently a placeholder and always returns 501.
-      operationId: createPrediction
-      tags:
-        - Model
+      summary: Run image classification
+      description: Upload an image, classify it, store the image and classification history
+      tags: [Model]
+      security:
+        - BearerAuth: []
       requestBody:
         required: true
         content:
@@ -256,39 +322,57 @@ paths:
                 image:
                   type: string
                   format: binary
-                  description: Image file to classify
+      parameters:
+        - in: header
+          name: X-Model-Variant
+          required: false
+          schema:
+            type: string
+            enum:
+              - kNN-Voting
+              - GraphSAGE-I_v2
+          description: Model variant to use
       responses:
-        "501":
-          description: Model not implemented
+        "200":
+          description: Classification result
           content:
             application/json:
               schema:
-                $ref: "#/components/schemas/ModelNotImplementedResponse"
+                $ref: "#/components/schemas/ClassificationResult"
         "400":
-          description: Invalid request (e.g. missing image)
+          description: Invalid input
+        "401":
+          description: Unauthorized
+        "503":
+          description: Model temporarily unavailable
+
+  /model/classifications:
+    get:
+      summary: Get user classification history
+      description: Returns paginated classification history (3 items per page)
+      tags: [Model]
+      security:
+        - BearerAuth: []
+      parameters:
+        - in: query
+          name: page
+          required: false
+          schema:
+            type: integer
+            minimum: 1
+            default: 1
+          description: Page number (3 items per page)
+      responses:
+        "200":
+          description: List of classification history items
           content:
             application/json:
               schema:
-                $ref: "#/components/schemas/ErrorResponse"
-
-  components:
-    schemas:
-      ModelNotImplementedResponse:
-        type: object
-        properties:
-          status:
-            type: string
-            example: model_not_implemented
-          message:
-            type: string
-            example: The classification model is not implemented yet.
-
-      ErrorResponse:
-        type: object
-        properties:
-          error:
-            type: string
-            example: Image file is required
+                type: array
+                items:
+                  $ref: "#/components/schemas/ClassificationHistoryItem"
+        "401":
+          description: Unauthorized
 
   /health/app:
     head:

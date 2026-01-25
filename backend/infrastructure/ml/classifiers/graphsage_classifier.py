@@ -12,7 +12,7 @@ class GraphSAGEClassifier:
         node_feat: torch.Tensor,
         model,
         labels,
-        k_neighbors=10,
+        k_neighbors=5,
         topk=3
     ):
         neighbors = self.searcher.find(

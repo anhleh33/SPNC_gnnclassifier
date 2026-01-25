@@ -1,5 +1,5 @@
 from flask import Blueprint, request, jsonify
-from flask_jwt_extended import create_access_token
+from flask_jwt_extended import create_access_token, jwt_required
 
 from backend.domain.exception import InvalidCredentials
 from backend.di import user_service
@@ -35,3 +35,8 @@ def login():
 
     except InvalidCredentials:
         return jsonify({"error": "Incorrect username or password"}), 401
+    
+@auth_bp.route("/token", methods=["HEAD"])
+@jwt_required()
+def validate_token():
+    return "", 200

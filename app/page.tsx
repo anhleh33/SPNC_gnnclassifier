@@ -1,6 +1,6 @@
 "use client"
 import { createUser } from "@/lib/api/users"
-import { login } from "@/lib/api/auth"
+import { login, validateToken } from "@/lib/api/auth"
 
 import { ImageClassifier } from "@/components/image-classifier"
 import { ThemeToggle } from "@/components/theme-toggle"
@@ -38,25 +38,59 @@ export default function Home() {
   //   ]
   //   localStorage.setItem("users", JSON.stringify(defaultUsers))
   // }, [])
+  // useEffect(() => {
+  //   const token = localStorage.getItem("access_token")
+  //   const storedUser = localStorage.getItem("currentUser")
+  
+  //   if (token && storedUser) {
+  //     const user = JSON.parse(storedUser)
+  
+  //     setUser({
+  //       fullName: "",
+  //       username: user.username,
+  //       email: user.email,
+  //     })
+  
+  //     setIsAuthenticated(true)
+  //   }
+  
+  //   setAuthChecked(true)
+  // }, [])
+  
   useEffect(() => {
-    const token = localStorage.getItem("access_token")
-    const storedUser = localStorage.getItem("currentUser")
+    const bootAuthCheck = async () => {
+      try {
+        await validateToken()
   
-    if (token && storedUser) {
-      const user = JSON.parse(storedUser)
+        const storedUser = localStorage.getItem("currentUser")
+        if (!storedUser) throw new Error()
   
+<<<<<<< HEAD
       setUser({
         fullName: user.full_name,
         username: user.username,
         email: user.email,
       })
+=======
+        const user = JSON.parse(storedUser)
+>>>>>>> 54600d1a8a98b1b23bb2ecb9bf99698da0d2d3ef
   
-      setIsAuthenticated(true)
+        setUser({
+          fullName: "",
+          username: user.username,
+          email: user.email,
+        })
+  
+        setIsAuthenticated(true)
+      } catch {
+        handleLogout() // ✅ automatic logout
+      } finally {
+        setAuthChecked(true)
+      }
     }
   
-    setAuthChecked(true)
+    bootAuthCheck()
   }, [])
-  
   
 
 //   const handleSignIn = async (identifier: string, password: string) => {
