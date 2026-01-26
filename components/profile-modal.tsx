@@ -292,7 +292,8 @@ export function ProfileModal({ isOpen, onClose, onLogout, user }: ProfileModalPr
           </Button>
           <Button 
             onClick={onLogout} 
-            className="flex-1 text-white"
+            variant="outline"
+            className="flex-1"
             style={{ backgroundColor: avatarColor }}
           >
             Logout
