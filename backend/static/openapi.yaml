@@ -436,6 +436,61 @@ paths:
   #     responses:
   #       "418":
   #         description: I'm a teapot ☕
+  /model/classification/debug/knn-graphsage:
+    post:
+      summary: "[TEMP] Debug kNN GraphSAGE raw output"
+      description: >
+        ⚠️ TEMPORARY DEBUG ENDPOINT (NO AUTH)
+
+        Runs the inductive kNN GraphSAGE classifier and returns
+        the raw model output without any post-processing.
+
+        Purpose:
+          - Inspect label format
+          - Inspect score semantics
+          - Validate output shape before API finalization
+
+        This endpoint is NOT authenticated, NOT persisted,
+        and MUST NOT be used in production clients.
+
+      tags: [Model, Debug]
+
+      requestBody:
+        required: true
+        content:
+          multipart/form-data:
+            schema:
+              type: object
+              required:
+                - image
+              properties:
+                image:
+                  type: string
+                  format: binary
+                  description: Image file to classify
+
+      responses:
+        "200":
+          description: Raw GraphSAGE output
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  raw:
+                    type: object
+                    description: >
+                      Raw classifier output.
+                      Shape is NOT finalized and may change.
+                  processing_time_ms:
+                    type: number
+                    example: 123.45
+
+        "400":
+          description: Image file missing
+
+        "500":
+          description: ML inference failure
 
 tags:
   - name: Default

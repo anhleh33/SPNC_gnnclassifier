@@ -8,6 +8,17 @@ export interface ModelClassificationResponse {
   grade: number
   label: string
   processing_time_ms?: number
+  model_variant: string
+  graph_nodes: number
+  graph_edges: number | null
+  dimension: number
+
+  image?: {
+    image_size: string
+    image_format: string
+    image_width?: number
+    image_height?: number
+  }
 
   top_predictions: Array<{
     subject: string
@@ -59,6 +70,7 @@ export interface ClassificationHistoryItem {
   id: number
   public_code: string
   image_path: string
+  image_url: string
   label: string
   confidence: number
   subject: string

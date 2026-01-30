@@ -91,3 +91,36 @@ class VotingImageClassifier:
         tmp.write(image_bytes)
         tmp.close()
         return Path(tmp.name)
+
+class KNNGraphSAGEImageClassifier:
+    """
+    Image-level orchestrator for inductive GraphSAGE classifier
+    using kNN-based ego-graph construction.
+
+    This is the NEW single-head GNN pipeline.
+    """
+
+    def __init__(self, node_feature_builder, graphsage_classifier):
+        self.node_feature_builder = node_feature_builder
+        self.classifier = graphsage_classifier
+
+    def classify(self, image_bytes: bytes) -> dict:
+        image_path = self._save_temp_image(image_bytes)
+
+        node_feat = self.node_feature_builder.build(image_path)
+
+        # 🔑 returns List[(label, prob)]
+        predictions = self.classifier.classify(node_feat)
+
+        return {
+            "predictions": [
+                {"label": label, "score": score}
+                for label, score in predictions
+            ]
+        }
+
+    def _save_temp_image(self, image_bytes: bytes) -> Path:
+        tmp = tempfile.NamedTemporaryFile(delete=False, suffix=".png")
+        tmp.write(image_bytes)
+        tmp.close()
+        return Path(tmp.name)

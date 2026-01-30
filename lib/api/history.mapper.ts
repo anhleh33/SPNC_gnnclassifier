@@ -22,6 +22,7 @@ export interface UIClassificationHistory {
   export function mapHistoryItemToUI(item: {
     public_code: string
     image_path: string
+    image_url: string
     subject: string
     confidence: number
     grade: number
@@ -30,7 +31,7 @@ export interface UIClassificationHistory {
   }): UIClassificationHistory {
     return {
       id: item.public_code,
-      image: item.image_path,
+      image: item.image_url,
       subject: item.subject,
   
       confidence: item.confidence,

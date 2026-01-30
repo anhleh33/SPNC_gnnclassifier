@@ -76,7 +76,7 @@ export function mapModelToClassificationResult(
 
     classId: data.grade,
     processingTime: data.processing_time_ms ?? 0,
-    modelVersion: "v1",
+    modelVersion: data.model_variant,
 
     topPredictions: data.top_predictions.slice(0, TOP_K).map((p) => ({
       subject: p.subject,
@@ -100,11 +100,11 @@ export function mapModelToClassificationResult(
     },
 
     technicalDetails: {
-      imageSize: "N/A",
-      dimensions: "N/A",
-      format: "N/A",
-      graphNodes: 0,
-      graphEdges: 0,
-    },
+      imageSize: data.image?.image_size ?? "N/A",
+      format: data.image?.image_format ?? "N/A",
+      dimensions: data.dimension,
+      graphNodes: data.graph_nodes,
+      graphEdges: data.graph_edges,
+    }
   }
 }

@@ -24,10 +24,10 @@ export interface ClassificationResult {
   
     technicalDetails: {
       imageSize: string
-      dimensions: string
+      dimensions: number
       format: string
       graphNodes: number
-      graphEdges: number
+      graphEdges: number | null
     }
   }
   

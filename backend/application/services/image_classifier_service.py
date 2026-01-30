@@ -13,9 +13,11 @@ class ImageClassificationService:
         self,
         single_classifier: IImageClassifierInterface,
         dual_classifier: IImageClassifierInterface,
+        # single_graphsage_classifier: IImageClassifierInterface
     ):
         self.single_classifier = single_classifier
         self.dual_classifier = dual_classifier
+        # self.single_graphsage_classifier = single_graphsage_classifier
 
     @staticmethod
     def _split_subject_grade(label: str) -> tuple[str, int]:
@@ -74,6 +76,10 @@ class ImageClassificationService:
             "subject_code": self._subject_code(subject),
             "grade": grade,
             "processing_time_ms": round(processing_time_ms, 2),
+            "model_variant": "GraphSAGE-I_v2",
+            "graph_nodes": 9644,
+            "graph_edges": 39504,
+            "dimension": 896,
             "top_predictions": [
                 {
                     "label": label,
@@ -127,6 +133,10 @@ class ImageClassificationService:
             "subject_code": self._subject_code(subject),
             "grade": grade,
             "processing_time_ms": round(processing_time_ms, 2),
+            "model_variant": "kNN-Voting",
+            "graph_nodes": 9644,
+            "graph_edges": None,
+            "dimension": 2432,
             "top_predictions": [
                 {
                     "label": label,
@@ -141,3 +151,25 @@ class ImageClassificationService:
             ],
         }
 
+    def classify_image_knn_graphsage_raw(self, image_bytes: bytes) -> dict:
+        """
+        TEMP: raw passthrough for new inductive GNN
+        Used only for inspecting output shape before finalizing API
+        """
+        start_time = time.perf_counter()
+
+        try:
+            raw = self.single_graphsage_classifier.classify(image_bytes)
+        except Exception as e:
+            print("🔥 ML ROOT ERROR:")
+            traceback.print_exc()
+            raise MLServiceUnavailable("ML inference failed") from e
+
+        processing_time_ms = (time.perf_counter() - start_time) * 1000
+            
+        print(raw)
+        
+        return {
+            "raw": raw,
+            "processing_time_ms": round(processing_time_ms, 2),
+        }

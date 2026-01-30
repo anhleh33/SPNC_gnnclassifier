@@ -19,6 +19,7 @@ def login():
         access_token = create_access_token(
             identity=str(user.id),
             additional_claims={
+                "full_name": user.full_name,
                 "username": user.username,
                 "email": user.email,
             }
@@ -28,6 +29,7 @@ def login():
             "access_token": access_token,
             "user": {
                 "id": user.id,
+                "full_name": user.full_name,
                 "username": user.username,
                 "email": user.email,
             }

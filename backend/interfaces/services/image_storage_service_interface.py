@@ -14,3 +14,7 @@ class IImageStorageService(ABC):
         Stores image and returns its storage path/key.
         """
         raise NotImplementedError
+
+    @abstractmethod
+    def get_signed_url(self, path: str, expires_in: int = 3600) -> str:
+        raise NotImplementedError

@@ -428,7 +428,7 @@ export function ImageClassifier({ isAuthenticated, onNotification, resetSignal }
                     </div>
                     <div className="flex justify-between">
                       <span className="text-foreground">Graph Edges:</span>
-                      <span className="font-medium text-foreground">{result.technicalDetails.graphEdges}</span>
+                      <span className="font-medium text-foreground">{result.technicalDetails.graphEdges ?? "None"}</span>
                     </div>
                     <div className="flex justify-between">
                       <span className="text-foreground">Model Conficence:</span>
