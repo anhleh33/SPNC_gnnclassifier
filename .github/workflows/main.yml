@@ -7,10 +7,10 @@ on:
 
 jobs:
   build-and-push:
-    runs-on: ubuntu-latest  # Use a fresh Ubuntu machine provided by GitHub
+    runs-on: ubuntu-latest
     steps:
       - name: Checkout Code
-        uses: actions/checkout@v4  # Pull your code into the runner
+        uses: actions/checkout@v4
 
       # 1. Log in to your Azure Container Registry
       - name: Docker Login to ACR
@@ -21,13 +21,14 @@ jobs:
           password: ${{ vars.ACR_PASSWORD }}
 
       # 2. Build and Push your Backend Docker image
+      # The "-t" flag below sets the specific name and tag
       - name: Build and Push Backend Image
         run: |
           docker build -t ${{ vars.ACR_LOGIN_SERVER }}/gnn-backend:latest ./backend
-          docker push ${{ vars.ACR_LOGIN_SERVER }}/gnn-backend:latest
+          docker push ${{ vars.ACR_LOGIN_SERVER }}/gnn-backend:latest    
 
   deploy:
-    needs: build-and-push  # Wait for the build job to finish successfully
+    needs: build-and-push
     runs-on: ubuntu-latest
     steps:
       # 3. Connect to your VM via SSH and update the containers
@@ -35,15 +36,14 @@ jobs:
         uses: appleboy/ssh-action@master
         with:
           host: ${{ vars.VM_IP }}
-          username: anhlh345  # Or your specific VM username
+          username: anhlh345
           key: ${{ vars.SSH_PRIVATE_KEY }}
           script: |
-            # Login to ACR on the VM itself
+            # Login to ACR on the VM
             docker login ${{ vars.ACR_LOGIN_SERVER }} -u ${{ vars.ACR_USERNAME }} -p ${{ vars.ACR_PASSWORD }}
             
-            # Pull the newest version of your image
+            # Pull the newest version using the specific name you gave it
             docker pull ${{ vars.ACR_LOGIN_SERVER }}/gnn-backend:latest
             
-            # Navigate to your project folder (if applicable) and restart
-            # If you are using docker-compose:
+            # Restart using docker-compose
             docker-compose up -d --force-recreate
