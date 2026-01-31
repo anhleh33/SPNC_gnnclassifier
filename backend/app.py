@@ -20,7 +20,7 @@ def create_app():
 
     CORS(
         app,
-        resources={r"/*": {"origins": "http://localhost:3000"}},
+        resources={r"/*": {"origins": "*"}},
         allow_headers=[
             "Content-Type",
             "Authorization",
@@ -57,4 +57,4 @@ def create_app():
 app = create_app()
 
 if __name__ == "__main__":
-    app.run(debug=True)
+    app.run(host="0.0.0.0", port=8000, debug=True)
