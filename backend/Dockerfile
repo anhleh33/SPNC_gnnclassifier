@@ -1,20 +1,24 @@
-# 1. Start with a base image (the "OS" for your container)
 FROM python:3.11-slim
 
-# 2. Set the working directory inside the container
+# 1. Set the main working directory
 WORKDIR /app
 
-# 3. Copy only your requirements file first to leverage caching
-COPY Requirements-Full.txt .
+# 2. Copy requirements into a 'backend' folder
+# We do this to match the structure your code expects
+COPY Requirements-Full.txt /app/backend/Requirements-Full.txt
 
-# 4. Install dependencies
-RUN pip install --no-cache-dir -r Requirements-Full.txt
+# 3. Install dependencies
+RUN pip install --no-cache-dir -r /app/backend/Requirements-Full.txt
 
-# 5. Copy the rest of your application code
-COPY . .
+# 4. Copy ALL your code into the 'backend' folder
+COPY . /app/backend
 
-# 6. Expose the port your app runs on (e.g., 8000 for FastAPI/Uvicorn)
+# 5. CRITICAL: Tell Python that '/app' is the root
+# This allows 'from backend.settings' to work because Python looks in /app and finds the backend folder
+ENV PYTHONPATH=/app
+
+# 6. Expose the port
 EXPOSE 8000
 
-# 7. Define the command to run your app
-CMD ["python", "app.py"]
+# 7. Run the app pointing to the correct location
+CMD ["python", "backend/app.py"]
