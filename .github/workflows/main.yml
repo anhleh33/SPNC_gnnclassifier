@@ -61,7 +61,7 @@ jobs:
             ACR_LOGIN_SERVER=${{ vars.ACR_LOGIN_SERVER }} docker-compose -f /home/anhlh345/docker-compose.yml down || true
 
             # 4. Start the App Fresh
-            ACR_LOGIN_SERVER=${{ vars.ACR_LOGIN_SERVER }} docker-compose -f /home/anhlh345/docker-compose.yml up -d
+            ACR_LOGIN_SERVER=${{ vars.ACR_LOGIN_SERVER }} DATABASE_URL="${{ secrets.DATABASE_URL }}" docker-compose -f /home/anhlh345/docker-compose.yml up -d
 
             # 5. Cleanup
             docker image prune -f

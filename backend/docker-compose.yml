@@ -9,6 +9,8 @@ services:
     restart: always
     ports:
       - "8000:8000"
+    environment:
+      - DATABASE_URL=${DATABASE_URL}
     # Mount a volume to keep your GNN model weights or logs safe
     volumes:
       - ./backend/models:/app/models
