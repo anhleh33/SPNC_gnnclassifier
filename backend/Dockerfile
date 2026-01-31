@@ -5,10 +5,10 @@ FROM python:3.11-slim
 WORKDIR /app
 
 # 3. Copy only your requirements file first to leverage caching
-COPY /backend/Requirements-Full.txt .
+COPY Requirements-Full.txt .
 
 # 4. Install dependencies
-RUN pip install --no-cache-dir -r /backend/Requirements-Full.txt
+RUN pip install --no-cache-dir -r Requirements-Full.txt
 
 # 5. Copy the rest of your application code
 COPY . .
