@@ -30,3 +30,10 @@ class SupabaseImageStorageService(IImageStorageService):
         )
 
         return object_key
+    
+    def get_signed_url(self, path: str, expires_in: int = 3600) -> str:
+        res = self.supabase.storage.from_(self.bucket).create_signed_url(
+            path,
+            expires_in,
+        )
+        return res["signedURL"]

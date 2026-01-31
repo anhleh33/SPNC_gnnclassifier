@@ -68,7 +68,7 @@ export default function Home() {
         const parsed = JSON.parse(storedUser)
   
         setUser({
-          fullName: parsed.fullName ?? "",
+          fullName: parsed.fullName,
           username: parsed.username,
           email: parsed.email,
         })
@@ -137,6 +137,7 @@ export default function Home() {
 
       localStorage.setItem("access_token", data.access_token)
       localStorage.setItem("currentUser", JSON.stringify({
+        fullName: data.user.full_name,
         username: data.user.username,
         email: data.user.email,
       }))
