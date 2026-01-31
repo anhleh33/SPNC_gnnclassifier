@@ -51,14 +51,14 @@ jobs:
           username: anhlh345
           key: ${{ vars.SSH_PRIVATE_KEY }}
           script: |
-            # 1. CLEANUP DISK SPACE (Fixes "No space left on device")
-            docker system prune -a -f
-            
-            # 2. Login
+            # 1. Login
             docker login ${{ vars.ACR_LOGIN_SERVER }} -u ${{ vars.ACR_USERNAME }} -p ${{ vars.ACR_PASSWORD }}
-            
-            # 3. Pull new image
+
+            # 2. Pull the new image (GitHub substitutes variables here perfectly)
             docker pull ${{ vars.ACR_LOGIN_SERVER }}/gnn-backend:latest
-            
-            # 4. Start App (Now the file definitely exists!)
-            docker-compose -f /home/anhlh345/docker-compose.yml up -d --force-recreate
+
+            # 3. Start App
+            ACR_LOGIN_SERVER=${{ vars.ACR_LOGIN_SERVER }} docker-compose -f /home/anhlh345/docker-compose.yml up -d --force-recreate
+
+            # 4. Cleanup
+            docker image prune -f
