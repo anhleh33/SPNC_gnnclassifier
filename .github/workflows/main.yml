@@ -21,8 +21,7 @@ jobs:
 
       - name: Build and Push Backend Image
         run: |
-          # Note: We build from root context (.) but point to the Dockerfile inside backend
-          docker build -t ${{ vars.ACR_LOGIN_SERVER }}/gnn-backend:latest -f ./backend
+          docker build -t ${{ vars.ACR_LOGIN_SERVER }}/gnn-backend:latest ./backend
           docker push ${{ vars.ACR_LOGIN_SERVER }}/gnn-backend:latest
 
   deploy:
