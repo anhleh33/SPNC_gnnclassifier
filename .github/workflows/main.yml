@@ -1,0 +1,49 @@
+name: Build and Deploy to Azure VM
+
+on:
+  push:
+    branches:
+      - main  # Trigger this workflow whenever code is pushed to the main branch
+
+jobs:
+  build-and-push:
+    runs-on: ubuntu-latest  # Use a fresh Ubuntu machine provided by GitHub
+    steps:
+      - name: Checkout Code
+        uses: actions/checkout@v4  # Pull your code into the runner
+
+      # 1. Log in to your Azure Container Registry
+      - name: Docker Login to ACR
+        uses: azure/docker-login@v1
+        with:
+          login-server: ${{ secrets.ACR_LOGIN_SERVER }}
+          username: ${{ secrets.ACR_USERNAME }}
+          password: ${{ secrets.ACR_PASSWORD }}
+
+      # 2. Build and Push your Backend Docker image
+      - name: Build and Push Backend Image
+        run: |
+          docker build -t ${{ secrets.ACR_LOGIN_SERVER }}/gnn-backend:latest ./backend
+          docker push ${{ secrets.ACR_LOGIN_SERVER }}/gnn-backend:latest
+
+  deploy:
+    needs: build-and-push  # Wait for the build job to finish successfully
+    runs-on: ubuntu-latest
+    steps:
+      # 3. Connect to your VM via SSH and update the containers
+      - name: SSH and Deploy to Azure VM
+        uses: appleboy/ssh-action@master
+        with:
+          host: ${{ secrets.VM_IP }}
+          username: azureuser  # Or your specific VM username
+          key: ${{ secrets.VM_SSH_KEY }}
+          script: |
+            # Login to ACR on the VM itself
+            docker login ${{ secrets.ACR_LOGIN_SERVER }} -u ${{ secrets.ACR_USERNAME }} -p ${{ secrets.ACR_PASSWORD }}
+            
+            # Pull the newest version of your image
+            docker pull ${{ secrets.ACR_LOGIN_SERVER }}/gnn-backend:latest
+            
+            # Navigate to your project folder (if applicable) and restart
+            # If you are using docker-compose:
+            docker-compose up -d --force-recreate
