@@ -3,7 +3,7 @@ name: Build and Deploy to Azure VM
 on:
   push:
     branches:
-      - main  # Trigger this workflow whenever code is pushed to the main branch
+      - main
 
 jobs:
   build-and-push:
@@ -12,7 +12,6 @@ jobs:
       - name: Checkout Code
         uses: actions/checkout@v4
 
-      # 1. Log in to your Azure Container Registry
       - name: Docker Login to ACR
         uses: azure/docker-login@v1
         with:
@@ -20,30 +19,47 @@ jobs:
           username: ${{ vars.ACR_USERNAME }}
           password: ${{ vars.ACR_PASSWORD }}
 
-      # 2. Build and Push your Backend Docker image
-      # The "-t" flag below sets the specific name and tag
       - name: Build and Push Backend Image
         run: |
-          docker build -t ${{ vars.ACR_LOGIN_SERVER }}/gnn-backend:latest ./backend
-          docker push ${{ vars.ACR_LOGIN_SERVER }}/gnn-backend:latest    
+          # Note: We build from root context (.) but point to the Dockerfile inside backend
+          docker build -t ${{ vars.ACR_LOGIN_SERVER }}/gnn-backend:latest -f ./backend/Dockerfile .
+          docker push ${{ vars.ACR_LOGIN_SERVER }}/gnn-backend:latest
 
   deploy:
     needs: build-and-push
     runs-on: ubuntu-latest
     steps:
-      # 3. Connect to your VM via SSH and update the containers
-      - name: SSH and Deploy to Azure VM
+      - name: Checkout Code
+        uses: actions/checkout@v4
+
+      - name: Copy docker-compose to VM
+        uses: appleboy/scp-action@master
+        with:
+          host: ${{ vars.VM_IP }}
+          username: anhlh345
+          key: ${{ vars.SSH_PRIVATE_KEY }}
+          # IMPORTANT: Point to where the file is in YOUR repo (backend folder)
+          source: "backend/docker-compose.yml"
+          # Target: We copy it to the home directory on the VM
+          target: "/home/anhlh345/"
+          # Strip the 'backend' folder prefix so it lands directly as ~/docker-compose.yml
+          strip_components: 1
+
+      - name: SSH and Deploy
         uses: appleboy/ssh-action@master
         with:
           host: ${{ vars.VM_IP }}
           username: anhlh345
           key: ${{ vars.SSH_PRIVATE_KEY }}
           script: |
-            # 1. Login to ACR
+            # 1. CLEANUP DISK SPACE (Fixes "No space left on device")
+            docker system prune -a -f
+            
+            # 2. Login
             docker login ${{ vars.ACR_LOGIN_SERVER }} -u ${{ vars.ACR_USERNAME }} -p ${{ vars.ACR_PASSWORD }}
             
-            # 2. Pull the newest image
+            # 3. Pull new image
             docker pull ${{ vars.ACR_LOGIN_SERVER }}/gnn-backend:latest
             
-            # 3. Explicitly point to the file in your home directory
-            docker-compose -f ~/docker-compose.yml up -d --force-recreate
+            # 4. Start App (Now the file definitely exists!)
+            docker-compose -f /home/anhlh345/docker-compose.yml up -d --force-recreate
