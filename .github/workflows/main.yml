@@ -39,11 +39,11 @@ jobs:
           username: anhlh345
           key: ${{ vars.SSH_PRIVATE_KEY }}
           script: |
-            # Login to ACR on the VM
+            # 1. Login to ACR
             docker login ${{ vars.ACR_LOGIN_SERVER }} -u ${{ vars.ACR_USERNAME }} -p ${{ vars.ACR_PASSWORD }}
             
-            # Pull the newest version using the specific name you gave it
+            # 2. Pull the newest image
             docker pull ${{ vars.ACR_LOGIN_SERVER }}/gnn-backend:latest
             
-            # Restart using docker-compose
+            # 3. Explicitly point to the file in your home directory
             docker-compose -f ~/docker-compose.yml up -d --force-recreate
