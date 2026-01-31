@@ -46,4 +46,4 @@ jobs:
             docker pull ${{ vars.ACR_LOGIN_SERVER }}/gnn-backend:latest
             
             # Restart using docker-compose
-            docker-compose up -d --force-recreate
+            docker-compose -f ~/docker-compose.yml up -d --force-recreate
