@@ -54,11 +54,14 @@ jobs:
             # 1. Login
             docker login ${{ vars.ACR_LOGIN_SERVER }} -u ${{ vars.ACR_USERNAME }} -p ${{ vars.ACR_PASSWORD }}
 
-            # 2. Pull the new image (GitHub substitutes variables here perfectly)
+            # 2. Pull the new image
             docker pull ${{ vars.ACR_LOGIN_SERVER }}/gnn-backend:latest
 
-            # 3. Start App
-            ACR_LOGIN_SERVER=${{ vars.ACR_LOGIN_SERVER }} docker-compose -f /home/anhlh345/docker-compose.yml up -d --force-recreate
+            # 3. FIX: Stop and remove the old container to prevent the version crash
+            ACR_LOGIN_SERVER=${{ vars.ACR_LOGIN_SERVER }} docker-compose -f /home/anhlh345/docker-compose.yml down || true
 
-            # 4. Cleanup
+            # 4. Start the App Fresh
+            ACR_LOGIN_SERVER=${{ vars.ACR_LOGIN_SERVER }} docker-compose -f /home/anhlh345/docker-compose.yml up -d
+
+            # 5. Cleanup
             docker image prune -f
