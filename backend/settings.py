@@ -21,7 +21,7 @@ SUPABASE_SERVICE_ROLE_KEY: str = os.getenv("SUPABASE_SERVICE_ROLE_KEY")
 # Logger Configuration
 # ─────────────────────────────
 SHOW_STARTUP_MESSAGE: bool = True
-DOCS_URL: str = "http://127.0.0.1:5000/docs"
+DOCS_URL: str = "http://127.0.0.1:8000/docs"
 
 # ─────────────────────────────
 # Swagger Configuration
