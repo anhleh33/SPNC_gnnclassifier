@@ -1,0 +1,67 @@
+name: Build and Deploy to Azure VM
+
+on:
+  push:
+    branches:
+      - main
+
+jobs:
+  build-and-push:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout Code
+        uses: actions/checkout@v4
+
+      - name: Docker Login to ACR
+        uses: azure/docker-login@v1
+        with:
+          login-server: ${{ vars.ACR_LOGIN_SERVER }}
+          username: ${{ vars.ACR_USERNAME }}
+          password: ${{ vars.ACR_PASSWORD }}
+
+      - name: Build and Push Backend Image
+        run: |
+          docker build -t ${{ vars.ACR_LOGIN_SERVER }}/gnn-backend:latest ./backend
+          docker push ${{ vars.ACR_LOGIN_SERVER }}/gnn-backend:latest
+
+  deploy:
+    needs: build-and-push
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout Code
+        uses: actions/checkout@v4
+
+      - name: Copy docker-compose to VM
+        uses: appleboy/scp-action@master
+        with:
+          host: ${{ vars.VM_IP }}
+          username: anhlh345
+          key: ${{ vars.SSH_PRIVATE_KEY }}
+          # IMPORTANT: Point to where the file is in YOUR repo (backend folder)
+          source: "backend/docker-compose.yml"
+          # Target: We copy it to the home directory on the VM
+          target: "/home/anhlh345/"
+          # Strip the 'backend' folder prefix so it lands directly as ~/docker-compose.yml
+          strip_components: 1
+
+      - name: SSH and Deploy
+        uses: appleboy/ssh-action@master
+        with:
+          host: ${{ vars.VM_IP }}
+          username: anhlh345
+          key: ${{ vars.SSH_PRIVATE_KEY }}
+          script: |
+            # 1. Login
+            docker login ${{ vars.ACR_LOGIN_SERVER }} -u ${{ vars.ACR_USERNAME }} -p ${{ vars.ACR_PASSWORD }}
+
+            # 2. Pull the new image
+            docker pull ${{ vars.ACR_LOGIN_SERVER }}/gnn-backend:latest
+
+            # 3. FIX: Stop and remove the old container to prevent the version crash
+            ACR_LOGIN_SERVER=${{ vars.ACR_LOGIN_SERVER }} docker-compose -f /home/anhlh345/docker-compose.yml down || true
+
+            # 4. Start the App Fresh
+            ACR_LOGIN_SERVER=${{ vars.ACR_LOGIN_SERVER }} DATABASE_URL="${{ secrets.DATABASE_URL }}" docker-compose -f /home/anhlh345/docker-compose.yml up -d
+
+            # 5. Cleanup
+            docker image prune -f
