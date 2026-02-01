@@ -143,7 +143,7 @@ export default function Home() {
       }))
 
       setUser({
-        fullName: "", // unused
+        fullName: data.user.full_name, // unused
         username: data.user.username,
         email: data.user.email,
       })
