@@ -8,8 +8,10 @@ info:
     Includes health checks, connectivity tests, and user management.
 
 servers:
-  - url: http://127.0.0.1:5000
+  - url: http://127.0.0.1:8000
     description: Local development server
+  - url: http://20.89.168.233:8000
+    description: Hosted backend server
 
 components:
   securitySchemes:
