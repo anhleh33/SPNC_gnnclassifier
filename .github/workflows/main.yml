@@ -58,8 +58,12 @@ jobs:
             docker pull ${{ vars.ACR_LOGIN_SERVER }}/gnn-backend:latest
 
             # 3. Create a small string of all your secrets to reuse
-            export SECRETS="ACR_LOGIN_SERVER=${{ vars.ACR_LOGIN_SERVER }} DATABASE_URL='${{ secrets.DATABASE_URL }}' SUPABASE_URL='${{ secrets.SUPABASE_URL }}' SUPABASE_SERVICE_ROLE_KEY='${{ secrets.SUPABASE_SERVICE_ROLE_KEY }}'"
-
+            export SECRETS="ACR_LOGIN_SERVER=${{ vars.ACR_LOGIN_SERVER }} \
+            DATABASE_URL='${{ secrets.DATABASE_URL }}' \
+            SUPABASE_URL='${{ secrets.SUPABASE_URL }}' \
+            SUPABASE_SERVICE_ROLE_KEY='${{ secrets.SUPABASE_SERVICE_ROLE_KEY }}' \
+            JWT_SECRET_KEY='${{ secrets.JWT_SECRET_KEY }}'"
+            
             # 4. Use the secrets for DOWN (stops the warnings)
             eval $SECRETS docker-compose -f /home/anhlh345/docker-compose.yml down || true
 
