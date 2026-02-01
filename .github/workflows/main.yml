@@ -54,18 +54,17 @@ jobs:
             # 1. Login
             docker login ${{ vars.ACR_LOGIN_SERVER }} -u ${{ vars.ACR_USERNAME }} -p ${{ vars.ACR_PASSWORD }}
 
-            # 2. Pull the new image
+            # 2. Pull the image
             docker pull ${{ vars.ACR_LOGIN_SERVER }}/gnn-backend:latest
 
-            # 3. Stop and remove the old container
-            ACR_LOGIN_SERVER=${{ vars.ACR_LOGIN_SERVER }} docker-compose -f /home/anhlh345/docker-compose.yml down || true
+            # 3. Create a small string of all your secrets to reuse
+            export SECRETS="ACR_LOGIN_SERVER=${{ vars.ACR_LOGIN_SERVER }} DATABASE_URL='${{ secrets.DATABASE_URL }}' SUPABASE_URL='${{ secrets.SUPABASE_URL }}' SUPABASE_SERVICE_ROLE_KEY='${{ secrets.SUPABASE_SERVICE_ROLE_KEY }}'"
 
-            # 4. START FRESH WITH ALL SECRETS (FIX THIS LINE)
-            ACR_LOGIN_SERVER=${{ vars.ACR_LOGIN_SERVER }} \
-            DATABASE_URL="${{ secrets.DATABASE_URL }}" \
-            SUPABASE_URL="${{ secrets.SUPABASE_URL }}" \
-            SUPABASE_SERVICE_ROLE_KEY="${{ secrets.SUPABASE_SERVICE_ROLE_KEY }}" \
-            docker-compose -f /home/anhlh345/docker-compose.yml up -d
+            # 4. Use the secrets for DOWN (stops the warnings)
+            eval $SECRETS docker-compose -f /home/anhlh345/docker-compose.yml down || true
 
-            # 5. Cleanup
-            docker image prune -f
+            # 5. Use the secrets for UP (starts the app)
+            eval $SECRETS docker-compose -f /home/anhlh345/docker-compose.yml up -d
+
+            # 6. Maintenance
+            docker image prune -a -f
