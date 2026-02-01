@@ -7,10 +7,12 @@ services:
     image: ${ACR_LOGIN_SERVER}/gnn-backend:latest
     container_name: gnn-backend-app
     restart: always
-    ports:
-      - "8000:8000"
     environment:
       - DATABASE_URL=${DATABASE_URL}
+      - SUPABASE_URL=${SUPABASE_URL}
+      - SUPABASE_KEY=${SUPABASE_KEY}
+    ports:
+      - "8000:8000"
     # Mount a volume to keep your GNN model weights or logs safe
     volumes:
       - ./backend/models:/app/models

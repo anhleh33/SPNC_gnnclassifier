@@ -57,11 +57,15 @@ jobs:
             # 2. Pull the new image
             docker pull ${{ vars.ACR_LOGIN_SERVER }}/gnn-backend:latest
 
-            # 3. FIX: Stop and remove the old container to prevent the version crash
+            # 3. Stop and remove the old container
             ACR_LOGIN_SERVER=${{ vars.ACR_LOGIN_SERVER }} docker-compose -f /home/anhlh345/docker-compose.yml down || true
 
-            # 4. Start the App Fresh
-            ACR_LOGIN_SERVER=${{ vars.ACR_LOGIN_SERVER }} DATABASE_URL="${{ secrets.DATABASE_URL }}" docker-compose -f /home/anhlh345/docker-compose.yml up -d
+            # 4. START FRESH WITH ALL SECRETS (FIX THIS LINE)
+            ACR_LOGIN_SERVER=${{ vars.ACR_LOGIN_SERVER }} \
+            DATABASE_URL="${{ secrets.DATABASE_URL }}" \
+            SUPABASE_URL="${{ secrets.SUPABASE_URL }}" \
+            SUPABASE_SERVICE_ROLE_KEY="${{ secrets.SUPABASE_SERVICE_ROLE_KEY }}" \
+            docker-compose -f /home/anhlh345/docker-compose.yml up -d
 
             # 5. Cleanup
             docker image prune -f
