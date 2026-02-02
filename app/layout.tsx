@@ -17,6 +17,9 @@ export default function RootLayout({
 }>) {
   return (
     <html lang="en" suppressHydrationWarning>
+      <head>
+        <link rel="icon" href="/logo.png" sizes="any" />
+      </head>
       <body className="font-sans antialiased">
         <ThemeProvider defaultTheme="light">
           <Suspense fallback={<div className="flex items-center justify-center min-h-screen">Loading...</div>}>
