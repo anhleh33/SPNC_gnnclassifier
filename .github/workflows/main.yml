@@ -100,7 +100,7 @@ jobs:
 
       # Deploy using 'npx' instead of the broken GitHub Action
       - name: Deploy to Netlify
-        run: npx netlify-cli deploy --dir=./dist --prod
+        run: npx netlify-cli deploy --dir=.next --prod
         env:
           NETLIFY_SITE_ID: ${{ secrets.NETLIFY_SITE_ID }}
           NETLIFY_AUTH_TOKEN: ${{ secrets.NETLIFY_AUTH_TOKEN }}
