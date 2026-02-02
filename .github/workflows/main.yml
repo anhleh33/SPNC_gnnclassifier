@@ -96,7 +96,7 @@ jobs:
           pnpm install
           pnpm run build
         env:
-          VITE_API_URL: "http://20.89.168.233:8000"
+          NEXT_PUBLIC_API_URL: "http://20.89.168.233:8000"
 
       # Deploy using 'npx' instead of the broken GitHub Action
       - name: Deploy to Netlify
