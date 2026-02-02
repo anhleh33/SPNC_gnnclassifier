@@ -24,7 +24,7 @@ jobs:
           docker build -t ${{ vars.ACR_LOGIN_SERVER }}/gnn-backend:latest ./backend
           docker push ${{ vars.ACR_LOGIN_SERVER }}/gnn-backend:latest
 
-  deploy:
+  deploy-backend:
     needs: build-and-push
     runs-on: ubuntu-latest
     steps:
