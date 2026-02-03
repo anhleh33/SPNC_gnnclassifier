@@ -91,32 +91,39 @@ class VotingImageClassifier:
         tmp.write(image_bytes)
         tmp.close()
         return Path(tmp.name)
-
-class KNNGraphSAGEImageClassifier:
+    
+class GraphSAGEKNNImageClassifier:
     """
-    Image-level orchestrator for inductive GraphSAGE classifier
-    using kNN-based ego-graph construction.
+    kNN-based replacement for legacy GraphSAGEImageClassifier.
 
-    This is the NEW single-head GNN pipeline.
+    This classifier:
+        - Uses GraphSAGEEncoder to project node features
+        - Performs kNN lookup over frozen node embeddings
+        - Outputs calibrated confidence scores
+
+    Contract:
+        - Fully compatible with ImageClassificationService
+        - Same return schema as legacy dual-head classifier
     """
 
-    def __init__(self, node_feature_builder, graphsage_classifier):
+    def __init__(
+        self,
+        node_feature_builder,
+        knn_classifier,
+    ):
         self.node_feature_builder = node_feature_builder
-        self.classifier = graphsage_classifier
+        self.classifier = knn_classifier
 
     def classify(self, image_bytes: bytes) -> dict:
         image_path = self._save_temp_image(image_bytes)
 
         node_feat = self.node_feature_builder.build(image_path)
 
-        # 🔑 returns List[(label, prob)]
-        predictions = self.classifier.classify(node_feat)
+        subjects, grades = self.classifier.classify(node_feat)
 
         return {
-            "predictions": [
-                {"label": label, "score": score}
-                for label, score in predictions
-            ]
+            "subjects": subjects,
+            "grades": grades,
         }
 
     def _save_temp_image(self, image_bytes: bytes) -> Path:
@@ -124,3 +131,37 @@ class KNNGraphSAGEImageClassifier:
         tmp.write(image_bytes)
         tmp.close()
         return Path(tmp.name)
+
+
+# class KNNGraphSAGEImageClassifier:
+#     """
+#     Image-level orchestrator for inductive GraphSAGE classifier
+#     using kNN-based ego-graph construction.
+
+#     This is the NEW single-head GNN pipeline.
+#     """
+
+#     def __init__(self, node_feature_builder, graphsage_classifier):
+#         self.node_feature_builder = node_feature_builder
+#         self.classifier = graphsage_classifier
+
+#     def classify(self, image_bytes: bytes) -> dict:
+#         image_path = self._save_temp_image(image_bytes)
+
+#         node_feat = self.node_feature_builder.build(image_path)
+
+#         # 🔑 returns List[(label, prob)]
+#         predictions = self.classifier.classify(node_feat)
+
+#         return {
+#             "predictions": [
+#                 {"label": label, "score": score}    
+#                 for label, score in predictions
+#             ]
+#         }
+
+#     def _save_temp_image(self, image_bytes: bytes) -> Path:
+#         tmp = tempfile.NamedTemporaryFile(delete=False, suffix=".png")
+#         tmp.write(image_bytes)
+#         tmp.close()
+#         return Path(tmp.name)

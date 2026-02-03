@@ -19,13 +19,14 @@ from backend.application.services.image_analysis_service import ImageAnalysisSer
 from backend.infrastructure.ml.ocr.ocr_engine import OCRReader
 from backend.infrastructure.ml.encoders.image_encoder import CLIPImageEncoder
 from backend.infrastructure.ml.encoders.text_encoder import MiniLML6TextEncoder
+from backend.infrastructure.ml.encoders.graphsage_encoder import GraphSAGEEncoder
 from backend.infrastructure.ml.features.clip_image_feature import CLIPImageFeatureBuilder
 from backend.infrastructure.ml.features.node_feature_builder import NodeFeatureBuilder
 from backend.infrastructure.ml.features.text_feature_builder import TextFeatureBuilder
 from backend.infrastructure.ml.classifiers.graphsage_classifier import GraphSAGEClassifier
-from backend.infrastructure.ml.classifiers.knn_graphsage_classifier import KNNGraphSAGEClassifier
+from backend.infrastructure.ml.classifiers.knn_classifier import KNNClassifier, GraphSAGEKNNClassifier
 from backend.infrastructure.ml.similarity.neighbor_search import NeighborSearcher
-from backend.infrastructure.ml.image_classifier import VotingImageClassifier, GraphSAGEImageClassifier, KNNGraphSAGEImageClassifier
+from backend.infrastructure.ml.image_classifier import VotingImageClassifier, GraphSAGEImageClassifier, GraphSAGEKNNImageClassifier
 from backend.infrastructure.repositories.classifier_model_repository import FileSystemClassifierModelRepository
 
 from backend.application.services.image_classifier_service import ImageClassificationService
@@ -134,6 +135,39 @@ image_dual_classifier = GraphSAGEImageClassifier(
     graphsage_classifier=graphsage_classifier
 )
 
+# knn
+
+encoder = GraphSAGEEncoder()
+encoder.conv1.load_state_dict(
+    assets_2.subject_model.conv1.state_dict()
+)
+
+node_emb = assets_2.node_embeddings
+
+subject_knn = KNNClassifier(
+    node_emb["embeddings"].numpy(),
+    node_emb["subject_labels"]
+)
+
+grade_knn = KNNClassifier(
+    node_emb["embeddings"].numpy(),
+    node_emb["grade_labels"]
+)
+
+graphsage_knn_classifier = GraphSAGEKNNClassifier(
+    encoder=encoder,
+    subject_knn=subject_knn,
+    grade_knn=grade_knn,
+    subject_labels=assets_2.subject_labels,
+    grade_labels=assets_2.grade_labels
+)
+
+image_knn_classifier = GraphSAGEKNNImageClassifier(
+    node_feature_builder=node_dual_feature_builder,
+    knn_classifier=graphsage_knn_classifier
+)
+
+
 # knn-GNN
 # repo_3 = KNNGraphSAGEModelRepository(artifact_dir)
 # assets_3 = repo_3.load_assets()
@@ -169,5 +203,5 @@ image_dual_classifier = GraphSAGEImageClassifier(
 image_classifier_service = ImageClassificationService(
     single_classifier=image_classifier,
     dual_classifier=image_dual_classifier,
-    # single_graphsage_classifier=graphsage_classifier_single
+    single_graphsage_classifier=image_knn_classifier
 )

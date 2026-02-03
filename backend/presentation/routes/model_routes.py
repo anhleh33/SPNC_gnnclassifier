@@ -13,6 +13,7 @@ model_bp = Blueprint("model", __name__, url_prefix="/model")
 CLASSIFIERS = {
     "kNN-Voting": image_classifier_service.classify_image_single,
     "GraphSAGE-I_v2": image_classifier_service.classify_image_dual,
+    "GraphSAGE_E_kNN": image_classifier_service.classify_image_knn_graphsage
 }
 
 @model_bp.route("/classification", methods=["POST"])
@@ -95,27 +96,27 @@ def list_classifications():
         "q": q,
     })
 
-@model_bp.route("/classification/debug/knn-graphsage", methods=["POST"])
-def debug_knn_graphsage():
-    """
-    TEMP DEBUG ENDPOINT
-    - No auth
-    - Raw output passthrough for inductive GraphSAGE
-    - DO NOT USE IN PRODUCTION
-    """
-    if "image" not in request.files:
-        return jsonify({"error": "Image file is required"}), 400
+# @model_bp.route("/classification/debug/knn-graphsage", methods=["POST"])
+# def debug_knn_graphsage():
+#     """
+#     TEMP DEBUG ENDPOINT
+#     - No auth
+#     - Raw output passthrough for inductive GraphSAGE
+#     - DO NOT USE IN PRODUCTION
+#     """
+#     if "image" not in request.files:
+#         return jsonify({"error": "Image file is required"}), 400
 
-    image_file = request.files["image"]
-    image_bytes = image_file.read()
+#     image_file = request.files["image"]
+#     image_bytes = image_file.read()
 
-    try:
-        result = image_classifier_service.classify_image_knn_graphsage_raw(
-            image_bytes
-        )
-    except Exception as e:
-        print("🔥 ML ROOT ERROR:")
-        traceback.print_exc()
-        return jsonify({"error": "ML inference failed"}), 500
+#     try:
+#         result = image_classifier_service.classify_image_knn_graphsage_raw(
+#             image_bytes
+#         )
+#     except Exception as e:
+#         print("🔥 ML ROOT ERROR:")
+#         traceback.print_exc()
+#         return jsonify({"error": "ML inference failed"}), 500
 
-    return jsonify(result), 200
+#     return jsonify(result), 200

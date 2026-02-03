@@ -8,7 +8,8 @@ class GraphSAGEAssets:
         subject_model,
         grade_model,
         subject_labels,
-        grade_labels
+        grade_labels,
+        node_embeddings = None
     ):
         self.x = x
         self.edge_index = edge_index
@@ -16,6 +17,7 @@ class GraphSAGEAssets:
         self.grade_model = grade_model
         self.subject_labels = subject_labels
         self.grade_labels = grade_labels
+        self.node_embeddings = node_embeddings
 
 
     def load_assets(self):
@@ -28,5 +30,6 @@ class GraphSAGEAssets:
             subject_model=self.get_subject_classifier(),
             grade_model=self.get_grade_classifier(),
             subject_labels=labels["subject"],
-            grade_labels=labels["grade"]
+            grade_labels=labels["grade"],
+            node_embeddings=self.get_node_embeddings()  # 👈
         )

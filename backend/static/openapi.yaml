@@ -330,6 +330,7 @@ paths:
             enum:
               - kNN-Voting
               - GraphSAGE-I_v2
+              - GraphSAGE_E_kNN
           description: Model variant to use
       responses:
         "200":
@@ -438,61 +439,62 @@ paths:
   #     responses:
   #       "418":
   #         description: I'm a teapot ☕
-  /model/classification/debug/knn-graphsage:
-    post:
-      summary: "[TEMP] Debug kNN GraphSAGE raw output"
-      description: >
-        ⚠️ TEMPORARY DEBUG ENDPOINT (NO AUTH)
 
-        Runs the inductive kNN GraphSAGE classifier and returns
-        the raw model output without any post-processing.
+  # /model/classification/debug/knn-graphsage:
+  #   post:
+  #     summary: "[TEMP] Debug kNN GraphSAGE raw output"
+  #     description: >
+  #       ⚠️ TEMPORARY DEBUG ENDPOINT (NO AUTH)
 
-        Purpose:
-          - Inspect label format
-          - Inspect score semantics
-          - Validate output shape before API finalization
+  #       Runs the inductive kNN GraphSAGE classifier and returns
+  #       the raw model output without any post-processing.
 
-        This endpoint is NOT authenticated, NOT persisted,
-        and MUST NOT be used in production clients.
+  #       Purpose:
+  #         - Inspect label format
+  #         - Inspect score semantics
+  #         - Validate output shape before API finalization
 
-      tags: [Model, Debug]
+  #       This endpoint is NOT authenticated, NOT persisted,
+  #       and MUST NOT be used in production clients.
 
-      requestBody:
-        required: true
-        content:
-          multipart/form-data:
-            schema:
-              type: object
-              required:
-                - image
-              properties:
-                image:
-                  type: string
-                  format: binary
-                  description: Image file to classify
+  #     tags: [Model, Debug]
 
-      responses:
-        "200":
-          description: Raw GraphSAGE output
-          content:
-            application/json:
-              schema:
-                type: object
-                properties:
-                  raw:
-                    type: object
-                    description: >
-                      Raw classifier output.
-                      Shape is NOT finalized and may change.
-                  processing_time_ms:
-                    type: number
-                    example: 123.45
+  #     requestBody:
+  #       required: true
+  #       content:
+  #         multipart/form-data:
+  #           schema:
+  #             type: object
+  #             required:
+  #               - image
+  #             properties:
+  #               image:
+  #                 type: string
+  #                 format: binary
+  #                 description: Image file to classify
 
-        "400":
-          description: Image file missing
+  #     responses:
+  #       "200":
+  #         description: Raw GraphSAGE output
+  #         content:
+  #           application/json:
+  #             schema:
+  #               type: object
+  #               properties:
+  #                 raw:
+  #                   type: object
+  #                   description: >
+  #                     Raw classifier output.
+  #                     Shape is NOT finalized and may change.
+  #                 processing_time_ms:
+  #                   type: number
+  #                   example: 123.45
 
-        "500":
-          description: ML inference failure
+  #       "400":
+  #         description: Image file missing
+
+  #       "500":
+  #         description: ML inference failure
 
 tags:
   - name: Default

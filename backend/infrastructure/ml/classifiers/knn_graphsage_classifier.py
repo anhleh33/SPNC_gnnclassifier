@@ -66,3 +66,16 @@ class KNNGraphSAGEClassifier:
             (self.assets.inv_label_map[int(i)], float(p))
             for p, i in zip(top_probs, top_ids)
         ]
+
+class GraphSAGEKNNImageClassifier:
+    def __init__(
+        self,
+        node_feature_builder,
+        knn_classifier
+    ):
+        self.node_feature_builder = node_feature_builder
+        self.knn_classifier = knn_classifier
+
+    def classify(self, image_path, topk=3):
+        x = self.node_feature_builder.build(image_path)
+        return self.knn_classifier.predict(x, topk)

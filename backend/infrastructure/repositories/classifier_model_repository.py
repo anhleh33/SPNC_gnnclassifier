@@ -36,13 +36,16 @@ class FileSystemClassifierModelRepository(IClassifierModelRepository):
             len(grade_labels)
         )
 
+        node_embeddings = self._load_node_embeddings()
+
         return GraphSAGEAssets(
             x=graph["x"],
             edge_index=graph["edge_index"],
             subject_model=model_subject,
             grade_model=model_grade,
             subject_labels=subject_labels,
-            grade_labels=grade_labels
+            grade_labels=grade_labels,
+            node_embeddings=node_embeddings
         )
 
     def _load_json(self, name: str):
@@ -54,3 +57,10 @@ class FileSystemClassifierModelRepository(IClassifierModelRepository):
         model.load_state_dict(torch.load(path, map_location="cpu"))
         model.eval()
         return model
+    
+    def _load_node_embeddings(self):
+        path = self.artifacts / "node_embeddings.pt"
+        if not path.exists():
+            return None  # backward compatible
+
+        return torch.load(path, map_location="cpu")
