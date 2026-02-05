@@ -19,22 +19,29 @@ def create_app():
     app.logger.setLevel("INFO")
 
     CORS(
-    app,
-    resources={r"/*": {
+        app,
+        resources={r"/*": {
             "origins": "*",
             "methods": ["GET", "POST", "PUT", "DELETE", "OPTIONS"],
-            "allow_headers": ["Content-Type", "Authorization", "X-Requested-With", "Accept"],
+            "allow_headers": [
+                "Content-Type",
+                "Authorization",
+                "X-Requested-With",
+                "Accept",
+                "X-Model-Variant",
+            ],
             "expose_headers": ["Authorization"]
         }},
-    allow_headers=[
-        "Content-Type",
-        "Authorization",
-        "X-Requested-With",
-        "Accept"
-    ],
-    expose_headers=["Authorization"],
-    supports_credentials=True  # Add this for login/session support
-)
+        allow_headers=[
+            "Content-Type",
+            "Authorization",
+            "X-Requested-With",
+            "Accept",
+            "X-Model-Variant",
+        ],
+        expose_headers=["Authorization"],
+        supports_credentials=True,
+    )
 
     app.register_blueprint(default_bp)
     app.register_blueprint(user_bp, url_prefix="/users")

@@ -12,6 +12,7 @@ import { checkUsername } from "@/lib/api/users"
 interface AuthModalsProps {
   onSignInClose: () => void
   onSignUpClose: () => void
+  onOpenSignIn: () => void
   onSignIn: (email: string, password: string) => void
   onSignUp: (userData: { fullName: string, username: string, email: string, avatarColor: string, password: string }) => void
   showSignIn: boolean
@@ -52,6 +53,7 @@ const isPasswordValid = (password: string) => {
 export function AuthModals({
   onSignInClose,
   onSignUpClose,
+  onOpenSignIn,
   onSignIn,
   onSignUp,
   showSignIn,
@@ -187,7 +189,7 @@ export function AuthModals({
   if (showSignIn && !showSignUpForm) {
     return (
       <div className="fixed inset-0 bg-black/50 backdrop-blur-sm z-50 flex items-center justify-center p-4">
-  <div className="modal-bg border border-border rounded-xl shadow-2xl w-full max-w-lg animate-in fade-in zoom-in-95">
+        <div className="modal-bg border border-border rounded-xl shadow-2xl w-full max-w-lg animate-in fade-in zoom-in-95">
           <div className="flex items-center justify-between p-6 border-b border-border">
             <h2 className="text-2xl font-semibold text-foreground">Sign In</h2>
             <button
@@ -242,11 +244,66 @@ export function AuthModals({
     )
   }
 
+  if (showSignIn) {
+<div className="fixed inset-0 bg-black/50 backdrop-blur-sm z-50 flex items-center justify-center p-4">
+        <div className="modal-bg border border-border rounded-xl shadow-2xl w-full max-w-lg animate-in fade-in zoom-in-95">
+          <div className="flex items-center justify-between p-6 border-b border-border">
+            <h2 className="text-2xl font-semibold text-foreground">Sign In</h2>
+            <button
+              onClick={onSignInClose}
+              className="text-muted-foreground hover:text-foreground transition-colors"
+            >
+              <X className="w-5 h-5" />
+            </button>
+          </div>
+
+          <form onSubmit={handleSignInSubmit} className="p-6 space-y-4">
+            <div className="space-y-2">
+              <label className="text-sm font-medium text-foreground">Email or Username</label>
+              <Input
+                placeholder="Enter your email or username"
+                value={signInEmail}
+                onChange={(e) => setSignInEmail(e.target.value)}
+                required
+                className="dark:bg-input dark:text-white dark:placeholder-muted-foreground bg-background text-foreground"
+              />
+            </div>
+
+            <div className="space-y-2">
+              <label className="text-sm font-medium text-foreground">Password</label>
+              <PasswordInput
+                placeholder="Enter your password"
+                value={signInPassword}
+                onChange={(e) => setSignInPassword(e.target.value)}
+                required
+              />
+            </div>
+
+            <Button type="submit" className="w-full" size="lg">
+              Sign In
+            </Button>
+
+            <div className="text-center text-sm">
+              <span className="text-foreground">Don't have an account? </span>
+              <button
+                type="button"
+                onClick={() => {
+                  setShowSignUpForm(true)
+                }}
+                className="text-primary hover:underline font-medium"
+              >
+                Create one
+              </button>
+            </div>
+          </form>
+        </div>
+      </div>
+  }
   // Sign Up Modal
   if (showSignUp || showSignUpForm) {
     return (
       <div className="fixed inset-0 bg-black/50 backdrop-blur-sm z-50 flex items-center justify-center p-4">
-  <div className="modal-bg border border-border rounded-xl shadow-2xl w-full max-w-lg max-h-[95vh] flex flex-col animate-in fade-in zoom-in-95">
+       <div className="modal-bg border border-border rounded-xl shadow-2xl w-full max-w-lg max-h-[95vh] flex flex-col animate-in fade-in zoom-in-95">
           <div className="flex items-center justify-between p-6 border-b border-border flex-shrink-0">
             <h2 className="text-2xl font-semibold text-foreground">Sign Up</h2>
             <button
@@ -369,11 +426,9 @@ export function AuthModals({
                 type="button"
                 onClick={() => {
                   setShowSignUpForm(false)
-                  setSignUpFullName("")
-                  setSignUpUsername("")
-                  setSignUpEmail("")
-                  setSignUpPassword("")
-                  setSignUpConfirmPassword("")
+                  onSignUpClose()   // close signup
+                  onOpenSignIn()
+                  // parent should already have a way to open sign-in
                 }}
                 className="text-primary hover:underline font-medium"
               >

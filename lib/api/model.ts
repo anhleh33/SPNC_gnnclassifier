@@ -1,5 +1,5 @@
 // lib/api/model.ts
-export type ModelVariant = "GraphSAGE-I_v2" | "kNN-Voting"
+export type ModelVariant = "GraphSAGE-I_v2" | "kNN-Voting" | "GraphSAGE-E_kNN"
 
 export interface ModelClassificationResponse {
   subject: string

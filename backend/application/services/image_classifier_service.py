@@ -164,6 +164,7 @@ class ImageClassificationService:
         subjects = raw["subjects"]   # Dict[str, float]
         grades = raw["grades"]       # Dict[str, float]
 
+        print(raw)
         # 🔧 INLINE COMBINER
         pairs = []
         alpha = 0.7

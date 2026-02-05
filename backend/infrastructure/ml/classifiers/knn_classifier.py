@@ -3,7 +3,7 @@ from sklearn.neighbors import NearestNeighbors
 
 
 class KNNClassifier:
-    def __init__(self, embeddings, labels, k=30):
+    def __init__(self, embeddings, labels, k=5):
         self.labels = labels
         self.knn = NearestNeighbors(
             n_neighbors=k,

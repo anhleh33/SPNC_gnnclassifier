@@ -13,7 +13,7 @@ model_bp = Blueprint("model", __name__, url_prefix="/model")
 CLASSIFIERS = {
     "kNN-Voting": image_classifier_service.classify_image_single,
     "GraphSAGE-I_v2": image_classifier_service.classify_image_dual,
-    "GraphSAGE_E_kNN": image_classifier_service.classify_image_knn_graphsage
+    "GraphSAGE-E_kNN": image_classifier_service.classify_image_knn_graphsage
 }
 
 @model_bp.route("/classification", methods=["POST"])

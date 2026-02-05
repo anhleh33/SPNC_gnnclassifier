@@ -58,7 +58,7 @@ export function ImageClassifier({ isAuthenticated, onNotification, resetSignal }
   const fileInputRef = useRef<HTMLInputElement>(null)
   const audioRef = useRef<HTMLAudioElement>(null)
   const [selectedFile, setSelectedFile] = useState<File | null>(null)
-  const [selectedModel, setSelectedModel] = useState<"kNN-Voting" | "GraphSAGE-I_v2">("kNN-Voting")
+  const [selectedModel, setSelectedModel] = useState<"kNN-Voting" | "GraphSAGE-I_v2" | "GraphSAGE-E_kNN">("kNN-Voting")
 
 
   useEffect(() => {
@@ -300,6 +300,7 @@ export function ImageClassifier({ isAuthenticated, onNotification, resetSignal }
                   <SelectContent>
                     <SelectItem value="kNN-Voting">kNN Voting</SelectItem>
                     <SelectItem value="GraphSAGE-I_v2">GraphSAGE Inductive</SelectItem>
+                    <SelectItem value="GraphSAGE-E_kNN">GraphSAGE Similarity</SelectItem>
                   </SelectContent>
                 </Select>
               </div>
