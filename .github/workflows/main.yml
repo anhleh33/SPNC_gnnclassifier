@@ -94,9 +94,7 @@ jobs:
       - name: Install and Build
         run: |
           pnpm install
-          pnpm run build
-        env:
-          NEXT_PUBLIC_API_URL: "http://20.89.168.233:8000"
+          NEXT_PUBLIC_API_URL="http://20.89.168.233:8000" pnpm run build
 
       # Deploy using 'npx' instead of the broken GitHub Action
       - name: Deploy to Netlify
