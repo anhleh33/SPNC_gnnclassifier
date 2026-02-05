@@ -40,7 +40,7 @@ def create_app():
             "X-Model-Variant",
         ],
         expose_headers=["Authorization"],
-        supports_credentials=True,
+        supports_credentials=False,
     )
 
     app.register_blueprint(default_bp)
