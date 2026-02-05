@@ -14,7 +14,6 @@ RUN pip install --no-cache-dir -r /app/backend/Requirements-Full.txt
 COPY . /app/backend
 
 # 5. CRITICAL: Tell Python that '/app' is the root
-# This allows 'from backend.settings' to work because Python looks in /app and finds the backend folder
 ENV PYTHONPATH=/app
 
 # 6. Expose the port
