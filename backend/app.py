@@ -3,13 +3,20 @@ from flask_cors import CORS
 from dotenv import load_dotenv
 from flask_jwt_extended import JWTManager
 import logging
-
+import sys
 from backend.settings import SHOW_STARTUP_MESSAGE, DOCS_URL, SWAGGER_URL, JWT_ACCESS_TOKEN_EXPIRES, JWT_SECRET_KEY
 from backend.presentation.routes.default_routes import default_bp
 from backend.presentation.routes.user_routes import user_bp
 from backend.presentation.routes.swagger_routes import swagger_bp
 from backend.presentation.routes.auth_routes import auth_bp
 from backend.presentation.routes.model_routes import model_bp
+
+try:
+    sys.stdout.reconfigure(encoding="utf-8")
+    sys.stderr.reconfigure(encoding="utf-8")
+except Exception:
+    pass
+
 
 load_dotenv()
 
