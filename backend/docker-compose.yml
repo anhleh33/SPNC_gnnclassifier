@@ -4,7 +4,7 @@ services:
   # 1. The GNN Backend
   backend:
     # Use the image name you push to Azure ACR
-    image: ${ACR_LOGIN_SERVER}/gnn-backend:latest
+    image: ${ACR_LOGIN_SERVER}/gnn-backend:fixed
     container_name: gnn-backend-app
     restart: always
     environment:
