@@ -16,9 +16,12 @@ CLASSIFIERS = {
     "GraphSAGE-E_kNN": image_classifier_service.classify_image_knn_graphsage
 }
 
-@model_bp.route("/classification", methods=["POST"])
+@model_bp.route("/classification", methods=["POST", "OPTIONS"])
 @jwt_required()
 def create_prediction():
+    if request.method == "OPTIONS":
+        return "", 200
+    
     user_id = int(get_jwt_identity())
     print("JWT identity:", user_id, type(user_id))
 
@@ -59,9 +62,12 @@ def create_prediction():
     # 4️⃣ Return model result
     return jsonify(result), 200
 
-@model_bp.route("/classifications", methods=["GET"])
+@model_bp.route("/classifications", methods=["GET", "OPTIONS"])
 @jwt_required()
 def list_classifications():
+    if request.method == "OPTIONS":
+        return "", 200
+
     user_id = int(get_jwt_identity())
     page = int(request.args.get("page", 1))
     q = request.args.get("q")  # 👈 optional search keyword
