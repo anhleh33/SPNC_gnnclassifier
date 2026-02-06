@@ -15,11 +15,9 @@ const isWin = process.platform === 'win32';
 let pythonExecutable;
 
 if (isCI) {
-  // ☁️ IN CI (GitHub Actions): Use the global python
   console.log("Running in CI mode: Using global 'python'");
   pythonExecutable = 'python'; 
 } else {
-  // 💻 LOCAL: Use your virtual environment
   console.log("Running in Local mode: Using .venv");
   pythonExecutable = path.join(
     __dirname,

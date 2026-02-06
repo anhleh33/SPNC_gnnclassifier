@@ -45,8 +45,8 @@ jobs:
       env:
         PYTHONPATH: ${{ github.workspace }}
         CI: true
-        DATABASE_URL: ${{ secrets.DATABASE_URL }}
-        NEXT_PUBLIC_API_URL: ${{ secrets.NEXT_PUBLIC_API_URL }}
+        DATABASE_URL: ${{ vars.DATABASE_URL }}
+        NEXT_PUBLIC_API_URL: ${{ vars.NEXT_PUBLIC_API_URL }}
 
     - uses: actions/upload-artifact@v4
       if: ${{ !cancelled() }}
