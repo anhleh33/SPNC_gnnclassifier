@@ -93,8 +93,10 @@ jobs:
 
       - name: Install and Build
         run: |
+          rm -rf .next node_modules
           pnpm install
-          NEXT_PUBLIC_API_URL="http://20.89.168.233:8000" pnpm run build
+          cp .env.ci
+          pnpm run build
 
       # Deploy using 'npx' instead of the broken GitHub Action
       - name: Deploy to Netlify

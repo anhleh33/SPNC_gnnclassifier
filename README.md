@@ -43,7 +43,7 @@ source backend/.venv/Scripts/Activate
 2. Packages and library installations
 Make sure there is (.venv) on terminal
 ```bash
-pip install -r Requirements.txt
+pip install -r Requirements-Full.txt
 ```
 
 3. Setup .env
