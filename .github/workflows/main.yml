@@ -95,7 +95,7 @@ jobs:
         run: |
           rm -rf .next node_modules
           pnpm install
-          cp .env.ci
+          cp .env.ci .env.production
           pnpm run build
 
       # Deploy using 'npx' instead of the broken GitHub Action
