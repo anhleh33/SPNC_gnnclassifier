@@ -51,6 +51,7 @@ jobs:
           script: |
             # 1. Login
             docker login ${{ vars.ACR_LOGIN_SERVER }} -u ${{ vars.ACR_USERNAME }} -p ${{ vars.ACR_PASSWORD }}
+            docker image prune -a -f
 
             # 2. Pull the image
             docker pull ${{ vars.ACR_LOGIN_SERVER }}/gnn-backend:fixed
