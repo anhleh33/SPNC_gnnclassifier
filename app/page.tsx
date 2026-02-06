@@ -25,38 +25,6 @@ export default function Home() {
   })
   const [logoutSignal, setLogoutSignal] = useState(0)
 
-  // useEffect(() => {
-  //   localStorage.clear()
-  //   setIsAuthenticated(false)
-  //   setUser({ fullName: "", username: "", email: "" })
-  //   const defaultUsers = [
-  //     { fullName: "John Doe", username: "john_doe", email: "john@example.com", password: "Password123!", avatarColor: "#FF6B6B" },
-  //     { fullName: "Jane Smith", username: "jane_smith", email: "jane@example.com", password: "Password456!", avatarColor: "#4ECDC4" },
-  //     { fullName: "Alex Chen", username: "alex_chen", email: "alex@example.com", password: "Password789!", avatarColor: "#45B7D1" },
-  //     { fullName: "Sarah Johnson", username: "sarah_johnson", email: "sarah@example.com", password: "Password012!", avatarColor: "#FFA07A" },
-  //     { fullName: "Mike Wilson", username: "mike_wilson", email: "mike@example.com", password: "Password345!", avatarColor: "#98D8C8" },
-  //   ]
-  //   localStorage.setItem("users", JSON.stringify(defaultUsers))
-  // }, [])
-  // useEffect(() => {
-  //   const token = localStorage.getItem("access_token")
-  //   const storedUser = localStorage.getItem("currentUser")
-
-  //   if (token && storedUser) {
-  //     const user = JSON.parse(storedUser)
-
-  //     setUser({
-  //       fullName: "",
-  //       username: user.username,
-  //       email: user.email,
-  //     })
-
-  //     setIsAuthenticated(true)
-  //   }
-
-  //   setAuthChecked(true)
-  // }, [])
-
   useEffect(() => {
     const bootAuthCheck = async () => {
       try {
@@ -83,53 +51,6 @@ export default function Home() {
   
     bootAuthCheck()
   }, [])
-  
-
-
-  //   const handleSignIn = async (identifier: string, password: string) => {
-  //   try {
-  //     const res = await fetch("http://localhost:5000/users/login", {
-  //       method: "POST",
-  //       headers: {
-  //         "Content-Type": "application/json",
-  //       },
-  //       body: JSON.stringify({
-  //         identifier,
-  //         password,
-  //       }),
-  //     })
-
-  //     if (!res.ok) {
-  //       addNotification("Invalid email/username or password", "error")
-  //       return
-  //     }
-
-  //     const user = await res.json()
-
-  //     localStorage.setItem("isLoggedIn", "true")
-  //     localStorage.setItem(
-  //       "currentUser",
-  //       JSON.stringify({
-  //         fullName: user.full_name,
-  //         username: user.username,
-  //         email: user.email,
-  //       })
-  //     )
-  //     localStorage.setItem("userAvatarColor", user.avatar_color)
-
-  //     setUser({
-  //       fullName: user.full_name,
-  //       username: user.username,
-  //       email: user.email,
-  //     })
-  //     setIsAuthenticated(true)
-  //     setShowSignIn(false)
-
-  //     addNotification("Logged in successfully!", "success")
-  //   } catch (err) {
-  //     addNotification("Server error. Please try again.", "error")
-  //   }
-  // }
 
   const handleSignIn = async (identifier: string, password: string) => {
     try {
@@ -161,19 +82,6 @@ export default function Home() {
   }
 
   const handleSignUp = async (userData: { fullName: string, username: string, email: string, avatarColor: string, password: string }) => {
-    // const { avatarColor, fullName, username, email, password } = userData
-    // const users = JSON.parse(localStorage.getItem("users") || "[]")
-
-    // users.push({ fullName, username, email, password, avatarColor })
-    // localStorage.setItem("users", JSON.stringify(users))
-    // localStorage.setItem("currentUser", JSON.stringify({ fullName, username, email }))
-    // localStorage.setItem("userAvatarColor", avatarColor)
-
-    // setUser({ fullName, username, email })
-    // setIsAuthenticated(true)
-    // setShowSignUp(false)
-    // setShowSignIn(false)
-    // addNotification("Account created successfully!", "success")
     try {
       await createUser({
         full_name: userData.fullName,

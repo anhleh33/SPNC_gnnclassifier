@@ -27,25 +27,20 @@ export function GitHubAvatar({ username = "", size = 120 }: GitHubAvatarProps) {
   const { blockColor, blocks } = useMemo(() => {
     const selectedColor = getAvatarColorForUser(username || "guest")
 
-    // Ma trận 11x11 để tái hiện chính xác từng pixel từ ảnh gốc
     const grid = Array(11 * 11).fill(0)
     
-    // Vẽ Mắt (2 pixel dọc mỗi bên)
-    grid[2 * 11 + 2] = 1; grid[3 * 11 + 2] = 1; // Mắt trái
-    grid[2 * 11 + 8] = 1; grid[3 * 11 + 8] = 1; // Mắt phải
-
-    // Vẽ Mũi (Chữ L ngược đặc trưng)
+    grid[2 * 11 + 2] = 1; grid[3 * 11 + 2] = 1;
+    grid[2 * 11 + 8] = 1; grid[3 * 11 + 8] = 1; 
     grid[2 * 11 + 5] = 1; 
     grid[3 * 11 + 5] = 1; 
     grid[4 * 11 + 5] = 1; 
     grid[5 * 11 + 5] = 1; 
-    grid[6 * 11 + 5] = 1; // Thân mũi dọc
-    grid[6 * 11 + 4] = 1; // Chóp mũi ngang
+    grid[6 * 11 + 5] = 1; 
+    grid[6 * 11 + 4] = 1;
 
-    // Vẽ Miệng (Hình vòng cung pixel)
-    grid[8 * 11 + 3] = 1; // Khóe trái
-    grid[8 * 11 + 7] = 1; // Khóe phải
-    grid[9 * 11 + 4] = 1; grid[9 * 11 + 5] = 1; grid[9 * 11 + 6] = 1; // Đáy miệng
+    grid[8 * 11 + 3] = 1; 
+    grid[8 * 11 + 7] = 1; 
+    grid[9 * 11 + 4] = 1; grid[9 * 11 + 5] = 1; grid[9 * 11 + 6] = 1;
 
     return { blockColor: selectedColor, blocks: grid }
   }, [username])
@@ -56,14 +51,14 @@ export function GitHubAvatar({ username = "", size = 120 }: GitHubAvatarProps) {
       style={{
         width: size,
         height: size,
-        borderRadius: "15%", // Bo góc avatar tổng thể
+        borderRadius: "15%",
       }}
     >
       <div
         style={{
           display: "grid",
           gridTemplateColumns: "repeat(11, 1fr)",
-          width: "80%", // Giữ khoảng cách lề (padding)
+          width: "80%", 
           height: "80%",
         }}
       >
@@ -72,7 +67,6 @@ export function GitHubAvatar({ username = "", size = 120 }: GitHubAvatarProps) {
             key={idx}
             style={{
               backgroundColor: isActive ? blockColor : "transparent",
-              // Pixel vuông hoàn toàn để giống ảnh gốc, hoặc bo cực nhẹ (1px)
               borderRadius: "1px", 
             }}
           />

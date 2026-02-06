@@ -10,17 +10,6 @@ import { useEffect, useState, useMemo } from "react"
 import { fetchClassificationHistory } from "@/lib/api/model"
 import { mapHistoryItemToUI } from "@/lib/api/history.mapper"
 
-// interface ClassificationHistory {
-//   id: string
-//   image: string
-//   createdDate: string
-//   class: string
-//   subject: string
-//   modelAccuracy: string
-//   category: string
-//   categoryColor: string
-// }
-
 interface ProfileModalProps {
   isOpen: boolean
   onClose: () => void
@@ -33,72 +22,11 @@ interface ProfileModalProps {
 }
 
 export function ProfileModal({ isOpen, onClose, onLogout, user }: ProfileModalProps) {
-  // const [searchTerm, setSearchTerm] = useState("")
-  // const [currentPage, setCurrentPage] = useState(1)
-  // const itemsPerPage = 3
   const [history, setHistory] = useState<UIClassificationHistory[]>([])
   const [currentPage, setCurrentPage] = useState(1)
   const [totalPages, setTotalPages] = useState(1)
   const [searchTerm, setSearchTerm] = useState("")
   const [loading, setLoading] = useState(false)
-
-  // const classificationHistory: ClassificationHistory[] = [
-  //   {
-  //     id: "ME2-001",
-  //     image: "/classified-image-1.jpg",
-  //     createdDate: "2024-01-15 14:30",
-  //     class: "Mountain Escape Two",
-  //     subject: "Cat",
-  //     modelAccuracy: "94.2%",
-  //     category: "Eight Class",
-  //     categoryColor: "#FF6B6B",
-  //   },
-  //   {
-  //     id: "ME2-002",
-  //     image: "/classified-image-2.jpg",
-  //     createdDate: "2024-01-14 09:15",
-  //     class: "Mountain Escape Two",
-  //     subject: "Dog",
-  //     modelAccuracy: "92.1%",
-  //     category: "Five Class",
-  //     categoryColor: "#4ECDC4",
-  //   },
-  //   {
-  //     id: "ME2-003",
-  //     image: "/classified-image-3.jpg",
-  //     createdDate: "2024-01-13 16:45",
-  //     class: "Mountain Escape Two",
-  //     subject: "Bird",
-  //     modelAccuracy: "88.5%",
-  //     category: "Three Class",
-  //     categoryColor: "#45B7D1",
-  //   },
-  //   {
-  //     id: "ME2-004",
-  //     image: "/classified-image-2.jpg",
-  //     createdDate: "2024-01-14 09:15",
-  //     class: "Mountain Escape Two",
-  //     subject: "Dog",
-  //     modelAccuracy: "92.1%",
-  //     category: "Five Class",
-  //     categoryColor: "#4ECDC4",
-  //   },
-  // ]
-  
-  // Filter and Paginate Data
-  // const filteredData = useMemo(() => {
-  //   return classificationHistory.filter(item => 
-  //     item.subject.toLowerCase().includes(searchTerm.toLowerCase()) ||
-  //     item.id.toLowerCase().includes(searchTerm.toLowerCase())
-  //   )
-  // }, [searchTerm])
-
-  // const totalPages = Math.ceil(filteredData.length / itemsPerPage)
-  
-  // const paginatedData = useMemo(() => {
-  //   const start = (currentPage - 1) * itemsPerPage
-  //   return filteredData.slice(start, start + itemsPerPage)
-  // }, [filteredData, currentPage])
 
   const avatarColor = user
     ? getAvatarColorForUser(user.username)
@@ -120,7 +48,6 @@ export function ProfileModal({ isOpen, onClose, onLogout, user }: ProfileModalPr
       .finally(() => setLoading(false))
   }, [isOpen, user, currentPage, searchTerm])
 
-  // 🔥 THIS is the critical fix
   if (!isOpen || !user) return null
 
   return (

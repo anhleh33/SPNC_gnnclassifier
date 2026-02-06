@@ -19,37 +19,6 @@ import {
   SelectValue,
 } from "@/components/ui/select"
 
-
-// interface ClassificationResult {
-//   subject: string
-//   confidence: number
-//   category: string
-//   categoryColor: string
-//   classId: number
-//   processingTime: number
-//   modelVersion: string
-//   topPredictions: Array<{
-//     subject: string
-//     classId: number
-//     category: string
-//     confidence: number
-//     categoryColor: string
-//   }>
-//   analysisMetrics: {
-//     accuracy: number
-//     precision: number
-//     recall: number
-//     inferenceSpeed: number
-//   }
-//   technicalDetails: {
-//     imageSize: string
-//     dimensions: string
-//     format: string
-//     graphNodes: number
-//     graphEdges: number
-//   }
-// }
-
 export function ImageClassifier({ isAuthenticated, onNotification, resetSignal }: { isAuthenticated: boolean; onNotification: (msg: string, type: 'success' | 'error' | 'info') => void; resetSignal?: number }) {
   const [selectedImage, setSelectedImage] = useState<string | null>(null)
   const [isProcessing, setIsProcessing] = useState(false)
@@ -73,36 +42,7 @@ export function ImageClassifier({ isAuthenticated, onNotification, resetSignal }
       }
     }
   }, [resetSignal])
-  
-  // const handleImageSelect = (event: React.ChangeEvent<HTMLInputElement>) => {
-  //   const file = event.target.files?.[0]
-  //   if (file) {
-  //     // Check file type
-  //     const validTypes = ['image/jpeg', 'image/png', 'image/webp']
-  //     if (!validTypes.includes(file.type)) {
-  //       onNotification("Only JPG, PNG, and WebP formats are supported", "error")
-  //       return
-  //     }
 
-  //     // Check file size (10MB max)
-  //     if (file.size > 10 * 1024 * 1024) {
-  //       onNotification("File size must be less than 10MB", "error")
-  //       return
-  //     }
-
-  //     const startTime = Date.now()
-  //     const reader = new FileReader()
-  //     reader.onload = (e) => {
-  //       const loadTime = Date.now() - startTime
-  //       setUploadTime(loadTime)
-  //       setSelectedImage(e.target?.result as string)
-  //       setResult(null)
-  //       onNotification("Image uploaded successfully", "success")
-  //     }
-  //     reader.readAsDataURL(file)
-  //   }
-  // }
-  
   const handleImageSelect = (event: React.ChangeEvent<HTMLInputElement>) => {
     const file = event.target.files?.[0]
     if (!file) return
@@ -143,35 +83,6 @@ export function ImageClassifier({ isAuthenticated, onNotification, resetSignal }
     }
   }
 
-  // const handleClassify = async () => {
-  //   if (!selectedImage) return
-
-  //   setIsProcessing(true)
-  //   setResult(null)
-
-  //   try {
-  //     const response = await fetch("/api/classify", {
-  //       method: "POST",
-  //       headers: {
-  //         "Content-Type": "application/json",
-  //       },
-  //       body: JSON.stringify({ image: selectedImage }),
-  //     })
-
-  //     const data = await response.json()
-
-  //     await new Promise((resolve) => setTimeout(resolve, 1500))
-
-  //     setResult(data)
-  //     playNotificationSound()
-  //     onNotification("Classification completed successfully", "success")
-  //   } catch (error) {
-  //     console.error("[v0] Classification error:", error)
-  //     onNotification("Classification failed", "error")
-  //   } finally {
-  //     setIsProcessing(false)
-  //   }
-  // }
   const handleClassify = async () => {
     if (!selectedFile) return
   
@@ -275,13 +186,6 @@ export function ImageClassifier({ isAuthenticated, onNotification, resetSignal }
                 </div>
               </div>
             )}
-{/* 
-            {!result && !isProcessing && (
-              <Button onClick={handleClassify} className="w-full" size="lg">
-                <ImageIcon className="w-4 h-4 mr-2" />
-                Classify Image
-              </Button>
-            )} */}
 
             {!result && !isProcessing && (
               <div className="flex gap-4 items-stretch">
@@ -294,7 +198,7 @@ export function ImageClassifier({ isAuthenticated, onNotification, resetSignal }
                   value={selectedModel}
                   onValueChange={(v) => setSelectedModel(v as any)}
                 >
-                  <SelectTrigger size="md" className="w-[170px]">
+                  <SelectTrigger size="md" className="w-[190px]">
                     <SelectValue placeholder="Choose model" />
                   </SelectTrigger>
                   <SelectContent>

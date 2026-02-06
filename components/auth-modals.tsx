@@ -426,9 +426,8 @@ export function AuthModals({
                 type="button"
                 onClick={() => {
                   setShowSignUpForm(false)
-                  onSignUpClose()   // close signup
+                  onSignUpClose()
                   onOpenSignIn()
-                  // parent should already have a way to open sign-in
                 }}
                 className="text-primary hover:underline font-medium"
               >

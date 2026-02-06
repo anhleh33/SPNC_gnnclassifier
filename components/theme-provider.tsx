@@ -22,7 +22,6 @@ export function ThemeProvider({ children, defaultTheme = "dark" }: ThemeProvider
   const [theme, setTheme] = useState<Theme>(defaultTheme)
 
   useEffect(() => {
-    // Check localStorage for saved theme preference
     const savedTheme = localStorage.getItem("theme") as Theme | null
     if (savedTheme) {
       setTheme(savedTheme)
@@ -30,7 +29,6 @@ export function ThemeProvider({ children, defaultTheme = "dark" }: ThemeProvider
   }, [])
 
   useEffect(() => {
-    // Update document class and save to localStorage
     const root = document.documentElement
     root.classList.remove("light", "dark")
     root.classList.add(theme)
