@@ -9,6 +9,7 @@ test.describe("[GNN-01] Login", () => {
         login = new LoginPage(page)
         await page.waitForTimeout(5000)
         await login.accessToLoginForm()
+        console.log("DEBUG: API URL is:", process.env.NEXT_PUBLIC_API_URL);
     })
 
     test('Check UI', async ({ page }) => {

@@ -19,6 +19,7 @@ test.describe('[GNN-02] Sign Up', () => {
         signup = new SignUpPage(page)
         await page.waitForTimeout(5000)
         await signup.accessToSignUpForm()
+        console.log("DEBUG: API URL is:", process.env.NEXT_PUBLIC_API_URL);
     })
 
     test('Check UI', async ({ page }) => {
