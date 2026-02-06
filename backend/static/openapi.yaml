@@ -330,7 +330,7 @@ paths:
             enum:
               - kNN-Voting
               - GraphSAGE-I_v2
-              - GraphSAGE_E_kNN
+              - GraphSAGE-E_kNN
           description: Model variant to use
       responses:
         "200":
