@@ -12,21 +12,7 @@ dotenv.config({ path: path.resolve(__dirname, '.env.local') });
 const isCI = !!process.env.CI;
 const isWin = process.platform === 'win32';
 
-let pythonExecutable;
-
-if (isCI) {
-  // ☁️ IN CI: Use the global python command (where we just ran pip install)
-  pythonExecutable = 'python';
-} else {
-  // 💻 LOCAL: Use your specific virtual environment path
-  pythonExecutable = path.join(
-    __dirname,
-    'backend',
-    '.venv',
-    isWin ? 'Scripts' : 'bin',
-    isWin ? 'python.exe' : 'python'
-  );
-}
+let pythonExecutable = path.join(__dirname, 'backend', '.venv', 'Scripts', isWin ? 'python.exe' : 'bin/python');
 
 export default defineConfig({
   testDir: './tests',
@@ -35,7 +21,7 @@ export default defineConfig({
   forbidOnly: !!process.env.CI,
   retries: process.env.CI ? 2 : 0,
   // workers: process.env.CI ? 1 : undefined, // Keep at 1 to avoid DB collisions
-  reporter: [['html'], ['allure-playwright']],
+  reporter: [['line'], ['html'], ['allure-playwright']],
   
   use: {
     trace: 'on-first-retry',
@@ -53,15 +39,15 @@ export default defineConfig({
       use: { ...devices['Desktop Chrome'] },
     },
 
-    {
-      name: 'firefox',
-      use: { ...devices['Desktop Firefox'] },
-    },
+    // {
+    //   name: 'firefox',
+    //   use: { ...devices['Desktop Firefox'] },
+    // },
 
-    {
-      name: 'webkit',
-      use: { ...devices['Desktop Safari'] },
-    },
+    // {
+    //   name: 'webkit',
+    //   use: { ...devices['Desktop Safari'] },
+    // },
 
     /* Test against mobile viewports. */
     // {
@@ -88,7 +74,7 @@ export default defineConfig({
     {
       // 🐍 BACKEND
       command: `"${pythonExecutable}" -m backend.app`,
-      port: 5000,
+      port: 8000,
       timeout: 120 * 1000,
       reuseExistingServer: !process.env.CI,
       cwd: '.',

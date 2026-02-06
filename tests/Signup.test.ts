@@ -54,7 +54,7 @@ test.describe('[GNN-02] Sign Up', () => {
     })
 
     test('Check if username IS ALREADY HAD in database', async ({ page }) => {
-        await signup.eleUsernameField().fill("testuser")
+        await signup.eleUsernameField().fill("anhhne")
         await page.waitForTimeout(3000)
         await expect(await page.locator("(//div[contains(@class,'px-3 py-2')])[2]").textContent()).toBe("Not available")
     })

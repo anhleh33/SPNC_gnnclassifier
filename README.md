@@ -1,4 +1,4 @@
-# 🛠️ Installation
+# 🖥️ Frontend
 
 1️. Clone the Repository
 ```bash
@@ -23,7 +23,7 @@ http://localhost:3000
    
 Or you can find the browser link in terminal where you execute the commands.
 
-# Backend
+# ⚙️ Backend
 1. Create Virtual Environment
 ```bash
 cd backend
@@ -52,5 +52,11 @@ python -m backend.app
 ```
 The backend will be available at:
 ```bash
-http://localhost:5000
+http://localhost:8000
+```
+
+# 🎭 Testing 
+To view testing result
+```bash
+npx allure open ./path-to-downloaded-allure-report
 ```
