@@ -21,8 +21,8 @@ jobs:
 
       - name: Build and Push Backend Image
         run: |
-          docker build -t ${{ vars.ACR_LOGIN_SERVER }}/gnn-backend:latest ./backend
-          docker push ${{ vars.ACR_LOGIN_SERVER }}/gnn-backend:latest
+          docker build -t ${{ vars.ACR_LOGIN_SERVER }}/gnn-backend:fixed ./backend
+          docker push ${{ vars.ACR_LOGIN_SERVER }}/gnn-backend:fixed
 
   deploy-backend:
     needs: build-and-push
@@ -37,11 +37,9 @@ jobs:
           host: ${{ vars.VM_IP }}
           username: anhlh345
           key: ${{ vars.SSH_PRIVATE_KEY }}
-          # IMPORTANT: Point to where the file is in YOUR repo (backend folder)
           source: "backend/docker-compose.yml"
           # Target: We copy it to the home directory on the VM
           target: "/home/anhlh345/"
-          # Strip the 'backend' folder prefix so it lands directly as ~/docker-compose.yml
           strip_components: 1
 
       - name: SSH and Deploy
@@ -55,7 +53,7 @@ jobs:
             docker login ${{ vars.ACR_LOGIN_SERVER }} -u ${{ vars.ACR_USERNAME }} -p ${{ vars.ACR_PASSWORD }}
 
             # 2. Pull the image
-            docker pull ${{ vars.ACR_LOGIN_SERVER }}/gnn-backend:latest
+            docker pull ${{ vars.ACR_LOGIN_SERVER }}/gnn-backend:fixed
 
             # 3. Create a small string of all your secrets to reuse
             export SECRETS="ACR_LOGIN_SERVER=${{ vars.ACR_LOGIN_SERVER }} \
