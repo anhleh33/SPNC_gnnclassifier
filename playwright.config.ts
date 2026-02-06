@@ -12,7 +12,23 @@ dotenv.config({ path: path.resolve(__dirname, '.env.local') });
 const isCI = !!process.env.CI;
 const isWin = process.platform === 'win32';
 
-let pythonExecutable = path.join(__dirname, 'backend', '.venv', 'Scripts', isWin ? 'python.exe' : 'bin/python');
+let pythonExecutable;
+
+if (isCI) {
+  // ☁️ IN CI (GitHub Actions): Use the global python
+  console.log("Running in CI mode: Using global 'python'");
+  pythonExecutable = 'python'; 
+} else {
+  // 💻 LOCAL: Use your virtual environment
+  console.log("Running in Local mode: Using .venv");
+  pythonExecutable = path.join(
+    __dirname,
+    'backend',
+    '.venv',
+    isWin ? 'Scripts' : 'bin',
+    isWin ? 'python.exe' : 'python'
+  );
+}
 
 export default defineConfig({
   testDir: './tests',
