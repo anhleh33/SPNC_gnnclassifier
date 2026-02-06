@@ -39,7 +39,6 @@ test.describe('[GNN-02] Sign Up', () => {
         await signup.elePasswordField().fill(myInfo.password)
         await signup.eleConfirmPasswordField().fill(myInfo.confirm_password)
 
-
         await expect(signup.eleFullNameField()).toHaveValue(myInfo.fullname)
         await expect(signup.eleUsernameField()).toHaveValue(myInfo.username)
         await expect(signup.eleEmailField()).toHaveValue(myInfo.email)
