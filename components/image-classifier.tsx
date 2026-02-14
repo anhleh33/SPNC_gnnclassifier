@@ -336,21 +336,51 @@ export function ImageClassifier({ isAuthenticated, onNotification, resetSignal }
                       <span className="font-medium text-foreground">{result.technicalDetails.graphEdges ?? "None"}</span>
                     </div>
                     <div className="flex justify-between">
-                      <span className="text-foreground">Model Conficence:</span>
+                      <span className="text-foreground">Model Confidence:</span>
                       <span className="font-medium text-foreground">{(result.analysisMetrics.accuracy * 100).toFixed(1)}%</span>
                     </div>
                   </div>
                 </Card>
 
-                <div className="flex gap-3">
-                  <Button onClick={handleClassify} variant="outline" className="flex-1 bg-transparent">
-                    <ImageIcon className="w-4 h-4 mr-2" />
-                    Reclassify
-                  </Button>
-                  <Button onClick={handleReset} variant="secondary" className="flex-1">
+                <div className="flex gap-3 items-stretch">
+                  {/* New Image */}
+                  <Button
+                    onClick={handleReset}
+                    variant="outline"
+                    className="flex-1 bg-transparent"
+                  >
                     <Upload className="w-4 h-4 mr-2" />
                     New Image
                   </Button>
+
+                  {/* Reclassify */}
+                  <Button
+                    onClick={handleClassify}
+                    variant="outline"
+                    className="flex-1 bg-transparent"
+                    disabled={isProcessing}
+                  >
+                    <ImageIcon className="w-4 h-4 mr-2" />
+                    Reclassify
+                  </Button>
+
+                  {/* Model Picker */}
+                  <Select
+                    value={selectedModel}
+                    onValueChange={(v: "kNN-Voting" | "GraphSAGE-I_v2" | "GraphSAGE-E_kNN") =>
+                      setSelectedModel(v)
+                    }
+                    disabled={isProcessing}
+                  >
+                    <SelectTrigger size="md" className="w-[190px]">
+                      <SelectValue placeholder="Choose model" />
+                    </SelectTrigger>
+                    <SelectContent>
+                      <SelectItem value="kNN-Voting">kNN Voting</SelectItem>
+                      <SelectItem value="GraphSAGE-I_v2">GraphSAGE Inductive</SelectItem>
+                      <SelectItem value="GraphSAGE-E_kNN">GraphSAGE Similarity</SelectItem>
+                    </SelectContent>
+                  </Select>
                 </div>
               </div>
             )}

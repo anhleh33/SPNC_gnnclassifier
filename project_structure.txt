@@ -11,6 +11,7 @@
 |   |-- page.tsx
 |   `-- providers
 |-- backend
+|   |-- Dockerfile
 |   |-- Requirements-Full.txt
 |   |-- Requirements-ML.txt
 |   |-- Requirements.txt
@@ -23,6 +24,7 @@
 |   |       |-- __init__.py
 |   |       |-- classification_history_service.py
 |   |       |-- health_service.py
+|   |       |-- image_analysis_service.py
 |   |       |-- image_classifier_service.py
 |   |       |-- image_storage_service.py
 |   |       `-- user_service.py
@@ -33,6 +35,7 @@
 |   |   |-- postgres_user_repository_test.py
 |   |   `-- session_test.py
 |   |-- di.py
+|   |-- docker-compose.yml
 |   |-- domain
 |   |   |-- __init__.py
 |   |   |-- entities
@@ -69,16 +72,23 @@
 |   |   |   |   |   |-- graph_data.pt
 |   |   |   |   |   |-- graphsage_grade.pt
 |   |   |   |   |   |-- graphsage_subject.pt
-|   |   |   |   |   `-- subject_labels.json
+|   |   |   |   |   |-- node_embeddings.pt
+|   |   |   |   |   |-- subject_labels.json
+|   |   |   |   |   `-- temp.py
 |   |   |   |   `-- GNN_single_v1
+|   |   |   |       |-- graph_data_composite.pt
 |   |   |   |       |-- graph_data_multimodal.pt
+|   |   |   |       |-- label_composite.json
 |   |   |   |       `-- metadata.csv
 |   |   |   |-- classifiers
 |   |   |   |   |-- __init__.py
 |   |   |   |   |-- graphsage_classifier.py
+|   |   |   |   |-- knn_classifier.py
+|   |   |   |   |-- knn_graphsage_classifier.py
 |   |   |   |   `-- voting_classifier.py
 |   |   |   |-- encoders
 |   |   |   |   |-- __init__.py
+|   |   |   |   |-- graphsage_encoder.py
 |   |   |   |   |-- image_encoder.py
 |   |   |   |   `-- text_encoder.py
 |   |   |   |-- features
@@ -91,6 +101,7 @@
 |   |   |   |   |-- __init__.py
 |   |   |   |   |-- assets.py
 |   |   |   |   |-- graphsage.py
+|   |   |   |   |-- knn_graphsage_assets.py
 |   |   |   |   `-- voting_assets.py
 |   |   |   |-- ocr
 |   |   |   |   |-- __init__.py
@@ -108,6 +119,7 @@
 |   |       |-- __init__.py
 |   |       |-- classification_analysis_repository.py
 |   |       |-- classifier_model_repository.py
+|   |       |-- knn_graphsage_classifier_model_repository.py
 |   |       |-- postgres_health_repository.py
 |   |       |-- postgres_user_repository.py
 |   |       `-- voting_model_repository.py
@@ -237,6 +249,7 @@
 |-- postcss.config.mjs
 |-- project_structure.txt
 |-- public
+|   |-- _redirects
 |   |-- icon.svg
 |   |-- logo.png
 |   |-- placeholder-logo.png
@@ -250,4 +263,4 @@
 |-- tailwind.config.ts
 `-- tsconfig.json
 
-46 directories, 204 files
+46 directories, 217 files
