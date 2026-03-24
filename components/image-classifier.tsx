@@ -376,9 +376,9 @@ export function ImageClassifier({ isAuthenticated, onNotification, resetSignal }
                       <SelectValue placeholder="Choose model" />
                     </SelectTrigger>
                     <SelectContent>
-                      <SelectItem value="kNN-Voting">kNN Voting</SelectItem>
-                      <SelectItem value="GraphSAGE-I_v2">GraphSAGE Inductive</SelectItem>
-                      <SelectItem value="GraphSAGE-E_kNN">GraphSAGE Similarity</SelectItem>
+                      <SelectItem value="kNN-Voting">kNN-Voting</SelectItem>
+                      <SelectItem value="GraphSAGE-I_v2">GraphSAGE-I_v2</SelectItem>
+                      <SelectItem value="GraphSAGE-E_kNN">GraphSAGE-E_kNN</SelectItem>
                     </SelectContent>
                   </Select>
                 </div>
