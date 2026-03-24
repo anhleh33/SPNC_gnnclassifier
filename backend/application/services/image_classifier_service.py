@@ -189,10 +189,10 @@ class ImageClassificationService:
             "subject_code": self._subject_code(subject),
             "grade": grade,
             "processing_time_ms": round(processing_time_ms, 2),
-            "model_variant": "GraphSAGE_E_kNN",
+            "model_variant": "GraphSAGE-E_kNN",
             "graph_nodes": 9644,
             "graph_edges": None,
-            "dimension": 256,
+            "dimension": 896,
             "top_predictions": [
                 {
                     "label": label,
