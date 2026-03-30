@@ -8,11 +8,11 @@
     "dev": "next dev",
     "lint": "next lint",
     "start": "next start",
-    "test:qa": "cross-env TEST_ENV=test npx playwright test",
-    "test:prod": "cross-env TEST_ENV=prod npx playwright test",
+    "test:qa": "cross-env NODE_ENV=test npx playwright test",
+    "test:prod": "cross-env NODE_ENV=prod npx playwright test",
     "allure": "allure serve allure-results",
     "test": "npx playwright test"
-},
+  },
   "repository": {
     "type": "git",
     "url": "git+https://github.com/anhleh33/SPNC_gnnclassifier.git"
@@ -28,5 +28,10 @@
   "devDependencies": {
     "@playwright/test": "^1.58.2",
     "@types/node": "^25.5.0"
+  },
+  "dependencies": {
+    "codegen": "^0.1.0",
+    "cross-env": "^10.1.0",
+    "dotenv": "^17.3.1"
   }
 }
