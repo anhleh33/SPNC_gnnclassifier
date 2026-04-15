@@ -24,7 +24,7 @@ jobs:
     - name: Install Backend Dependencies
       run: |
         python -m pip install --upgrade pip
-        python -m pip install -r backend/Requirements.txt
+        python -m pip install -r backend/Requirements-Full.txt
         python -m pip list
 
     # --- ⚛️ FRONTEND SETUP ---
@@ -45,7 +45,7 @@ jobs:
       
     # If your frontend needs the backend to be alive:
     - name: Start Backend
-      run: python main.py &
+      run: python backend.app &
 
     # --- 🧪 RUN TESTS ---
     - name: Run Playwright tests
