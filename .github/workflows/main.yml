@@ -6,7 +6,7 @@ on:
     branches: [ auto-test ]
 
 jobs:
-  test:
+  playwright-test:
     timeout-minutes: 60
     runs-on: ubuntu-latest
 
@@ -39,6 +39,14 @@ jobs:
     - name: Install Playwright Browsers
       run: npx playwright install --with-deps
 
+    # --- ⚛️ START APP ---
+    - name: Start Frontend
+      run: npm run dev &
+      
+    # If your frontend needs the backend to be alive:
+    - name: Start Backend
+      run: python main.py &
+
     # --- 🧪 RUN TESTS ---
     - name: Run Playwright tests
       run: npx playwright test
@@ -55,9 +63,9 @@ jobs:
         path: playwright-report/
         retention-days: 30
     
-    - uses: actions/upload-artifact@v4
-      if: ${{ !cancelled() }}
-      with:
-        name: allure-report
-        path: allure-results/
-        retention-days: 30
+    # - uses: actions/upload-artifact@v4
+    #   if: ${{ !cancelled() }}
+    #   with:
+    #     name: allure-report
+    #     path: allure-results/
+    #     retention-days: 30
