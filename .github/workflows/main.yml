@@ -42,8 +42,7 @@ jobs:
     # --- ⚛️ START APP ---
     - name: Start Frontend
       run: npm run dev &
-      
-    # If your frontend needs the backend to be alive:
+     
     - name: Start Backend
       run: python backend.app &
 

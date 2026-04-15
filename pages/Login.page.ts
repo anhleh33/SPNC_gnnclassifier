@@ -35,4 +35,12 @@ export default class LoginPage {
             .locator("(//div[contains(@class,'modal-bg border')]//div)[1]")
             .getByRole('button')
     }
+
+    public fillUsername = (username: string) => this.usernameField().fill(username)
+    
+    public fillPassword = (password: string) => this.passwordField().fill(password)
+    
+    public clickSigninBtn = () => this.signinBtn().click({timeout: 5000})
+
+    public directSignUp = () => this.createOneBtn().click()
 }
