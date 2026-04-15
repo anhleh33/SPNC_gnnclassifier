@@ -1,0 +1,60 @@
+# Node
+node_modules/
+
+# Next.js
+.next/
+out/
+dist/
+
+# env
+.env
+.env.local
+.env.*.local
+
+# logs
+npm-debug.log*
+yarn-debug.log*
+pnpm-debug.log*
+
+# editor
+.vscode/
+.idea/
+
+# build / cache
+*.tsbuildinfo
+.cache/
+coverage/
+
+# OS
+.DS_Store
+Thumbs.db
+
+# Turbopack / build cache
+.turbo/
+
+# pnpm
+pnpm-lock.yaml
+
+# package-lock (if using npm alongside pnpm)
+package-lock.json
+
+# Local environment
+.env.development.local
+.env.test.local
+.env.production.local
+
+# IDE temp files
+*.swp
+*.swo
+*~
+.project
+.classpath
+.c9/
+*.launch
+.settings/
+*.sublime-workspace
+
+__pycache__/
+*.pyc
+*.venv
+
