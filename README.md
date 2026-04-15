@@ -31,12 +31,6 @@ cd backend
 python -m venv .venv
 ```
 
-Open virtual environment
-```bash
-cd backend
-source .venv/Scripts/Activate
-```
-
 2. Packages and library installations
 Make sure there is (.venv) on terminal
 ```bash
@@ -56,6 +50,7 @@ DATABASE_URL=postgresql://user:password@host/db
 Open Git Bash and run the backend from the project root:
 ```bash
 source backend/.venv/Scripts/Activate
+cd ..
 python -m backend.app
 ```
 The backend will be available at:
