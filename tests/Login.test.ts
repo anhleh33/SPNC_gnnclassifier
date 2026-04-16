@@ -20,10 +20,7 @@ test.describe("[GNN-2] Sign in", () => {
         await expect(loginPage.closeBtn()).toBeVisible()
     })
     test("Login as a valid user", async({page}) => {
-        await loginPage.fillUsername(Enviroment.USERNAME!)
-        await loginPage.fillPassword(Enviroment.PASSWORD!)
-        await loginPage.clickSigninBtn()
-        
+        await loginPage.loginWithUser(Enviroment.USERNAME!, Enviroment.PASSWORD!)
         let userAccount = page.locator("body > div.min-h-screen.bg-background > header > div > div > button > span")
         await expect(userAccount).toBeVisible()
         await expect(userAccount).toContainText(Enviroment.USERNAME!)

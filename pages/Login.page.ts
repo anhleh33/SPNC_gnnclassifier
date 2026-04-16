@@ -37,10 +37,17 @@ export default class LoginPage {
     }
 
     public fillUsername = (username: string) => this.usernameField().fill(username)
-    
+
     public fillPassword = (password: string) => this.passwordField().fill(password)
-    
-    public clickSigninBtn = () => this.signinBtn().click({timeout: 5000})
+
+    public clickSigninBtn = () => this.signinBtn().click({ timeout: 5000 })
 
     public directSignUp = () => this.createOneBtn().click()
+
+    public async loginWithUser(username: string, password: string) {
+        await this.fillUsername(username)
+        await this.fillPassword(password)
+        await this.clickSigninBtn()
+        console.log(`Signing in as ${username}!`)
+    }
 }

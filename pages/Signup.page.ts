@@ -1,6 +1,5 @@
 import User from "@/utils/User";
 import { Page } from "@playwright/test";
-import { TIMEOUT } from "dns";
 
 export default class SignupPage {
     private page: Page
