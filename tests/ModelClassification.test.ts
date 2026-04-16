@@ -10,20 +10,58 @@ test.describe("[GNN-3] Model Classification", () => {
         username: Enviroment.USERNAME,
         password: Enviroment.PASSWORD
     }
-    const fileName = 'Sinhhoc11'
+
+    const models:Array<string> = ['kNN-Voting', 'GraphSAGE-I_v2', 'GraphSAGE-E_kNN']
+    const fileName:string = 'Sinhhoc11'
 
     test.beforeEach(async ({page}) => {
         await page.goto(Enviroment.BASE_URL!)
         imageUploadPage = new Upload(page)
         loginPage = new LoginPage(page)
         await page.getByRole('button').getByText("Sign In").click()
-        await loginPage.loginWithUser(user.username, user.password)
+        await loginPage.loginWithUser(user.username!, user.password!)
     })
 
-    test('Check UI before uploading an image', async({page}) => {
+    test('Before uploading an image', async({page}) => {
         let userAccount = page.locator("body > div.min-h-screen.bg-background > header > div > div > button > span")
         await expect(userAccount).toBeVisible()
-        await expect(userAccount).toContainText(user.username)
+        await expect(userAccount).toContainText(user.username!)
         await expect(imageUploadPage.uploadInput()).toBeVisible()
+    })
+    
+    test('After uploading an image', async({page}) => {
+        await imageUploadPage.uploadUserImage(fileName)
+        await expect(imageUploadPage.classifyImageBtn()).toBeVisible()
+        await expect(imageUploadPage.modelDropdown()).toBeVisible()
+
+        await expect(page.getByText("Upload Time")).toBeVisible()
+        await expect(page.getByText("Status")).toBeVisible()
+
+        await imageUploadPage.changeModel(models[1])
+        await expect(imageUploadPage.modelDropdown()).toContainText(models[1])
+        
+        await imageUploadPage.changeModel(models[2])
+        await expect(imageUploadPage.modelDropdown()).toContainText(models[2])
+
+        await imageUploadPage.changeModel(models[0])
+        await expect(imageUploadPage.modelDropdown()).toContainText(models[0])
+    })
+
+    test('After classification', async({page}) => {
+        await imageUploadPage.uploadUserImage(fileName)
+        await expect(imageUploadPage.classifyImageBtn()).toBeVisible()
+        await expect(imageUploadPage.modelDropdown()).toBeVisible()
+
+        await imageUploadPage.classifyImageBtn().click()
+        await page.getByText('Processing image with chosen model').waitFor({state: 'hidden', timeout: 10000})
+
+        await expect(page.locator("(//div[contains(@class,'p-6 rounded-lg')])[1]").getByRole('heading')).toBeVisible()
+        await expect(page.locator("(//div[@data-slot='card'])[2]")).toBeVisible()
+        await expect(page.locator("(//div[@data-slot='card'])[3]")).toBeVisible()
+        await expect(page.locator("(//div[contains(@class,'grid grid-cols-2')]/following-sibling::div)[2]")).toBeVisible()
+        await expect(page.locator("(//div[@data-slot='card']/following-sibling::div)[2]")).toBeVisible()
+
+        await imageUploadPage.changeModel(models[2])
+        await expect(imageUploadPage.modelDropdown()).toContainText(models[2])
     })
 })
