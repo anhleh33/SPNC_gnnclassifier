@@ -44,7 +44,7 @@ jobs:
       run: npm run dev &
      
     - name: Start Backend
-      run: python backend.app &
+      run: python -m backend.app &
 
     # --- 🧪 RUN TESTS ---
     - name: Run Playwright tests

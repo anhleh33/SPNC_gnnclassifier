@@ -7,8 +7,8 @@ test.describe("[GNN-3] Model Classification", () => {
     let imageUploadPage: Upload
     let loginPage: LoginPage
     const user = {
-        username: 'anhhne',
-        password: '12345678x@X'
+        username: Enviroment.USERNAME,
+        password: Enviroment.PASSWORD
     }
     const fileName = 'Sinhhoc11'
 
