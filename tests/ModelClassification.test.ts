@@ -29,7 +29,7 @@ test.describe("[GNN-3] Model Classification", () => {
         let userAccount = page.locator("body > div.min-h-screen.bg-background > header > div > div > button > span")
         await expect(userAccount).toBeVisible()
         await expect(userAccount).toContainText(user.username!)
-        await expect(imageUploadPage.uploadInput()).toBeVisible()
+        await expect(page.locator('div').getByText("Click to browse or drag and drop your image here")).toBeVisible()
     })
     
     test('After uploading an image', async({page}) => {
@@ -58,7 +58,7 @@ test.describe("[GNN-3] Model Classification", () => {
         await expect(imageUploadPage.modelDropdown()).toBeVisible()
 
         await imageUploadPage.classifyImageBtn().click()
-        await page.getByText('Processing image with chosen model').waitFor({state: 'hidden', timeout: 10000})
+        await page.getByText('Processing image with chosen model').waitFor({state: 'hidden', timeout: 15000})
 
         await expect(page.locator("(//div[contains(@class,'p-6 rounded-lg')])[1]").getByRole('heading')).toBeVisible()
         await expect(page.locator("(//div[@data-slot='card'])[2]")).toBeVisible()

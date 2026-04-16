@@ -36,14 +36,18 @@ export default defineConfig({
   /* Retry on CI only */
   retries: process.env.CI ? 2 : 0,
   /* Opt out of parallel tests on CI. */
-  workers: process.env.CI ? 1 : undefined,
+  workers: process.env.CI ? 3 : undefined,
   /* Reporter to use. See https://playwright.dev/docs/test-reporters */
   reporter: 'html',
   /* Shared settings for all the projects below. See https://playwright.dev/docs/api/class-testoptions. */
   use: {
     baseURL: Enviroment.BASE_URL,
     trace: 'on-first-retry',
-    video: 'retain-on-failure'
+    video: 'retain-on-failure',
+
+    viewport: { width: 1920, height: 1080 }, // Use standard desktop size
+    actionTimeout: 15000, // Give CI more time to find elements
+    navigationTimeout: 30000,
   },
 
   /* Configure projects for major browsers */

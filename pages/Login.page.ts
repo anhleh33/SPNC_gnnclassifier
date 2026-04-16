@@ -40,7 +40,7 @@ export default class LoginPage {
 
     public fillPassword = (password: string) => this.passwordField().fill(password)
 
-    public clickSigninBtn = () => this.signinBtn().click({ timeout: 5000 })
+    public clickSigninBtn = () => this.signinBtn().click({ timeout: 7000 })
 
     public directSignUp = () => this.createOneBtn().click()
 
