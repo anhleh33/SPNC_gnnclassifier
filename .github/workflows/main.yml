@@ -9,8 +9,13 @@ jobs:
   playwright-test:
     timeout-minutes: 60
     runs-on: ubuntu-latest
-
     environment: ENVIROMENT SET UP
+
+    env:
+      DATABASE_URL: ${{ vars.DATABASE_URL }}
+      NEXT_PUBLIC_API_URL: ${{ vars.NEXT_PUBLIC_API_URL }}
+      PYTHONPATH: ${{ github.workspace }}
+      CI: true
 
     steps:
     - uses: actions/checkout@v4
@@ -49,11 +54,6 @@ jobs:
     # --- 🧪 RUN TESTS ---
     - name: Run Playwright tests
       run: npx playwright test
-      env:
-        PYTHONPATH: ${{ github.workspace }}
-        CI: true
-        DATABASE_URL: ${{ vars.DATABASE_URL }}
-        NEXT_PUBLIC_API_URL: ${{ vars.NEXT_PUBLIC_API_URL }}
 
     - uses: actions/upload-artifact@v4
       if: ${{ !cancelled() }}

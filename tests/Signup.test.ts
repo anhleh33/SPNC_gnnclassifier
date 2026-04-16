@@ -6,15 +6,18 @@ import User from '../utils/User'
 const randomSuffix = Date.now();
 
 test.describe("[GNN-1] Sign up", () => {
+    console.log(`>> Test Suite: [GNN-1] Sign up`);
     let signupPage: SignupPage
     const user = new User(`Jessica Cao ${randomSuffix}`, `jessica${randomSuffix}`, `jess${randomSuffix}@mailto.plus`, '12345678x@X')
 
     test.beforeEach(async ({ page }) => {
+        console.log(`>> Starting Test: Navigating to ${Enviroment.BASE_URL}`);
         await page.goto(Enviroment.BASE_URL!)
         await page.getByRole('button').getByText("Sign Up").click()
         signupPage = new SignupPage(page)
     })
     test("Check UI of sign up form", async ({ page }) => {
+        console.log(`>> Check UI of sign up form`);
         await expect(page.locator("(//div[contains(@class,'modal-bg border')]//div)[1]").getByRole('heading')).toHaveText("Sign Up")
         await expect(signupPage.fullNameField()).toBeVisible()
         await expect(signupPage.userNameField()).toBeVisible()
@@ -25,14 +28,10 @@ test.describe("[GNN-1] Sign up", () => {
         await expect(signupPage.signinBtn()).toBeVisible()
     })
     test("Sign up a new account", async ({ page }) => {
+        console.log(`>> Sign up a new account`);
         await signupPage.signupNewUser(user)
         let userAccount = page.locator("body > div.min-h-screen.bg-background > header > div > div > button > span")
         await expect(userAccount).toBeVisible()
         await expect(userAccount).toContainText(user.username)
     })
-    // test("Redirect to Sign In form", async({page}) => {
-    //     await signupPage.clickSignInBtn()
-    //     await expect(page.locator("(//div[contains(@class,'modal-bg border')]//div)[1]").getByRole('heading')).toHaveText("Sign In")
-    // })
-
 })

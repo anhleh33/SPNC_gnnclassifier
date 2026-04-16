@@ -4,6 +4,7 @@ import Enviroment from '@/utils/Enviroment'
 import { expect, test } from '@playwright/test'
 
 test.describe("[GNN-3] Model Classification", () => {
+    console.log(`>> Test Suite: [GNN-3] Model Classification`);
     let imageUploadPage: Upload
     let loginPage: LoginPage
     const user = {
@@ -15,6 +16,7 @@ test.describe("[GNN-3] Model Classification", () => {
     const fileName:string = 'Sinhhoc11'
 
     test.beforeEach(async ({page}) => {
+        console.log(`>> Starting Test: Navigating to ${Enviroment.BASE_URL}`);
         await page.goto(Enviroment.BASE_URL!)
         imageUploadPage = new Upload(page)
         loginPage = new LoginPage(page)
@@ -23,6 +25,7 @@ test.describe("[GNN-3] Model Classification", () => {
     })
 
     test('Before uploading an image', async({page}) => {
+        console.log(`>> Before uploading an image`);
         let userAccount = page.locator("body > div.min-h-screen.bg-background > header > div > div > button > span")
         await expect(userAccount).toBeVisible()
         await expect(userAccount).toContainText(user.username!)
@@ -30,6 +33,7 @@ test.describe("[GNN-3] Model Classification", () => {
     })
     
     test('After uploading an image', async({page}) => {
+        console.log(`>> After uploading an image`);
         await imageUploadPage.uploadUserImage(fileName)
         await expect(imageUploadPage.classifyImageBtn()).toBeVisible()
         await expect(imageUploadPage.modelDropdown()).toBeVisible()
@@ -48,6 +52,7 @@ test.describe("[GNN-3] Model Classification", () => {
     })
 
     test('After classification', async({page}) => {
+        console.log(`>> After classification`);
         await imageUploadPage.uploadUserImage(fileName)
         await expect(imageUploadPage.classifyImageBtn()).toBeVisible()
         await expect(imageUploadPage.modelDropdown()).toBeVisible()
