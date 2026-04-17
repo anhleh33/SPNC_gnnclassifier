@@ -17,6 +17,7 @@ test.describe("[GNN-3] Model Classification", () => {
 
     test.beforeEach(async ({page}) => {
         console.log(`>> Starting Test: Navigating to ${Enviroment.BASE_URL}`);
+        console.log("DEBUG: API URL is:", process.env.NEXT_PUBLIC_API_URL);
         await page.goto(Enviroment.BASE_URL!)
         imageUploadPage = new Upload(page)
         loginPage = new LoginPage(page)

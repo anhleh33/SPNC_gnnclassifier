@@ -8,6 +8,8 @@ test.describe("[GNN-2] Sign in", () => {
 
     test.beforeEach(async({page}) => {
         console.log(`>> Starting Test: Navigating to ${Enviroment.BASE_URL}`);
+        console.log("DEBUG: API URL is:", process.env.NEXT_PUBLIC_API_URL);
+
         await page.goto(Enviroment.BASE_URL!)
         await page.getByRole('button').getByText("Sign In").click()
         loginPage = new LoginPage(page)

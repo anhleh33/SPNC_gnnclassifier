@@ -59,10 +59,7 @@ __pycache__/
 *.venv
 
 # Playwright
-/test-results/
-/playwright-report/
 /blob-report/
 /playwright/.cache/
 /playwright/.auth/
-/playwright-report/
 
